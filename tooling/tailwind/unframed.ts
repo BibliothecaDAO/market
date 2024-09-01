@@ -4,7 +4,7 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 
 import base from "./base";
 
-const fontSizeMultiplier = 1.1; // Adjust this value to increase or decrease all font sizes
+const fontSizeMultiplier = 1; // Adjust this value to increase or decrease all font sizes
 
 function scaleFontSize(size: string) {
   return `${parseFloat(size) * fontSizeMultiplier}rem`;
@@ -14,10 +14,10 @@ export default {
   content: base.content,
   presets: [base],
   theme: {
-    fontFamily: {
-      numbers: ["nitti", ...fontFamily.sans],
-      sans: ["degular-text", ...fontFamily.sans],
-    },
+    // fontFamily: {
+    //   numbers: ["nitti", ...fontFamily.sans],
+    //   sans: ["degular-text", ...fontFamily.sans],
+    // },
     fontSize: {
       xs: [scaleFontSize("0.75"), { letterSpacing: "0.05em" }],
       sm: [scaleFontSize("0.875"), { letterSpacing: "0.04em" }],
