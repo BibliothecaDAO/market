@@ -1,12 +1,11 @@
 export const siteConfig = {
-  name: "ArkMarket",
+  name: "Realms World",
   url: "https://market.arkproject.dev",
   ogImage: "",
-  description:
-    "Clean and simple ArkProject marketplace starter repo using Turbo repo.",
+  description: "NFTs for the Realms World",
   links: {
-    twitter: "https://twitter.com/ArkProjectNFTs",
-    github: "https://github.com/ArkProjectNFTs/ark-market",
+    twitter: "https://twitter.com/realmsworld",
+    github: "https://github.com/bibliothecaDAO",
   },
 };
 

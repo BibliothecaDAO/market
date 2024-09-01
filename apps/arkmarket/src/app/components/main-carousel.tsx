@@ -107,7 +107,7 @@ export default function MainCarousel() {
                           <p className="mr-1 text-muted-foreground">
                             ITEMS
                           </p> | <EthereumLogo2 className="size-4" />
-                          <p className="mr-1">{carouselItem.floorPrice}</p>
+                          {/* <p className="mr-1">{carouselItem.floorPrice}</p> */}
                           <p className="text-muted-foreground">ETH</p>
                         </div>
                       </div>

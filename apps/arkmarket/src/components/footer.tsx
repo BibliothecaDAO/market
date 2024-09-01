@@ -33,10 +33,7 @@ export default function Footer() {
             <Icons.logo className="h-8 w-auto" />
             <span className="sr-only font-bold">{siteConfig.name}</span>
           </Link>
-          <p className="font-medium text-muted-foreground">
-            Welcome to the largest NFT marketplace based on Starknet Make
-            yourself at home among other NFT enthusiasts.
-          </p>
+          <p className="font-medium text-muted-foreground">Realms World</p>
           <div className="flex items-center gap-4">
             <Button variant="outline" className="w-full lg:w-auto" size="xl">
               <p className="hidden lg:block">Follow us on </p>

@@ -80,7 +80,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     >
       <body
         className={cn(
-          "min-h-screen overscroll-y-none bg-background font-sans text-foreground antialiased lg:pb-10",
+          "min-h-screen overscroll-y-none bg-background text-foreground antialiased lg:pb-10",
           spaceMono.variable,
           baebasNeue.variable,
         )}
