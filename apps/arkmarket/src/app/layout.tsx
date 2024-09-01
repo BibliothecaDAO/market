@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Bebas_Neue, Inter, Space_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { cn } from "@ark-market/ui";
@@ -57,10 +57,18 @@ export const viewport: Viewport = {
   ],
 };
 
-const inter = Inter({
+const spaceMono = Space_Mono({
   subsets: ["latin"],
+  variable: "--font-spacemono",
+  weight: "400",
   display: "swap",
-  variable: "--font-inter-sans",
+});
+
+const baebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  variable: "--font-baebasneue",
+  weight: ["400"],
+  display: "swap",
 });
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -73,7 +81,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body
         className={cn(
           "min-h-screen overscroll-y-none bg-background font-sans text-foreground antialiased lg:pb-10",
-          inter.variable,
+          spaceMono.variable,
+          baebasNeue.variable,
         )}
       >
         <CustomFonts />
