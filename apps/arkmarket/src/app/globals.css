@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "UnframedIconFont";
-  src: url("/fonts/unframed-icons.ttf") format("truetype");
+  font-family: 'UnframedIconFont';
+  src: url('/fonts/unframed-icons.ttf') format('truetype');
 }
 
 @layer base {
