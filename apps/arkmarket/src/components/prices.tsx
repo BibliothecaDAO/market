@@ -27,7 +27,7 @@ export default function Prices() {
       </div>
       <Separator orientation="vertical" />
       <div className="flex items-center gap-2">
-        <StarknetLogo2 className="size-4" />
+        <Starknet className="size-4" />
         <p>STRK Price: ${data.starknetFormatted}</p>
       </div>
     </div>

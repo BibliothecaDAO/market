@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAccount, useStarkProfile } from "@starknet-react/core";
-import { ChevronDown, ChevronUp } from "lucide-react";
 
 import type { PropsWithClassName } from "@ark-market/ui";
 import { cn, ellipsableStyles, shortAddress } from "@ark-market/ui";
@@ -13,9 +12,13 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@ark-market/ui/collapsible";
-import DiscordIcon from "@ark-market/ui/icons/discord-icon";
-import WebsiteIcon from "@ark-market/ui/icons/website-icon";
-import XIcon from "@ark-market/ui/icons/x-icon";
+import {
+  ChevronDown,
+  ChevronUp,
+  Discord,
+  Globe,
+  XIcon,
+} from "@ark-market/ui/icons";
 
 import type { Token } from "~/types";
 import Media from "~/components/media";

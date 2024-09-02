@@ -31,8 +31,8 @@ export function UserNav() {
     return (
       <ConnectWalletModal>
         <Button variant="default" size="md">
-          <div className="hidden items-center gap-2.5 lg:flex">
-            <WalletIcon />
+          <div className="hidden items-center gap-2.5 md:flex">
+            <Wallet />
             Connect wallet
           </div>
           <p className="lg:hidden">Connect</p>
@@ -45,8 +45,8 @@ export function UserNav() {
     return (
       <WrongNetworkModal>
         <Button variant="default" size="md">
-          <div className="hidden items-center gap-2.5 lg:flex">
-            <WalletIcon />
+          <div className="hidden items-center gap-2.5 md:flex">
+            <Wallet />
             Wrong network
           </div>
           <p className="lg:hidden">Wrong network</p>
