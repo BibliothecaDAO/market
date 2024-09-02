@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { PriceTag } from "@ark-market/ui/price-tag";
 
 import { cn, ellipsableStyles, formatUnits } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
@@ -77,7 +76,7 @@ export default function CollectionItemsDataListView({
         </TableRow>
       </TableHeader>
       <TableBody
-        className="relative font-medium font-numbers"
+        className="font-numbers relative font-medium"
         style={{
           height: `${rowVirtualizer.getTotalSize() + 2}px`, // Tells scrollbar how big the table is
         }}

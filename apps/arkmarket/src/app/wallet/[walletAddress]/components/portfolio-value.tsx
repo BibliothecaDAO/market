@@ -16,7 +16,7 @@ export default function PortfolioValue() {
   }
 
   return (
-    <div className="flex rounded-lg py-2 bg-card px-2.5">
+    <div className="flex rounded-lg bg-card px-2.5 py-2">
       <div className="flex items-center gap-1">
         <div className="flex flex-col">
           <p className="text-sm text-secondary-foreground">Portfolio value</p>

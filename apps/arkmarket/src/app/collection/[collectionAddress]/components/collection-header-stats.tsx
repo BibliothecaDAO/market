@@ -5,23 +5,15 @@ import { Separator } from "@ark-market/ui/separator";
 
 import type { Collection } from "~/types";
 
-const separatorCommonClassNames = "hidden md:block";
-
 interface CollectionHeaderStatsProps {
   collection: Collection;
 }
 
 export default function CollectionHeaderStats({
-  className,
   collection,
-}: PropsWithClassName<CollectionHeaderStatsProps>) {
+}: CollectionHeaderStatsProps) {
   return (
-    <div
-      className={cn(
-        "grid grid-cols-2 items-center justify-between gap-2 md:flex md:h-12 md:gap-6 md:pr-5",
-        className,
-      )}
-    >
+    <div className="hidden grid-cols-2 items-center justify-between gap-2 md:flex md:h-12 md:gap-6 md:pr-5 xl:flex">
       <div className="rounded-lg bg-card p-3.5 md:bg-transparent md:p-0">
         <p className="text-sm font-medium text-muted-foreground">Floor</p>
         <div className="flex items-center gap-2 font-medium font-numbers text-xl">
@@ -41,7 +33,7 @@ export default function CollectionHeaderStats({
           </p> */}
         </div>
       </div>
-      <Separator orientation="vertical" className={separatorCommonClassNames} />
+      <Separator orientation="vertical" className="hidden md:block" />
 
       <div className="rounded-lg bg-card p-3.5 md:bg-transparent md:p-0">
         <p className="text-sm font-medium text-muted-foreground">
@@ -54,7 +46,7 @@ export default function CollectionHeaderStats({
           </p>
         </div>
       </div>
-      <Separator orientation="vertical" className={separatorCommonClassNames} />
+      <Separator orientation="vertical" className="hidden md:block" />
 
       <div className="rounded-lg bg-card p-3.5 md:bg-transparent md:p-0">
         <p className="text-sm font-medium text-muted-foreground">7D Volume</p>
@@ -65,23 +57,29 @@ export default function CollectionHeaderStats({
           </p>
         </div>
       </div>
-      <Separator orientation="vertical" className={separatorCommonClassNames} />
+      <Separator orientation="vertical" className="hidden md:block" />
 
       <div className="rounded-lg bg-card p-3.5 md:bg-transparent md:p-0">
         <p className="text-sm font-medium text-muted-foreground">Total Sales</p>
-        <p className="font-medium font-numbers text-xl">{formatNumber(collection.total_sales)}</p>
+        <p className="font-numbers text-sm font-medium lg:text-xl">
+          {formatNumber(collection.total_sales)}
+        </p>
       </div>
-      <Separator orientation="vertical" className={separatorCommonClassNames} />
+      <Separator orientation="vertical" className="hidden md:block" />
 
       <div className="rounded-lg bg-card p-3.5 md:bg-transparent md:p-0">
         <p className="text-sm font-medium text-muted-foreground">Items</p>
-        <p className="font-medium font-numbers text-xl">{formatNumber(collection.token_count)}</p>
+        <p className="font-numbers text-sm font-medium lg:text-xl">
+          {formatNumber(collection.token_count)}
+        </p>
       </div>
-      <Separator orientation="vertical" className={separatorCommonClassNames} />
+      <Separator orientation="vertical" className="hidden md:block" />
 
       <div className="rounded-lg bg-card p-3.5 md:bg-transparent md:p-0">
         <p className="text-sm font-medium text-muted-foreground">Owners</p>
-        <p className="font-medium font-numbers text-xl">{formatNumber(collection.owner_count)}</p>
+        <p className="font-numbers text-sm font-medium lg:text-xl">
+          {formatNumber(collection.owner_count)}
+        </p>
       </div>
     </div>
   );

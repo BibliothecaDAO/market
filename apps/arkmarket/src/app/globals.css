@@ -3,13 +3,14 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'UnframedIconFont';
-  src: url('/fonts/unframed-icons.ttf') format('truetype');
+  font-family: "UnframedIconFont";
+  src: url("/fonts/unframed-icons.ttf") format("truetype");
 }
 
 @layer base {
   :root {
     --site-header-height: 3.75rem;
+    --site-footer-height: 40px;
     --radius: 0.75rem;
     --font-spacemono: 'Space Mono', monospace;
     --font-baebasneue: 'Bebas Neue', sans-serif;

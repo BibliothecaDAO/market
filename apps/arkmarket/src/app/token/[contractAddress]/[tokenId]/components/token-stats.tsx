@@ -97,7 +97,7 @@ export default function TokenStats({
       <Separator orientation="vertical" className="hidden lg:block" />
       <div className="flex w-full flex-col gap-2 rounded-lg bg-card p-3.5 lg:bg-inherit lg:p-0">
         <p className="text-sm font-medium text-muted-foreground">Owner</p>
-        <div className="flex items-center gap-2 font-numbers text-xl">
+        <div className="font-numbers flex items-center gap-2 text-xl">
           <ProfilePicture
             address={data?.owner ?? tokenMarketData.owner}
             className="size-6 rounded-full"

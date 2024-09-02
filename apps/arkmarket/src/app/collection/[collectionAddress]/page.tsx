@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import getCollection from "~/lib/getCollection";
 import Collection from "./components/collection";
 import { notFound } from "next/navigation";
@@ -7,19 +9,11 @@ interface CollectionPageProps {
   params: {
     collectionAddress: string;
   };
-  searchParams: Record<string, string | string[] | undefined>;
 }
 
-export default async function CollectionPage({
-  params,
-  // searchParams,
-}: CollectionPageProps) {
+export default async function CollectionPage({ params }: CollectionPageProps) {
   const { collectionAddress } = params;
-  // const { direction, sort } =
-  //   collectionPageSearchParamsCache.parse(searchParams);
-  const collectionInitialData = await getCollection({
-    collectionAddress,
-  });
+  const collection = await getCollection({ collectionAddress });
 
   const collection = CollectionDescription[collectionAddress];
   if (!collection) {
