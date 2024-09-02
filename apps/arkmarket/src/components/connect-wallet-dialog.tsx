@@ -63,7 +63,7 @@ export default function ConnectWalletDialog() {
         <DialogHeader>
           <div className="mx-auto mb-3 mt-3 size-20 rounded-full bg-secondary" />
           <DialogTitle className="mx-auto text-xl font-semibold">
-            Connect to Unframed
+            Connect to Realms.World Market
           </DialogTitle>
         </DialogHeader>
         <div className="mt-4 flex flex-col gap-3.5">
