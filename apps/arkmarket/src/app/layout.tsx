@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, Inter, Space_Mono } from "next/font/google";
+import { Jost, Inconsolata } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { cn } from "@ark-market/ui";
@@ -26,21 +26,21 @@ export const revalidate = 0;
 export const metadata: Metadata = {
   metadataBase: new URL(
     env.VERCEL_ENV === "production"
-      ? "https://market.arkproject.dev"
+      ? "https://market.realms.world"
       : "http://localhost:3000",
   ),
-  title: "Ark Market",
-  description: "Simple monorepo with starknet marketplace",
+  title: "Realms World Market",
+  description: "FOCGing trade center",
   openGraph: {
-    title: "Ark Market",
+    title: "Realms.World Market",
     description: "Simple monorepo with starknet marketplace",
-    url: "https://market.arkproject.dev",
-    siteName: "Ark Market",
+    url: "https://market.realms.world",
+    siteName: "Realms.World Market",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@ArkProjectNFTs",
-    creator: "@ArkProjectNFTs",
+    site: "@RealmsWorld",
+    creator: "@RealmsWorld",
   },
 };
 
@@ -57,32 +57,39 @@ export const viewport: Viewport = {
   ],
 };
 
-const spaceMono = Space_Mono({
+const silkscreen = Jost({
   subsets: ["latin"],
   variable: "--font-spacemono",
+  weight: ["400"],
+  display: "swap",
+});
+
+const inconsolata = Inconsolata({
+  subsets: ["latin"],
+  variable: "--font-baebasneue",
   weight: "400",
   display: "swap",
 });
 
-const baebasNeue = Bebas_Neue({
-  subsets: ["latin"],
-  variable: "--font-baebasneue",
-  weight: ["400"],
-  display: "swap",
-});
+const backgroundImageStyle = {
+  backgroundImage: `url(/backgrounds/map.svg)`,
+  backgroundOpacity: 0.1,
+  backgroundSize: "cover",
+};
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={env.NEXT_PUBLIC_THEME === "unframed" ? "unframed" : undefined}
+      className={env.NEXT_PUBLIC_THEME === "unframed" ? "unframed" : env.NEXT_PUBLIC_THEME}
     >
       <body
+        style={backgroundImageStyle}
         className={cn(
           "min-h-screen overscroll-y-none bg-background text-foreground antialiased lg:pb-10",
-          spaceMono.variable,
-          baebasNeue.variable,
+          silkscreen.variable,
+          inconsolata.variable,
         )}
       >
         <CustomFonts />

@@ -1,3 +1,5 @@
+
+import Image from "next/image";
 import type { Connector } from "@starknet-react/core";
 import type { PropsWithChildren } from "react";
 import { useMemo, useState } from "react";
@@ -20,6 +22,13 @@ const walletIdToName = new Map([
   ["argentWebWallet", "Email"],
   ["argentMobile", "Argent mobile"],
 ]);
+
+const backgroundImageStyle = {
+  backgroundImage: `url(/pink_crown.gif)`,
+  backgroundPosition: "top",
+  backgroundRepeat: "repeat-y",
+  backgroundOpacity: 0.1,
+};
 
 export default function ConnectWalletModal({ children }: PropsWithChildren) {
   const { connectors, connectAsync } = useConnect();
@@ -56,9 +65,17 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="my-auto sm:max-w-[26.25rem]">
         <DialogHeader>
-          <div className="mx-auto mb-3 mt-3 size-20 rounded-full bg-secondary" />
+          <div style={backgroundImageStyle} className="mx-auto mb-3 mt-3 size-20 rounded-full bg-secondary">
+            <Image
+              alt="profile image"
+              width={16}
+              height={16}
+              src="/pink_crown.gif"
+              className="size-20 rounded-full"
+            />
+          </div>
           <DialogTitle className="mx-auto text-xl font-semibold">
-            Connect to Unframed
+            Connect to Realms.World Market
           </DialogTitle>
         </DialogHeader>
         <div className="mt-4 flex flex-col gap-3.5">
@@ -132,6 +149,6 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
           </p>
         </div>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   );
 }

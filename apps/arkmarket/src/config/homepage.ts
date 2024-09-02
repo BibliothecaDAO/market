@@ -61,36 +61,36 @@ export const homepageConfig = {
   mainCarousel: [
     {
       bannerSrc: "/banners/blobert.png",
-      collectionSrc: "/collections/everai.png",
+      collectionSrc: "/collections/blobert.png",
       name: Collections.BLOBERT,
-      description: "Blob Blob",
+      description: "Blobert, squire of the Realms",
       address: CollectionAddresses[Collections.BLOBERT][ChainId.SN_MAIN],
       itemsCount: 3000,
       // floorPrice: 0.12,
     },
     {
-      bannerSrc: "/banners/blobert.png",
-      collectionSrc: "/collections/everai.png",
+      bannerSrc: "/banners/beasts.png",
+      collectionSrc: "/collections/beasts.png",
       name: Collections.BEASTS,
-      description: "Blob Blob",
+      description: "Beasts from Loot Survivor",
       address: CollectionAddresses[Collections.BEASTS][ChainId.SN_MAIN],
       itemsCount: 3000,
       // floorPrice: 0.12,
     },
     {
-      bannerSrc: "/banners/blobert.png",
-      collectionSrc: "/collections/everai.png",
+      bannerSrc: "/banners/golden-token.png",
+      collectionSrc: "/collections/golden-token.png",
       name: Collections.GOLDEN_TOKEN,
-      description: "Blob Blob",
+      description: "One free game for ever....",
       address: CollectionAddresses[Collections.GOLDEN_TOKEN][ChainId.SN_MAIN],
       itemsCount: 3000,
       // floorPrice: 0.12,
     },
     {
-      bannerSrc: "/banners/blobert.png",
-      collectionSrc: "/collections/everai.png",
+      bannerSrc: "/banners/realms.png",
+      collectionSrc: "/collections/realms.png",
       name: Collections.REALMS,
-      description: "Blob Blob",
+      description: "Loot Realms",
       address: CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN],
       itemsCount: 3000,
       // floorPrice: 0.12,
@@ -122,93 +122,40 @@ export const homepageConfig = {
     image: string;
     status: "live" | "upcoming";
   }[],
-  trendingNow: [
-    {
-      name: "EveraiDuo",
-      address:
-        "0x02acee8c430f62333cf0e0e7a94b2347b5513b4c25f699461dd8d7b23c072478",
-      image:
-        "https://media.arkproject.dev/contracts/0x02acee8c430f62333cf0e0e7a94b2347b5513b4c25f699461dd8d7b23c072478/avatar.png",
-      first_nft: "/nfts/everai_1.png",
-      second_nft: "/nfts/everai_2.png",
-      third_nft: "/nfts/everai_3.png",
-      token_count: 923,
-    },
-    {
-      name: "Starkurabu",
-      address:
-        "0x03ab1124ef9ec3a2f2b1d9838f9066f9a894483d40b33390dda8d85c01a315a3",
-      image:
-        "https://img.starkurabu.com/15576896767724894447561965312147459.png",
-      first_nft: "/nfts/starkurabu_1.png",
-      second_nft: "/nfts/starkurabu_2.png",
-      third_nft: "/nfts/starkurabu_3.png",
-      token_count: 10_000,
-    },
-    {
-      name: "Influence CrewMate",
-      address:
-        "0x0241b9c4ce12c06f49fee2ec7c16337386fa5185168f538a7631aacecdf3df74",
-      image:
-        "https://media.arkproject.dev/contracts/0x0241b9c4ce12c06f49fee2ec7c16337386fa5185168f538a7631aacecdf3df74/avatar.jpg",
-      first_nft: "/nfts/crewmates_1.png",
-      second_nft: "/nfts/crewmates_2.png",
-      third_nft: "/nfts/crewmates_3.png",
-      token_count: 18_926,
-    },
-    {
-      name: "Everai",
-      address:
-        "0x02acee8c430f62333cf0e0e7a94b2347b5513b4c25f699461dd8d7b23c072478",
-      image: "/collections/everai.png",
-      first_nft: "/nfts/everai_1.png",
-      second_nft: "/nfts/everai_2.png",
-      third_nft: "/nfts/everai_3.png",
-      token_count: 919,
-    },
-  ],
+  trendingNow: [],
   exploreCollections: [
+    {
+      name: Collections.REALMS,
+      address: CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN],
+      image: "/collections/realms.png",
+      banner_image: "/banners/realms.png",
+    },
     {
       name: Collections.BLOBERT,
       address: CollectionAddresses[Collections.BLOBERT][ChainId.SN_MAIN],
-      image: "/collections/c6fc5552-1051-4f68-87c9-fcd6ddc1f026.jpeg",
+      image: "/collections/blobert.png",
       banner_image: "/banners/blobert.png",
     },
-  ],
-  liveAuctions: [
     {
-      name: "Nounsters #23",
-      image: "/nfts/nounsters_23.png",
+      name: Collections.BEASTS,
+      address: CollectionAddresses[Collections.BEASTS][ChainId.SN_MAIN],
+      image: "/collections/beasts.png",
+      banner_image: "/banners/beasts.png",
     },
     {
-      name: "Masked Duck",
-      image: "/nfts/masked_duck.png",
+      name: Collections.GOLDEN_TOKEN,
+      address: CollectionAddresses[Collections.GOLDEN_TOKEN][ChainId.SN_MAIN],
+      image: "/collections/golden-token.png",
+      banner_image: "/banners/golden-token.png",
     },
     {
-      name: "Nounsters #67",
-      image: "/nfts/nounsters_67.png",
-    },
-    {
-      name: "Canadian Rapper Duck",
-      image: "/nfts/canadian_rapper_duck.png",
-    },
-    {
-      name: "Nounsters #23",
-      image: "/nfts/nounsters_23.png",
-    },
-    {
-      name: "Masked Duck",
-      image: "/nfts/masked_duck.png",
-    },
-    {
-      name: "Nounsters #67",
-      image: "/nfts/nounsters_67.png",
-    },
-    {
-      name: "Canadian Rapper Duck",
-      image: "/nfts/canadian_rapper_duck.png",
+      name: Collections.BANNERS,
+      address: CollectionAddresses[Collections.BANNERS][ChainId.SN_MAIN],
+      image: "/collections/pixel-banners.png",
+      banner_image: "/banners/pixel-banners.png",
     },
   ],
+  liveAuctions: [],
   latestSales: [
     {
       token: {
@@ -217,30 +164,6 @@ export const homepageConfig = {
         collection_address:
           "0x02acee8c430f62333cf0e0e7a94b2347b5513b4c25f699461dd8d7b23c072478",
         image: "/nfts/everai_1.png",
-      },
-      price: "52500000000000000",
-      from: "0x7689b5",
-      to: "kwiss.stark",
-    },
-    {
-      token: {
-        name: "Everai #2345",
-        collection_name: "Everai",
-        collection_address:
-          "0x02acee8c430f62333cf0e0e7a94b2347b5513b4c25f699461dd8d7b23c072478",
-        image: "/nfts/everai_2.png",
-      },
-      price: "52500000000000000",
-      from: "0x7689b5",
-      to: "kwiss.stark",
-    },
-    {
-      token: {
-        name: "Everai #2345",
-        collection_name: "Everai",
-        collection_address:
-          "0x02acee8c430f62333cf0e0e7a94b2347b5513b4c25f699461dd8d7b23c072478",
-        image: "/nfts/everai_3.png",
       },
       price: "52500000000000000",
       from: "0x7689b5",

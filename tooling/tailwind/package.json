@@ -6,7 +6,8 @@
   "exports": {
     "./native": "./native.ts",
     "./web": "./web.ts",
-    "./unframed": "./unframed.ts"
+    "./unframed": "./unframed.ts",
+    "./realms": "./realms.ts"
   },
   "license": "MIT",
   "scripts": {
