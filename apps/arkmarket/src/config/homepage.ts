@@ -169,8 +169,32 @@ export const homepageConfig = {
   ],
   exploreCollections: [
     {
+      name: Collections.REALMS,
+      address: CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN],
+      image: "/collections/c6fc5552-1051-4f68-87c9-fcd6ddc1f026.jpeg",
+      banner_image: "/banners/blobert.png",
+    },
+    {
       name: Collections.BLOBERT,
       address: CollectionAddresses[Collections.BLOBERT][ChainId.SN_MAIN],
+      image: "/collections/c6fc5552-1051-4f68-87c9-fcd6ddc1f026.jpeg",
+      banner_image: "/banners/blobert.png",
+    },
+    {
+      name: Collections.BEASTS,
+      address: CollectionAddresses[Collections.BEASTS][ChainId.SN_MAIN],
+      image: "/collections/c6fc5552-1051-4f68-87c9-fcd6ddc1f026.jpeg",
+      banner_image: "/banners/blobert.png",
+    },
+    {
+      name: Collections.GOLDEN_TOKEN,
+      address: CollectionAddresses[Collections.GOLDEN_TOKEN][ChainId.SN_MAIN],
+      image: "/collections/c6fc5552-1051-4f68-87c9-fcd6ddc1f026.jpeg",
+      banner_image: "/banners/blobert.png",
+    },
+    {
+      name: Collections.BANNERS,
+      address: CollectionAddresses[Collections.BANNERS][ChainId.SN_MAIN],
       image: "/collections/c6fc5552-1051-4f68-87c9-fcd6ddc1f026.jpeg",
       banner_image: "/banners/blobert.png",
     },

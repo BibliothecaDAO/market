@@ -2,22 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer base {
-  :root {
-    --site-header-height: 3.75rem;
-    --radius: 0.75rem;
-
-
-    @media screen and (min-width: 768px) {
-      --site-header-height: 4.5rem;
-    }
-  }
-
-} */
-
 @font-face {
-  font-family: "UnframedIconFont";
-  src: url("/fonts/unframed-icons.ttf") format("truetype");
+  font-family: 'UnframedIconFont';
+  src: url('/fonts/unframed-icons.ttf') format('truetype');
 }
 
 @layer base {
@@ -124,6 +111,110 @@
     --ring: 36 88.9% 85.9%;
     --radius: 0rem;
   }
+  .realms {
+    --background: 36 44% 95%;
+    --foreground: 36 5% 6%;
+    --card: 36 44% 90%;
+    --card-foreground: 36 5% 10%;
+    --popover: 36 44% 95%;
+    --popover-foreground: 36 95% 6%;
+    --primary: 36 88.9% 85.9%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 36 30% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: -2 30% 85%;
+    --muted-foreground: 36 5% 35%;
+    --accent: -2 30% 80%;
+    --accent-foreground: 36 5% 10%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 36 5% 90%;
+    --border: 36 30% 50%;
+    --input: 36 30% 18%;
+    --ring: 36 88.9% 85.9%;
+    --radius: 0.3rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+  .realms.dark {
+
+    --background: 69 9% 15%;
+    --foreground: 36 88.9% 85.9%;
+    --card: 69 9% 15%;
+    --card-foreground: 36 88.9% 85.9%;
+    --popover: 69 9% 15%;
+    --popover-foreground: 36 88.9% 85.9%;
+    --primary: 36 88.9% 85.9%;
+    --primary-foreground: 67.5 5.41% 29.02%;
+    --secondary: 36 30% 20%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 68 5% 29%;
+    --muted-foreground: 36 88.9% 85.9%;
+    --accent: 338.33 100% 78.82%;
+    --accent-foreground: 36 5% 90%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 36 5% 90%;
+    --border: 68 5% 29%;
+    --input: 68 5% 29%;
+    --ring: 36 88.9% 85.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --radius: 0rem;
+    --speed: 3;
+    --power4: linear(
+      0 0%,
+      0.0012 14.95%,
+      0.0089 22.36%,
+      0.0297 28.43%,
+      0.0668 33.43%,
+      0.0979 36.08%,
+      0.1363 38.55%,
+      0.2373 43.07%,
+      0.3675 47.01%,
+      0.5984 52.15%,
+      0.7121 55.23%,
+      0.8192 59.21%,
+      0.898 63.62%,
+      0.9297 66.23%,
+      0.9546 69.06%,
+      0.9733 72.17%,
+      0.9864 75.67%,
+      0.9982 83.73%,
+      1 100%
+    );
+    --power2: linear(
+      0 0%,
+      0.0036 9.62%,
+      0.0185 16.66%,
+      0.0489 23.03%,
+      0.0962 28.86%,
+      0.1705 34.93%,
+      0.269 40.66%,
+      0.3867 45.89%,
+      0.5833 52.95%,
+      0.683 57.05%,
+      0.7829 62.14%,
+      0.8621 67.46%,
+      0.8991 70.68%,
+      0.9299 74.03%,
+      0.9545 77.52%,
+      0.9735 81.21%,
+      0.9865 85%,
+      0.9949 89.15%,
+      1 100%
+    );
+    --ease: var(--power2);
+    --base: 180;
+    --chroma: 2;
+    --lightness: 0.26;
+    --limit: 320;
+    --distance: 8;
+  }
 }
 
 @layer base {
@@ -131,22 +222,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
     font-family: var(--font-spacemono), monospace;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-baebasneue), sans-serif;
-  }
-}
-
-@layer utilities {
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
   }
 }

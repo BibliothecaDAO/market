@@ -193,6 +193,9 @@ importers:
       '@ark-market/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
+      '@tailwindcss/typography':
+        specifier: ^0.5.15
+        version: 0.5.15(tailwindcss@3.4.10(ts-node@10.9.2(@types/node@20.16.2)(typescript@5.5.4)))
       '@types/node':
         specifier: ^20.14.15
         version: 20.16.2
@@ -667,7 +670,7 @@ packages:
   '@floating-ui/react-dom@2.1.1':
     resolution: {integrity: sha512-4h84MJt3CHrtG18mGsXuLCHMrug49d7DFkU0RMIyshRveBeyV2hmV/pDaF2Uxtu8kgq5r46llp5E5FQiR0K2Yg==}
     peerDependencies:
-      react: '>=16.8.0'
+      react: 18.3.1
       react-dom: '>=16.8.0'
 
   '@floating-ui/utils@0.2.4':
@@ -945,7 +948,7 @@ packages:
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react: 18.3.1
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -1213,7 +1216,7 @@ packages:
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react: 18.3.1
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -1291,7 +1294,7 @@ packages:
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react: 18.3.1
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -1703,8 +1706,13 @@ packages:
       typescript:
         optional: true
 
-  '@tanstack/query-core@5.53.3':
-    resolution: {integrity: sha512-ZfjAgd7NpqDx0e4aYBt7EmS2enbulPrJwowTy+mayRE93WUUH+sIYHun1TdRjpGwDPMNNZ5D6goh7n3CwoO+HA==}
+  '@tailwindcss/typography@0.5.15':
+    resolution: {integrity: sha512-AqhlCXl+8grUz8uqExv5OTtgpjuVIwFTSXTrh8y9/pw6q2ek7fJ+Y8ZEVw7EB2DCcuCOtEjf9w3+J3rzts01uA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20'
+
+  '@tanstack/query-core@5.53.1':
+    resolution: {integrity: sha512-mvLG7s4Zy3Yvc2LsKm8BVafbmPrsReKgqwhmp4XKVmRW9us3KbWRqu3qBBfhVavcUUEHfNK7PvpTchvQpVdFpw==}
 
   '@tanstack/react-query@5.53.3':
     resolution: {integrity: sha512-286mN/91CeM7vC6CZFLKYDHSw+WyMX6ekIvzoTbpM4xyPb99VSyCKPLyPgaOatKqYm6ooMBquSq9NGRdKgsJfg==}
@@ -3452,6 +3460,9 @@ packages:
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
+  lodash.castarray@4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
@@ -3460,6 +3471,9 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+
+  lodash.isplainobject@4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -3893,6 +3907,10 @@ packages:
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
+
+  postcss-selector-parser@6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
 
   postcss-selector-parser@6.1.0:
     resolution: {integrity: sha512-UMz42UD0UY0EApS0ZL9o1XnLhSTtvvvLe5Dc2H2O56fvRZi+KulDyf5ctDhhtYJBGKStV2FL1fy6253cmLgqVQ==}
@@ -6324,7 +6342,15 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.4
 
-  '@tanstack/query-core@5.53.3': {}
+  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.10(ts-node@10.9.2(@types/node@20.16.2)(typescript@5.5.4)))':
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 3.4.10(ts-node@10.9.2(@types/node@20.16.2)(typescript@5.5.4))
+
+  '@tanstack/query-core@5.53.1': {}
 
   '@tanstack/react-query@5.53.3(react@18.3.1)':
     dependencies:
@@ -8563,11 +8589,15 @@ snapshots:
 
   lodash-es@4.17.21: {}
 
+  lodash.castarray@4.4.0: {}
+
   lodash.debounce@4.0.8: {}
 
   lodash.get@4.4.2: {}
 
   lodash.isequal@4.5.0: {}
+
+  lodash.isplainobject@4.0.6: {}
 
   lodash.merge@4.6.2: {}
 
@@ -9004,6 +9034,11 @@ snapshots:
     dependencies:
       postcss: 8.4.41
       postcss-selector-parser: 6.1.0
+
+  postcss-selector-parser@6.0.10:
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
 
   postcss-selector-parser@6.1.0:
     dependencies:
