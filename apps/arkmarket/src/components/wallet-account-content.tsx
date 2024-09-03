@@ -89,7 +89,7 @@ export default function WalletAccountContent({
             prefetch
           >
             <User size={24} />
-            <p className="font-bold">My items</p>
+            <p className="font-bold">Profile</p>
           </Link>
           {isWebWallet && (
             <ExternalLink

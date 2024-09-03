@@ -20,9 +20,10 @@ export function UserNav() {
   const { address, chainId } = useAccount();
   const { data: lordsBalance } = useTokenBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
   const { chain } = useNetwork();
+  const { address, chainId } = useAccount();
+  const { data: ethBalance } = useBalance({ address, token: ETH });
   const { data: starkProfile } = useStarkProfile({ address });
-
-  const isWrongNetwork = chainId !== chain.id && chainId !== undefined;
+  const isWrongNetwork = chainId && chainId !== chain.id;
   const nameOrShortAddress =
     starkProfile?.name ?? shortAddress(address ?? "0x");
   const roundedEthBalance = parseFloat(lordsBalance.formatted ?? "0").toFixed(4);
