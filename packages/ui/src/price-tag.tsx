@@ -1,8 +1,8 @@
 import type { PropsWithClassName } from ".";
 import { cn, formatUnits } from ".";
 import EthereumLogo2 from "./icons/ethereum-logo-2";
-import LordsLogo from "./svg/lords.svg";
 
+import LordsLogo from "./svg/lords.svg";
 interface PriceTagProps {
   price: number | bigint | string;
   token?: "ethereum" | "starknet" | "lords";
