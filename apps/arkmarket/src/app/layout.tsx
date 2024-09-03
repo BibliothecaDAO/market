@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Jost, Inconsolata } from "next/font/google";
+import { Bebas_Neue, Space_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { cn } from "@ark-market/ui";
@@ -57,16 +57,16 @@ export const viewport: Viewport = {
   ],
 };
 
-const silkscreen = Jost({
+const silkscreen = Bebas_Neue({
   subsets: ["latin"],
-  variable: "--font-spacemono",
+  variable: "--font-silkscreen",
   weight: ["400"],
   display: "swap",
 });
 
-const inconsolata = Inconsolata({
+const inconsolata = Space_Mono({
   subsets: ["latin"],
-  variable: "--font-baebasneue",
+  variable: "--font-inconsolata",
   weight: "400",
   display: "swap",
 });
@@ -82,7 +82,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={env.NEXT_PUBLIC_THEME === "unframed" ? "unframed" : env.NEXT_PUBLIC_THEME}
+      className={
+        env.NEXT_PUBLIC_THEME === "unframed"
+          ? "unframed"
+          : env.NEXT_PUBLIC_THEME
+      }
     >
       <body
         style={backgroundImageStyle}
