@@ -4,7 +4,6 @@ import { memo, useEffect, useState } from "react";
 import { useCreateOffer } from "@ark-project/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAccount } from "@starknet-react/core";
-import { LoaderCircle, Tag } from "@ark-market/ui/icons";
 import moment from "moment";
 import { useForm } from "react-hook-form";
 import { parseEther } from "viem";
@@ -26,6 +25,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@ark-market/ui/form";
+import { ActivityOffer, LoaderCircle, Tag } from "@ark-market/ui/icons";
 import {
   Select,
   SelectContent,
