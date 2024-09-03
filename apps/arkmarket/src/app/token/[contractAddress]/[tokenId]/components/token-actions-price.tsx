@@ -26,7 +26,7 @@ export default function TokenActionsPrice({
   const { convertInUsd } = usePrices();
   const amountHex = isListed ? startAmount : topOffer.amount;
   const amount = formatEther(BigInt(amountHex ?? 0));
-  const amountInUsd = convertInUsd({ amount: BigInt(amountHex ?? 0) });
+  const amountInUsd = convertInUsd({ token: "lords", amount: BigInt(amountHex ?? 0) });
 
   let label = "Best offer";
 
@@ -45,7 +45,7 @@ export default function TokenActionsPrice({
         <div
           className={cn("text-xl font-semibold lg:text-3xl leading-none", ellipsableStyles)}
         >
-          {amount} ETH
+          {amount} LORDS
         </div>
         <div className="text-lg font-semibold text-muted-foreground lg:text-2xl leading-none">
           ${amountInUsd}

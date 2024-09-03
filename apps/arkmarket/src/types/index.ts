@@ -242,6 +242,9 @@ export interface PricesResult {
   starknet: {
     price: number;
   };
+  lords: {
+    price: number;
+  };
 }
 
 export interface SystemStatus {

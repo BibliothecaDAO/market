@@ -43,19 +43,15 @@ export default function ExploreCollection() {
                 className={cn("group", focusableStyles)}
               >
                 <div>
-                  {collection.banner_image !== undefined ? (
-                    <div className="aspect-video w-full overflow-hidden rounded-lg">
-                      <Image
-                        src={collection.banner_image}
-                        className="aspect-video transition-transform group-hover:scale-110"
-                        alt={collection.name}
-                        height={512}
-                        width={932}
-                      />
-                    </div>
-                  ) : (
-                    <div className="aspect-video rounded-lg bg-secondary" />
-                  )}
+                  <div className="aspect-video w-full overflow-hidden rounded-lg">
+                    <Image
+                      src={collection.banner_image}
+                      className="aspect-video transition-transform group-hover:scale-110"
+                      alt={collection.name}
+                      height={512}
+                      width={932}
+                    />
+                  </div>
                   <div className="mt-4 flex items-center gap-2">
                     <Image
                       className="aspect-square w-16 rounded-sm"

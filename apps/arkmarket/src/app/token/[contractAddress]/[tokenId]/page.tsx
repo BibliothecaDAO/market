@@ -9,6 +9,7 @@ import TokenOffers from "./components/token-offers";
 import TokenStats from "./components/token-stats";
 import TokenSummary from "./components/token-summary";
 import TokenTraits from "./components/token-traits";
+import { CollectionDescription } from "~/config/homepage";
 
 interface TokenPageProps {
   params: {
@@ -28,8 +29,16 @@ export default async function TokenPage({
     contractAddress,
     tokenId,
   });
+  if (!token) {
+    return notFound();
+  }
 
-  if (!token?.owner || !tokenMarketData) {
+  const collection = CollectionDescription[token.collection_address];
+  if (!collection) {
+    return notFound();
+  }
+
+  if (!token.owner || !tokenMarketData) {
     return notFound();
   }
 

@@ -9,6 +9,7 @@ import { HelpCircle, Power, User, Wallet } from "lucide-react";
 import { cn, focusableStyles, shortAddress } from "@ark-market/ui";
 import EthereumLogo from "@ark-market/ui/icons/ethereum-logo";
 import StarknetLogo from "@ark-market/ui/icons/starknet-logo";
+import LordsLogo from "~/icons/lords.svg";
 import { ThemeTabs } from "@ark-market/ui/theme";
 
 import { ETH, STRK } from "~/constants/tokens";
@@ -17,6 +18,7 @@ import usePrices from "~/hooks/usePrices";
 import CopyButton from "./copy-button";
 import ExternalLink from "./external-link";
 import ProfilePicture from "./profile-picture";
+import { env } from "~/env";
 
 const itemCommonClassName = cn(
   "flex items-center gap-2 rounded-xs px-1.5 py-2 transition-colors hover:bg-card",
@@ -36,9 +38,11 @@ export default function WalletAccountContent({
   const { convertInUsd } = usePrices();
   const { data: ethBalance } = useBalance({ token: ETH });
   const { data: strkBalance } = useBalance({ token: STRK });
+  const { data: lordsBalance } = useBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
 
   const ethBalanceInUsd = convertInUsd({ amount: ethBalance.value });
   const strkBalanceInUsd = convertInUsd({ amount: strkBalance.value });
+  const lordsBalanceInUsd = convertInUsd({ amount: lordsBalance.value });
   const isWebWallet = connector?.id === "argentWebWallet";
   const shortenedAddress = shortAddress(address ?? "0x");
   const nameOrShortAddress = starkProfile?.name ?? shortenedAddress;
@@ -131,6 +135,18 @@ export default function WalletAccountContent({
             <p className="text-sm font-medium">{strkBalance.rounded}</p>
             <p className="text-xs text-secondary-foreground">
               {strkBalanceInUsd}$
+            </p>
+          </div>
+        </div>
+        <div className="mt-0.5 flex h-16 items-center justify-between rounded-b-lg bg-card p-4">
+          <div className="flex items-center gap-2.5">
+            <LordsLogo />
+            <span className="font-bold">LORDS</span>
+          </div>
+          <div className="flex flex-col items-end gap-1">
+            <p className="text-sm font-medium">{lordsBalance.rounded}</p>
+            <p className="text-xs text-secondary-foreground">
+              {lordsBalanceInUsd}$
             </p>
           </div>
         </div>

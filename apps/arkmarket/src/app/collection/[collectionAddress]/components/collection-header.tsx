@@ -21,6 +21,7 @@ import type { Collection } from "~/types";
 import CopyButton from "~/components/copy-button";
 import ExternalLink from "~/components/external-link";
 import CollectionHeaderStats from "./collection-header-stats";
+import { CollectionDescription } from "~/config/homepage";
 
 interface CollectionHeaderProps {
   collectionAddress: string;
@@ -35,6 +36,12 @@ export default function CollectionHeader({
   style,
 }: PropsWithClassName<CollectionHeaderProps>) {
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
+
+  const description = CollectionDescription[collection.address];
+  if (!description) {
+    return null;
+  }
+
 
   return (
     <div className={className} style={style}>
@@ -101,19 +108,13 @@ export default function CollectionHeader({
         <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
           <p className="flex items-center gap-2 pt-8">
             Created
-            <span className="text-muted-foreground"> Feb 2000</span>
-            <svg width="4" height="4" viewBox="0 0 4 4" fill="none">
-              <circle cx="2" cy="2" r="2" fill="#D9D9D9" />
-            </svg>
-            Creator earnings
-            <span className="text-muted-foreground"> 1000%</span>
+
+            { }
+            <span className="text-muted-foreground"> {description.created}</span>
           </p>
           <p className="max-w-lg pt-4 text-sm">
-            Everai is a pioneering web3 brand set to expand its universe powered
-            by the collective creativity of its artistic partners and vibrant
-            community. In the Everai Universe, the Everais stand as the
-            mightiest heroes of Shodai&apos;s civilization… Get yours now to
-            join us in this collaborative journey to shape the Everai Universe!
+            { }
+            {description.description}
           </p>
           <CollectionHeaderStats
             collection={collection}

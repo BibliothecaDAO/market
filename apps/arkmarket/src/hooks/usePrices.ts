@@ -4,7 +4,7 @@ import { formatEther } from "viem";
 import getPrices from "~/lib/getPrices";
 
 interface ConvertInUsdParams {
-  token?: "ethereum" | "starknet";
+  token?: "ethereum" | "starknet" | "lords";
   amount?: bigint;
 }
 
@@ -37,6 +37,8 @@ export default function usePrices() {
       ethereumFormatted: data?.ethereum.price.toFixed(2),
       starknet: data?.starknet.price,
       starknetFormatted: data?.starknet.price.toFixed(2),
+      lords: data?.lords.price,
+      lordsFormatted: data?.lords.price.toFixed(2),
     },
     isLoading,
     isError,

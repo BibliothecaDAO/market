@@ -4,7 +4,7 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { cn, ellipsableStyles, formatUnits, timeSince } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import EthereumLogo2 from "@ark-market/ui/icons/ethereum-logo-2";
+import LordsLogo from "~/icons/lords.svg";
 import {
   Table,
   TableBody,
@@ -17,6 +17,7 @@ import {
 import type { WalletToken } from "../queries/getWalletData";
 import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenId]/components/token-actions-create-listing";
 import Media from "~/components/media";
+import { CollectionDescription } from "~/config/homepage";
 
 const gridTemplateColumnValue =
   "grid-cols-[minmax(11rem,2fr)_repeat(4,minmax(6.5rem,1fr))_minmax(6.5rem,8rem)]";
@@ -84,6 +85,10 @@ export default function PortfolioItemsDataListView({
           if (token === undefined) {
             return null;
           }
+          const collection = CollectionDescription[token.collection_address];
+          if (!collection) {
+            return null;
+          }
           const canListItem = isOwner && !token.list_price;
 
           return (
@@ -118,10 +123,10 @@ export default function PortfolioItemsDataListView({
               <TableCell>
                 {token.list_price ? (
                   <div className="flex items-center">
-                    <EthereumLogo2 className="size-4" />
+                    <LordsLogo className="size-4" />
                     <p>
                       {formatUnits(token.list_price, 18)}{" "}
-                      <span className="text-muted-foreground">ETH</span>
+                      <span className="text-muted-foreground">LORDS</span>
                     </p>
                   </div>
                 ) : (
@@ -131,10 +136,10 @@ export default function PortfolioItemsDataListView({
               <TableCell>
                 {token.best_offer ? (
                   <div className="flex items-center">
-                    <EthereumLogo2 className="size-4" />
+                    <LordsLogo className="size-4" />
                     <p>
                       {formatUnits(token.best_offer, 18)}{" "}
-                      <span className="text-muted-foreground">ETH</span>
+                      <span className="text-muted-foreground">LORDS</span>
                     </p>
                   </div>
                 ) : (
@@ -144,7 +149,7 @@ export default function PortfolioItemsDataListView({
               <TableCell>
                 {token.floor ? (
                   <div className="flex items-center">
-                    <EthereumLogo2 className="size-4" />
+                    <LordsLogo className="size-4" />
                     <p>
                       {formatUnits(token.floor, 18)}{" "}
                       <span className="text-muted-foreground">ETH</span>

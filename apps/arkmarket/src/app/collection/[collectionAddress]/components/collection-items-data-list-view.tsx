@@ -7,7 +7,7 @@ import { PriceTag } from "@ark-market/ui/price-tag";
 
 import { cn, ellipsableStyles, formatUnits } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import EthereumLogo2 from "@ark-market/ui/icons/ethereum-logo-2";
+import LordsLogo from "~/icons/lords.svg";
 import {
   Table,
   TableBody,
@@ -124,7 +124,7 @@ export default function CollectionItemsDataListView({
                 </TableCell>
                 <TableCell>
                   {token.price ? (
-                    <PriceTag price={token.price} />
+                    <PriceTag price={token.price} token="lords" />
                   ) : (
                     "_"
                   )}
@@ -132,10 +132,10 @@ export default function CollectionItemsDataListView({
                 <TableCell>
                   {token.last_price ? (
                     <div className="flex items-center">
-                      <EthereumLogo2 className="size-4" />
+                      <LordsLogo className="size-4" />
                       <p>
                         {formatUnits(token.last_price, 18)}{" "}
-                        <span className="text-muted-foreground">ETH</span>
+                        <span className="text-muted-foreground">LORDS</span>
                       </p>
                     </div>
                   ) : (

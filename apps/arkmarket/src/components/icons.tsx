@@ -2,10 +2,8 @@ import * as React from "react";
 
 import { env } from "~/env";
 
-type IconProps = React.HTMLAttributes<SVGElement>;
-
 export const Icons = {
-  logo: (props: IconProps) => {
+  logo: () => {
     return (
       <div className="w-24">
         {env.NEXT_PUBLIC_THEME === "unframed" ? (
