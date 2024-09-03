@@ -109,7 +109,7 @@ export default function CollectionItemsDataGridView({
                             ellipsableStyles,
                           )}
                         >
-                          {formatUnits(token.price, 18)} ETH
+                          {formatUnits(token.price, 18)} LORDS
                         </p>
                       ) : (
                         <p

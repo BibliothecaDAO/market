@@ -10,6 +10,7 @@ import TokenOffers from "./components/token-offers";
 import TokenStats from "./components/token-stats";
 import TokenSummary from "./components/token-summary";
 import TokenTraits from "./components/token-traits";
+import { CollectionDescription } from "~/config/homepage";
 
 interface TokenPageProps {
   params: {
@@ -21,25 +22,24 @@ interface TokenPageProps {
 export default async function TokenPage({
   params: { contractAddress, tokenId },
 }: TokenPageProps) {
-  let token: Token;
-  let tokenMarketData: TokenMarketData;
-
-  try {
-    token = await getToken({
-      contractAddress,
-      tokenId,
-    });
-
-    tokenMarketData = await getTokenMarketData({
-      contractAddress,
-      tokenId,
-    });
-  } catch (error) {
-    console.log(error);
+  const token = await getToken({
+    contractAddress,
+    tokenId,
+  });
+  const tokenMarketData = await getTokenMarketData({
+    contractAddress,
+    tokenId,
+  });
+  if (!token) {
     return notFound();
   }
 
-  if (!token.owner) {
+  const collection = CollectionDescription[token.collection_address];
+  if (!collection) {
+    return notFound();
+  }
+
+  if (!token.owner || !tokenMarketData) {
     return notFound();
   }
 

@@ -57,6 +57,7 @@ export default function TokenActionsBuyNow({
       tokenId: token.token_id,
       orderHash: tokenMarketData.listing.order_hash,
       startAmount: tokenMarketData.listing.start_amount,
+      currencyAddress: tokenMarketData.listing.currency_address,
     });
   };
 
@@ -187,7 +188,7 @@ export default function TokenActionsBuyNow({
           <>
             <ActivityList />
             {"Buy now for "}
-            {formatEther(BigInt(tokenMarketData.listing.start_amount ?? 0))} ETH
+            {formatEther(BigInt(tokenMarketData.listing.start_amount ?? 0))} LORDS
           </>
         )}
       </Button>

@@ -38,7 +38,7 @@ export default function ToastExecutedTransactionContent({
           </p>
         </div>
         <div className="text-end">
-          <p className="font-medium">{formattedPrice} ETH</p>
+          <p className="font-medium">{formattedPrice} LORDS</p>
           <p className="text-xs font-medium">${priceInUsd}</p>
         </div>
       </div>

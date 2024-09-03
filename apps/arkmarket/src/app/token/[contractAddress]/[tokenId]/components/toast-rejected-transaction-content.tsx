@@ -40,7 +40,7 @@ export default function ToastRejectedTransactionContent({
           </p>
         </div>
         <div className="text-end">
-          <p className="font-medium">{formattedPrice} ETH</p>
+          <p className="font-medium">{formattedPrice} LORDS</p>
           <p className="text-xs font-medium">${priceInUsd}</p>
         </div>
       </div>

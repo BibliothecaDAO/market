@@ -6,8 +6,7 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { cn, ellipsableStyles, formatUnits } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import { PriceTag } from "@ark-market/ui/price-tag";
-import { Ethereum } from "@ark-market/ui/icons";
+import LordsLogo from "~/icons/lords.svg";
 import {
   Table,
   TableBody,
@@ -123,15 +122,19 @@ export default function CollectionItemsDataListView({
                   </div>
                 </TableCell>
                 <TableCell>
-                  {token.price ? <PriceTag price={token.price} /> : "_"}
+                  {token.price ? (
+                    <PriceTag price={token.price} token="lords" />
+                  ) : (
+                    "_"
+                  )}
                 </TableCell>
                 <TableCell>
                   {token.last_price ? (
                     <div className="flex items-center">
-                      <Ethereum className="size-4" />
+                      <LordsLogo className="size-4" />
                       <p>
                         {formatUnits(token.last_price, 18)}{" "}
-                        <span className="text-muted-foreground">ETH</span>
+                        <span className="text-muted-foreground">LORDS</span>
                       </p>
                     </div>
                   ) : (

@@ -21,6 +21,7 @@ import type { ViewType } from "../../../../components/view-type-toggle-group";
 import type { WalletToken } from "../queries/getWalletData";
 import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenId]/components/token-actions-create-listing";
 import Media from "~/components/media";
+import { CollectionDescription } from "~/config/homepage";
 
 const LargeGridContainer = forwardRef<
   HTMLDivElement,
@@ -75,6 +76,11 @@ export default function CollectionItemsDataGridView({
         const token = walletTokens[index];
 
         if (token === undefined) {
+          return null;
+        }
+
+        const collection = CollectionDescription[token.collection_address];
+        if (!collection) {
           return null;
         }
         const canListItem = isOwner && !token.list_price;
@@ -132,13 +138,8 @@ export default function CollectionItemsDataGridView({
                   </Link>
 
                   {token.list_price ? (
-                    <p
-                      className={cn(
-                        "mt-2 text-sm font-semibold",
-                        ellipsableStyles,
-                      )}
-                    >
-                      {formatUnits(token.list_price, 18)} ETH
+                    <p className={cn("mt-2 text-sm font-semibold", ellipsableStyles)}>
+                      {formatUnits(token.list_price, 18)} LORDS
                     </p>
                   ) : (
                     <p className="mt-2 text-sm font-semibold">Not for sale</p>
@@ -148,7 +149,7 @@ export default function CollectionItemsDataGridView({
               <div className="mt-5 h-5">
                 {token.last_price ? (
                   <p className="mt-5 text-sm font-medium text-secondary-foreground">
-                    Last sale {formatEther(BigInt(token.last_price))} ETH
+                    Last sale {formatEther(BigInt(token.last_price))} LORDS
                   </p>
                 ) : null}
               </div>

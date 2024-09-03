@@ -38,50 +38,55 @@ export default function DesktopTokenActivity({
             <TableHead className="text-end">Date</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="font-numbers text-sm font-medium">
-          {tokenActivity.map((activity) => (
-            <TableRow
-              className="group h-[4.6875rem]"
-              key={`activity-${activity.time_stamp}`}
-            >
-              <TableCell className="pl-5 transition-colors group-hover:text-muted-foreground">
-                <div className="flex items-center gap-4 whitespace-nowrap">
-                  {activityTypeMetadata[activity.activity_type].icon}
-                  <p>{activityTypeMetadata[activity.activity_type].title}</p>
-                </div>
-              </TableCell>
-              <TableCell>
-                {activity.price ? <PriceTag price={activity.price} /> : "_"}
-              </TableCell>
-              <TableCell>
-                {activity.from ? (
-                  <Link href={`/wallet/${activity.from}`}>
-                    {ownerOrShortAddress({
-                      ownerAddress: activity.from,
-                      address,
-                    })}
-                  </Link>
-                ) : (
-                  "_"
-                )}
-              </TableCell>
-              <TableCell>
-                {activity.to ? (
-                  <Link href={`/wallet/${activity.to}`}>
-                    {ownerOrShortAddress({
-                      ownerAddress: activity.to,
-                      address,
-                    })}
-                  </Link>
-                ) : (
-                  "_"
-                )}
-              </TableCell>
-              <TableCell className="text-end">
-                {timeSince(activity.time_stamp)}
-              </TableCell>
-            </TableRow>
-          ))}
+        <TableBody className="text-sm font-medium font-numbers">
+          {tokenActivity.map((activity, index) => {
+            const activityItem = activityTypeToItem.get(activity.activity_type);
+
+            return (
+              <TableRow className="group h-[4.6875rem]" key={index}>
+                <TableCell className="pl-5 transition-colors group-hover:text-muted-foreground">
+                  <div className="flex items-center gap-4 whitespace-nowrap">
+                    {activityItem?.icon}
+                    <p>{activityItem?.title}</p>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  {activity.price !== null ? (
+                    <PriceTag price={activity.price} token="lords" />
+                  ) : (
+                    "_"
+                  )}
+                </TableCell>
+                <TableCell>
+                  {activity.from ? (
+                    <Link href={`/wallet/${activity.from}`}>
+                      {ownerOrShortAddress({
+                        ownerAddress: activity.from,
+                        address,
+                      })}
+                    </Link>
+                  ) : (
+                    "_"
+                  )}
+                </TableCell>
+                <TableCell>
+                  {activity.to ? (
+                    <Link href={`/wallet/${activity.to}`}>
+                      {ownerOrShortAddress({
+                        ownerAddress: activity.to,
+                        address,
+                      })}
+                    </Link>
+                  ) : (
+                    "_"
+                  )}
+                </TableCell>
+                <TableCell className="text-end">
+                  {timeSince(activity.time_stamp)}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
       {tokenActivity.length === 0 && (

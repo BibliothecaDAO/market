@@ -7,9 +7,9 @@
     ".": "./src/index.ts",
     "./*": [
       "./src/*.tsx",
-      "./src/*.ts",
-      "./src/**/*.tsx"
-    ]
+      "./src/*.ts"
+    ],
+    "./svg/*": "./src/svg/*.svg"
   },
   "license": "MIT",
   "scripts": {

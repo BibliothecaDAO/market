@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
 
 import getCollection from "~/lib/getCollection";
-import CollectionBanner from "./components/collection-banner";
-import CollectionHeader from "./components/collection-header";
-import CollectionItems from "./components/collection-items";
-import MobileCollectionHeader from "./components/mobile-collection-header";
+import Collection from "./components/collection";
+import { notFound } from "next/navigation";
+import { CollectionDescription } from "~/config/homepage";
 
 interface CollectionPageProps {
   params: {
@@ -16,28 +15,28 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   const { collectionAddress } = params;
   const collection = await getCollection({ collectionAddress });
 
-  if (!collection?.name) {
+  const collection = CollectionDescription[collectionAddress];
+  if (!collection) {
     return notFound();
   }
 
+
+  // const collectionTokensInitialData = await getCollectionTokens({
+  //   collectionAddress,
+  //   sortDirection: direction,
+  //   sortBy: sort,
+  // });
+
+  // if (!collectionTokensInitialData.data.length) {
+  //   // TODO @YohanTz: Handle case when a collection contract is deployed but no tokens in it
+  //   notFound();
+  // }
+
   return (
-    <div className="flex min-h-[calc(100vh-var(--site-header-height))] flex-col">
-      <CollectionBanner
-        className="hidden md:block"
-        collectionAddress={collectionAddress}
-      />
-      <CollectionHeader
-        collectionAddress={collectionAddress}
-        collection={collection}
-      />
-      <MobileCollectionHeader
-        collectionAddress={collectionAddress}
-        collection={collection}
-      />
-      <CollectionItems
-        collectionAddress={collectionAddress}
-        collectionTokenCount={collection.token_count}
-      />
-    </div>
+    <Collection
+      collectionAddress={collectionAddress}
+      collectionInitialData={collectionInitialData}
+    // collectionTokensInitialData={collectionTokensInitialData}
+    />
   );
 }

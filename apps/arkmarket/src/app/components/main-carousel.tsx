@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,24 +25,24 @@ export default function MainCarousel() {
   const intervalId = useRef<number | null>(null);
   const progressIntervalId = useRef<number | null>(null);
 
-  const startProgress = () => {
+  const startProgress = useCallback(() => {
     progressIntervalId.current = window.setInterval(() => {
       setProgressPercentage((prev) => (prev < 100 ? prev + 1 : 0));
     }, AUTO_SLIDE_INTERVAL / 100);
-  };
+  }, []);
 
-  const startAutoSlide = () => {
+  const startAutoSlide = useCallback(() => {
     intervalId.current = window.setInterval(() => {
       const nextIndex = (selectedItem + 1) % homepageConfig.mainCarousel.length;
       api?.scrollTo(nextIndex);
       setProgressPercentage(0);
     }, AUTO_SLIDE_INTERVAL);
-  };
+  }, [api, selectedItem]);
 
-  const stopAutoSlide = () => {
+  const stopAutoSlide = useCallback(() => {
     if (intervalId.current) clearInterval(intervalId.current);
     if (progressIntervalId.current) clearInterval(progressIntervalId.current);
-  };
+  }, []);
 
   useEffect(() => {
     if (api) {
@@ -53,7 +53,7 @@ export default function MainCarousel() {
         stopAutoSlide();
       };
     }
-  }, [api, selectedItem]);
+  }, [api, selectedItem, startAutoSlide, startProgress, stopAutoSlide]);
 
   useEffect(() => {
     if (api) {

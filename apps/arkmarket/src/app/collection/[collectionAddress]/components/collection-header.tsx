@@ -22,6 +22,7 @@ import CopyButton from "~/components/copy-button";
 import ExternalLink from "~/components/external-link";
 import getCollection from "~/lib/getCollection";
 import CollectionHeaderStats from "./collection-header-stats";
+import { CollectionDescription } from "~/config/homepage";
 
 interface CollectionHeaderProps {
   collectionAddress: string;
@@ -34,16 +35,11 @@ export default function CollectionHeader({
 }: CollectionHeaderProps) {
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
-  const { data } = useQuery({
-    queryKey: ["collection", collectionAddress],
-    queryFn: () => getCollection({ collectionAddress }),
-    initialData: collection,
-    refetchInterval: 15_000,
-  });
-
-  if (!data) {
+  const description = CollectionDescription[collection.address];
+  if (!description) {
     return null;
   }
+
 
   return (
     <div className="hidden lg:block">
@@ -102,21 +98,15 @@ export default function CollectionHeader({
           </div>
         </div>
         <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-          {/* <p className="flex items-center gap-2 pt-8"> */}
-            {/* Created
-            <span className="text-muted-foreground"> Feb 2000</span> */}
-            {/* <svg width="4" height="4" viewBox="0 0 4 4" fill="none">
-              <circle cx="2" cy="2" r="2" fill="#D9D9D9" />
-            </svg> */}
-            {/* Creator earnings
-            <span className="text-muted-foreground"> 1000%</span> */}
-          {/* </p> */}
-          <p className="mb-6 max-w-lg pt-4 text-sm">
-            Everai is a pioneering web3 brand set to expand its universe powered
-            by the collective creativity of its artistic partners and vibrant
-            community. In the Everai Universe, the Everais stand as the
-            mightiest heroes of Shodai&apos;s civilization… Get yours now to
-            join us in this collaborative journey to shape the Everai Universe!
+          <p className="flex items-center gap-2 pt-8">
+            Created
+
+            { }
+            <span className="text-muted-foreground"> {description.created}</span>
+          </p>
+          <p className="max-w-lg pt-4 text-sm">
+            { }
+            {description.description}
           </p>
           <div className="block lg:hidden">
             <CollectionHeaderStats collection={data} />

@@ -57,53 +57,95 @@ export const CollectionAddresses: {
   },
 };
 
+export const CollectionNames = {
+  [Collections.REALMS]: "Realms",
+  [Collections.BEASTS]: "Beasts",
+  [Collections.GOLDEN_TOKEN]: "Golden Token",
+  [Collections.BLOBERT]: "Blobert",
+  [Collections.BANNERS]: "Banners",
+}
+
+interface CollectionDescription {
+  created: string;
+  description: string;
+}
+export const CollectionDescription: Record<string, CollectionDescription> = {
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "Loot Realms"
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.BEASTS][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "Beasts from Loot Survivor"
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.GOLDEN_TOKEN][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "One free game for ever...."
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.BLOBERT][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "Blobert, squire of the Realms"
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.BANNERS][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "Golden Token"
+  },
+}
+
+
 export const homepageConfig = {
   mainCarousel: [
     {
       bannerSrc: "/banners/blobert.png",
       collectionSrc: "/collections/blobert.png",
-      name: Collections.BLOBERT,
+      name: CollectionNames[Collections.BLOBERT],
       description: "Blobert, squire of the Realms",
       address: CollectionAddresses[Collections.BLOBERT][ChainId.SN_MAIN],
-      itemsCount: 3000,
+      itemsCount: 4844,
       // floorPrice: 0.12,
     },
     {
       bannerSrc: "/banners/beasts.png",
       collectionSrc: "/collections/beasts.png",
-      name: Collections.BEASTS,
+      name: CollectionNames[Collections.BEASTS],
       description: "Beasts from Loot Survivor",
       address: CollectionAddresses[Collections.BEASTS][ChainId.SN_MAIN],
-      itemsCount: 3000,
+      itemsCount: 1151,
       // floorPrice: 0.12,
     },
     {
       bannerSrc: "/banners/golden-token.png",
       collectionSrc: "/collections/golden-token.png",
-      name: Collections.GOLDEN_TOKEN,
+      name: CollectionNames[Collections.GOLDEN_TOKEN],
       description: "One free game for ever....",
       address: CollectionAddresses[Collections.GOLDEN_TOKEN][ChainId.SN_MAIN],
-      itemsCount: 3000,
+      itemsCount: 20,
       // floorPrice: 0.12,
     },
     {
       bannerSrc: "/banners/realms.png",
       collectionSrc: "/collections/realms.png",
-      name: Collections.REALMS,
+      name: CollectionNames[Collections.REALMS],
       description: "Loot Realms",
       address: CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN],
-      itemsCount: 3000,
+      itemsCount: 3788,
       // floorPrice: 0.12,
     },
     {
-      bannerSrc: "/banners/blobert.png",
-      collectionSrc: "/collections/everai.png",
-      name: Collections.REALMS,
-      description: "Blob Blob",
-      address: CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN],
-      itemsCount: 3000,
+      bannerSrc: "/banners/banners.png",
+      collectionSrc: "/collections/banners.png",
+      name: CollectionNames[Collections.BANNERS],
+      description: "Loot Realms",
+      address: CollectionAddresses[Collections.BANNERS][ChainId.SN_MAIN],
+      itemsCount: 9170,
       // floorPrice: 0.12,
     },
+
   ],
   exploreCategory: [
     { name: "Gaming", image: "/collection_categories/gaming.png" },
@@ -125,31 +167,31 @@ export const homepageConfig = {
   trendingNow: [],
   exploreCollections: [
     {
-      name: Collections.REALMS,
+      name: CollectionNames[Collections.REALMS],
       address: CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN],
       image: "/collections/realms.png",
       banner_image: "/banners/realms.png",
     },
     {
-      name: Collections.BLOBERT,
+      name: CollectionNames[Collections.BLOBERT],
       address: CollectionAddresses[Collections.BLOBERT][ChainId.SN_MAIN],
       image: "/collections/blobert.png",
       banner_image: "/banners/blobert.png",
     },
     {
-      name: Collections.BEASTS,
+      name: CollectionNames[Collections.BEASTS],
       address: CollectionAddresses[Collections.BEASTS][ChainId.SN_MAIN],
       image: "/collections/beasts.png",
       banner_image: "/banners/beasts.png",
     },
     {
-      name: Collections.GOLDEN_TOKEN,
+      name: CollectionNames[Collections.GOLDEN_TOKEN],
       address: CollectionAddresses[Collections.GOLDEN_TOKEN][ChainId.SN_MAIN],
       image: "/collections/golden-token.png",
       banner_image: "/banners/golden-token.png",
     },
     {
-      name: Collections.BANNERS,
+      name: CollectionNames[Collections.BANNERS],
       address: CollectionAddresses[Collections.BANNERS][ChainId.SN_MAIN],
       image: "/collections/pixel-banners.png",
       banner_image: "/banners/pixel-banners.png",

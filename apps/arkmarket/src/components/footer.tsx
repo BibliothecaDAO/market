@@ -29,7 +29,7 @@ export default function Footer() {
             href="/"
             className={cn("flex items-center space-x-2", focusableStyles)}
           >
-            <Icons.logo className="h-8 w-auto" />
+            <Icons.logo />
             <span className="sr-only font-bold">{siteConfig.name}</span>
           </Link>
           <p className="font-medium text-muted-foreground">Realms World</p>

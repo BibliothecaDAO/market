@@ -14,7 +14,6 @@ import * as z from "zod";
 import { cn } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@ark-market/ui/dialog";
-import { EthInput } from "@ark-market/ui/eth-input";
 import {
   Form,
   FormControl,
@@ -42,6 +41,7 @@ import getCollection from "~/lib/getCollection";
 import ToastExecutedTransactionContent from "./toast-executed-transaction-content";
 import ToastRejectedTransactionContent from "./toast-rejected-transaction-content";
 import TokenActionsTokenOverview from "./token-actions-token-overview";
+import LordsInput from "~/components/lords-input";
 
 interface TokenActionsCreateListingProps {
   token: Token | WalletToken;
@@ -202,6 +202,7 @@ export function TokenActionsCreateListing({
       startAmount: parseEther(values.startAmount),
       endAmount: values.endAmount ? parseEther(values.endAmount) : BigInt(0),
       endDate: moment().add(values.duration, "hours").unix(),
+      currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
     };
 
     try {
@@ -214,6 +215,7 @@ export function TokenActionsCreateListing({
           endDate: processedValues.endDate,
           startAmount: processedValues.startAmount,
           endAmount: processedValues.endAmount,
+          currencyAddress: processedValues.currencyAddress,
         });
       } else {
         await createListing({
@@ -223,6 +225,7 @@ export function TokenActionsCreateListing({
           tokenId: processedValues.tokenId,
           endDate: processedValues.endDate,
           startAmount: processedValues.startAmount,
+          currencyAddress: processedValues.currencyAddress,
         });
       }
     } catch (error) {
@@ -328,7 +331,7 @@ export function TokenActionsCreateListing({
                       </p>
                     </Button>
                     <FormControl>
-                      <EthInput
+                      <LordsInput
                         {...field}
                         status={fieldState.error?.message ? "error" : "default"}
                         autoFocus
@@ -354,7 +357,7 @@ export function TokenActionsCreateListing({
                         Set reserve price
                       </FormLabel>
                       <FormControl>
-                        <EthInput
+                        <LordsInput
                           {...field}
                           onChange={async (e) => {
                             field.onChange(e);
@@ -404,15 +407,15 @@ export function TokenActionsCreateListing({
               <div className="!mt-8 text-xl font-semibold">
                 <div className="flex items-center justify-between">
                   <p>Earning details</p>
-                  <p>--- ETH</p>
+                  <p>--- LORDS</p>
                 </div>
                 <div className="mt-2 flex items-center justify-between text-sm font-medium text-muted-foreground">
                   <p>Arkmarket fees 2%</p>
-                  <p>-- ETH</p>
+                  <p>-- LORDS</p>
                 </div>
                 <div className="mt-0.5 flex items-center justify-between text-sm font-medium text-muted-foreground">
                   <p>Creator royalties 2%</p>
-                  <p>-- ETH</p>
+                  <p>-- LORDS</p>
                 </div>
               </div>
               <div className="sticky bottom-0 !mt-8 flex w-full translate-y-5 items-center justify-center bg-background pb-5">
@@ -430,7 +433,7 @@ export function TokenActionsCreateListing({
                         {" "}
                         for{" "}
                         <span className="font-bold">
-                          {formatAmount(startAmount)} ETH
+                          {formatAmount(startAmount)} LORDS
                         </span>
                       </>
                     ) : null}
