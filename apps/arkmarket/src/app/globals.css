@@ -222,9 +222,9 @@
     @apply border-border;
   }
   body {
-    font-family: var(--font-spacemono), monospace;
+    @apply font-sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-baebasneue), sans-serif;
+    @apply font-sans;
   }
 }
