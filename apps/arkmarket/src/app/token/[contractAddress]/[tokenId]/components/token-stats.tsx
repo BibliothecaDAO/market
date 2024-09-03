@@ -88,12 +88,11 @@ export default function TokenStats({
       </div>
       <div className="flex flex-col justify-between p-2 lg:border-l lg:px-4">
         <p className="text-sm font-medium text-muted-foreground">Top offer</p>
-        <div className="font-numbers flex items-center gap-1 text-lg">
-          <Ethereum className="size-5 flex-shrink-0" />
-          <div className="min-w-0 flex-1 truncate">
-            {data.has_offer ? formatEther(BigInt(data.top_offer.amount)) : "_"}{" "}
-            ETH
-          </div>
+        <div className="flex items-center gap-1 font-numbers text-xl">
+          <LordsLogo className="size-5" />
+          <p className="font-medium">
+            {formatEther(BigInt(data?.top_offer.amount ?? 0))} LORDS
+          </p>
         </div>
       </div>
       <div className="flex flex-col justify-between p-2 lg:border-l lg:pl-4">

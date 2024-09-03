@@ -90,6 +90,10 @@ export default function PortfolioItemsDataListView({
           if (token === undefined) {
             return null;
           }
+          const collection = CollectionDescription[token.collection_address];
+          if (!collection) {
+            return null;
+          }
           const canListItem = isOwner && !token.list_price;
 
           return (

@@ -21,7 +21,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_ORDERBOOK_API_URL: z.string().url(),
     NEXT_PUBLIC_MARKETPLACE_API_URL: z.string().url(),
-    // NEXT_PUBLIC_BROKER_ID: z.string(),
+    NEXT_PUBLIC_BROKER_ID: z.string(),
     NEXT_PUBLIC_IPFS_GATEWAY: z.string().url(),
     NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: z.string(),
     NEXT_PUBLIC_IMAGE_CDN_URL: z.string().url(),
@@ -40,7 +40,7 @@ export const env = createEnv({
     NEXT_PUBLIC_ORDERBOOK_API_URL: process.env.NEXT_PUBLIC_ORDERBOOK_API_URL,
     NEXT_PUBLIC_MARKETPLACE_API_URL:
       process.env.NEXT_PUBLIC_MARKETPLACE_API_URL,
-    // NEXT_PUBLIC_BROKER_ID: process.env.NEXT_PUBLIC_BROKER_ID,
+    NEXT_PUBLIC_BROKER_ID: process.env.NEXT_PUBLIC_BROKER_ID,
     NEXT_PUBLIC_IPFS_GATEWAY: process.env.NEXT_PUBLIC_IPFS_GATEWAY,
     NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID:
       process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,

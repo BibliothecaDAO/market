@@ -116,6 +116,47 @@ export const CollectionDescription: Record<string, CollectionDescription> = {
   },
 };
 
+export const CollectionNames = {
+  [Collections.REALMS]: "Realms",
+  [Collections.BEASTS]: "Beasts",
+  [Collections.GOLDEN_TOKEN]: "Golden Token",
+  [Collections.BLOBERT]: "Blobert",
+  [Collections.BANNERS]: "Banners",
+}
+
+interface CollectionDescription {
+  created: string;
+  description: string;
+}
+export const CollectionDescription: Record<string, CollectionDescription> = {
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "Loot Realms"
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.BEASTS][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "Beasts from Loot Survivor"
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.GOLDEN_TOKEN][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "One free game for ever...."
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.BLOBERT][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "Blobert, squire of the Realms"
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.BANNERS][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description: "Golden Token"
+  },
+}
+
+
 export const homepageConfig = {
   mainCarousel: [
     {
@@ -145,6 +186,7 @@ export const homepageConfig = {
       itemsCount: 3788,
       // floorPrice: 0.12,
     },
+
   ],
   exploreCategory: [
     { name: "Gaming", image: "/collection_categories/gaming.png" },
