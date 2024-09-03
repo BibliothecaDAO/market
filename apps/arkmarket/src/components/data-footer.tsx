@@ -1,6 +1,8 @@
 import type { PropsWithClassName } from "@ark-market/ui";
 import { cn } from "@ark-market/ui";
-import { Discord, XIcon } from "@ark-market/ui/icons";
+import DiscordIcon from "@ark-market/ui/icons/discord-icon";
+import GithubIcon from "@ark-market/ui/icons/github-icon";
+import XIcon from "@ark-market/ui/icons/x-icon";
 import { Separator } from "@ark-market/ui/separator";
 
 import ExternalLink from "~/components/external-link";
@@ -22,8 +24,11 @@ export default function DataFooter({ className }: PropsWithClassName) {
         <ExternalLink href={siteConfig.links.twitter}>
           <XIcon />
         </ExternalLink>
-        <ExternalLink href="/">
-          <Discord />
+        <ExternalLink href={siteConfig.links.discord}>
+          <DiscordIcon />
+        </ExternalLink>
+        <ExternalLink href={siteConfig.links.github}>
+          <GithubIcon className="size-4" />
         </ExternalLink>
         <Separator orientation="vertical" />
       </div>

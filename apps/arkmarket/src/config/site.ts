@@ -1,11 +1,12 @@
 export const siteConfig = {
-  name: "Realms World",
-  url: "https://market.arkproject.dev",
+  name: "Realms World Market",
+  url: "https://market.realms.world",
   ogImage: "",
   description: "NFTs for the Realms World",
   links: {
-    twitter: "https://twitter.com/realmsworld",
+    twitter: "https://twitter.com/RealmsWorld",
     github: "https://github.com/bibliothecaDAO",
+    discord: "https://discord.com/invite/realmsworld",
   },
 };
 
