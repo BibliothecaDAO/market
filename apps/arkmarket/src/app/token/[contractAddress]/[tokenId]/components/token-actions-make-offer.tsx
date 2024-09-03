@@ -15,6 +15,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@ark-market/ui/dialog";
 import {
@@ -59,6 +60,7 @@ const backgroundImageStyle = {
 };
 
 function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
+  const { address } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
   const [modalEnabled, setModalEnabled] = useState(true);
   const { account } = useAccount();
@@ -87,7 +89,8 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
       .refine(
         (val) => {
           const num = parseEther(val);
-          return data && data.value >= num;
+
+          return ethBalance && ethBalance.value >= num;
         },
         {
           message: "You don't have enough funds in your wallet",
@@ -186,6 +189,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
           Make offer
         </Button>
       </DialogTrigger>
+      <DialogTitle className="hidden">Make an offer</DialogTitle>
       <DialogContent
         onInteractOutside={(e) => {
           e.preventDefault();
