@@ -46,7 +46,7 @@ export default function ExploreCollection() {
                   <div className="aspect-video w-full overflow-hidden rounded-lg">
                     <Image
                       src={collection.banner_image}
-                      className="aspect-video transition-transform group-hover:scale-110"
+                      className="aspect-video rounded border transition-transform group-hover:scale-110"
                       alt={collection.name}
                       height={512}
                       width={932}
@@ -54,7 +54,7 @@ export default function ExploreCollection() {
                   </div>
                   <div className="mt-4 flex items-center gap-2">
                     <Image
-                      className="aspect-square w-16 rounded-sm"
+                      className="aspect-square w-16 rounded"
                       src={collection.image}
                       alt={collection.name}
                       height={124}

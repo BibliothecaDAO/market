@@ -17,6 +17,7 @@
     "@ark-market/ui": "workspace:*",
     "@ark-project/core": "^2.1.2",
     "@ark-project/react": "^1.1.2",
+    "@cartridge/connector": "^0.3.43",
     "@hookform/error-message": "^2.0.1",
     "@starknet-react/chains": "^0.1.7",
     "@starknet-react/core": "^2.9.0",
