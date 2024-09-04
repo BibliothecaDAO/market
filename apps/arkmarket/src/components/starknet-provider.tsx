@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import type { PropsWithChildren } from "react";
 import { mainnet } from "@starknet-react/chains";
 import {
-  nethermindProvider,
   argent,
   braavos,
   nethermindProvider,
@@ -18,6 +17,9 @@ import { WebWalletConnector } from "starknetkit/webwallet";
 import CartridgeConnector from "@cartridge/connector";
 
 import { env } from "~/env";
+import { getConnectors } from "./connectors";
+
+const { connectors: cartridgeConnectors } = getConnectors();
 
 
 export function StarknetProvider({ children }: PropsWithChildren) {
