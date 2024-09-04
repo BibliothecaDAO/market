@@ -130,7 +130,7 @@ export default function CollectionItemsBuyNow({
       />
       <div className="absolute bottom-0 left-0 w-full bg-card opacity-0 transition-opacity group-hover:opacity-100">
         <Button
-          className="h-10 w-full rounded-none opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
+          className="h-10 w-full opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
           size="xl"
           disabled={status === "loading"}
           onClick={(e) => {
