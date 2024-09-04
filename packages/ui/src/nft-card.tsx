@@ -47,7 +47,7 @@ const NftCardAction = React.forwardRef<HTMLButtonElement, ButtonProps>(
         size="xl"
         ref={ref}
         className={cn(
-          "h-10 w-full rounded-none opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100",
+          "h-10 w-full opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100",
           className,
         )}
         {...props}

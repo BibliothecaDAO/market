@@ -79,7 +79,7 @@ export default function TokenOffers({
   return (
     <Collapsible
       className={cn(
-        "rounded-none border-t border-border px-6 lg:rounded-lg lg:border",
+        "rounded border-t border-border px-6 lg:rounded-lg lg:border",
         className,
       )}
       open={open}
