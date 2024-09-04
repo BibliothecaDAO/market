@@ -2,7 +2,7 @@
 import Image from "next/image";
 import type { Connector } from "@starknet-react/core";
 import type { PropsWithChildren } from "react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { argent, useConnect } from "@starknet-react/core";
 import { Loader2, Mail } from "@ark-market/ui/icons";
 
@@ -46,15 +46,14 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
     string | undefined
   >(undefined);
 
-  async function connect(connector: Connector) {
+  const connect = useCallback(async (connector: Connector) => {
     setPendingConnectorId(connector.id);
     try {
       await connectAsync({ connector });
     } catch (error) {
-      console.error(error);
     }
     setPendingConnectorId(undefined);
-  }
+  }, [connectAsync]);
 
   function isWalletConnecting(connectorId: string) {
     return pendingConnectorId === connectorId;
