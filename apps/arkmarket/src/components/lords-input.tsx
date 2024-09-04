@@ -7,7 +7,7 @@ import LordsLogo from "~/icons/lords.svg"
 import { NumericalInput } from "@ark-market/ui/numerical-input";
 import type { NumericalInputProps } from "@ark-market/ui/numerical-input";
 
-export default function EthInput({
+export default function LordsInput({
   className,
   value,
   status,
@@ -38,4 +38,4 @@ export default function EthInput({
   );
 }
 
-export { EthInput };
+export { LordsInput };

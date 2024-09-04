@@ -247,7 +247,7 @@ export function TokenActionsCreateListing({
     status === "loading" ||
     auctionStatus === "loading";
 
-  const startAmountInUsd = convertInUsd({ amount: parseEther(startAmount) });
+  const startAmountInUsd = convertInUsd({ token: "lords", amount: parseEther(startAmount) });
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -331,7 +331,7 @@ export function TokenActionsCreateListing({
                       <p>
                         Choose floor price of{" "}
                         <span className="font-bold">
-                          {formattedCollectionFloor} ETH
+                          {formattedCollectionFloor} LORDS
                         </span>
                       </p>
                     </Button>
