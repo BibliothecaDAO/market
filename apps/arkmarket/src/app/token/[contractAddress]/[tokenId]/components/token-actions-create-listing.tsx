@@ -73,8 +73,8 @@ export function TokenActionsCreateListing({
 
   const formSchema = z
     .object({
-      startAmount: z.string().refine((val) => Number(val) > 0, {
-        message: "Must be a valid amount",
+      startAmount: z.string().refine((val) => Number(val) >= 0.00001, {
+        message: "Must be a valid amount and greater than 0.00001",
       }),
       endAmount: z.string().refine(
         (val) => {
@@ -82,10 +82,12 @@ export function TokenActionsCreateListing({
             return true;
           }
 
-          return Number(val) > 0;
+          const num = parseFloat(val);
+
+          return !isNaN(num) && num >= 0.00001;
         },
         {
-          message: "Must be a valid amount",
+          message: "Must be a valid amount and greater than 0.00001",
         },
       ),
       duration: z.string(),
