@@ -33,10 +33,15 @@ export default function PortfolioItemsDataListView({
 }: PortfolioItemsDataListViewProps) {
   const tableRef = useRef<HTMLTableElement | null>(null);
 
+  const filteredWalletTokens = walletTokens.filter((token, idx) => {
+    const collection = CollectionDescription[token.collection_address];
+    return collection !== undefined
+  });
+
   const rowVirtualizer = useWindowVirtualizer({
     // Approximate initial rect for SSR
     initialRect: { height: 1080, width: 1920 },
-    count: walletTokens.length,
+    count: filteredWalletTokens.length,
     estimateSize: () => 75, // Estimation of row height for accurate scrollbar dragging
     // Measure dynamic row height, except in firefox because it measures table border height incorrectly
     measureElement:
@@ -81,12 +86,8 @@ export default function PortfolioItemsDataListView({
         }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const token = walletTokens[virtualRow.index];
+          const token = filteredWalletTokens[virtualRow.index];
           if (token === undefined) {
-            return null;
-          }
-          const collection = CollectionDescription[token.collection_address];
-          if (!collection) {
             return null;
           }
           const canListItem = isOwner && !token.list_price;
