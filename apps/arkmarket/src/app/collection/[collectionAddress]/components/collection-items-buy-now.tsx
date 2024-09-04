@@ -13,13 +13,12 @@ import { useToast } from "@ark-market/ui/use-toast";
 
 import type { CollectionToken, TokenMarketData } from "~/types";
 import BuyNowDialog from "~/components/buy-now-dialog";
-import { ETH } from "~/constants/tokens";
 import { env } from "~/env";
-import useBalance from "~/hooks/useBalance";
 import useConnectWallet from "~/hooks/useConnectWallet";
 import getTokenMarketData from "~/lib/getTokenMarketData";
 import ToastExecutedTransactionContent from "../../../token/[contractAddress]/[tokenId]/components/toast-executed-transaction-content";
 import ToastRejectedTransactionContent from "../../../token/[contractAddress]/[tokenId]/components/toast-rejected-transaction-content";
+import { useTokenBalance } from "~/hooks/useTokenBalance";
 
 interface CollectionItemsBuyNowProps {
   token: CollectionToken;
@@ -31,7 +30,7 @@ export default function CollectionItemsBuyNow({
   const [isOpen, setIsOpen] = useState(false);
   const { fulfillListing, status } = useFulfillListing();
   const { account, address } = useAccount();
-  const { data } = useBalance({ address, token: ETH });
+  const { data } = useTokenBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
   const { toast } = useToast();
   const isOwner = areAddressesEqual(token.owner, address);
   const queryClient = useQueryClient();

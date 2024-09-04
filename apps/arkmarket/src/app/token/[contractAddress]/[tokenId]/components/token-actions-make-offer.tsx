@@ -38,13 +38,13 @@ import { useToast } from "@ark-market/ui/use-toast";
 
 import type { Token } from "~/types";
 import { env } from "~/env";
-import useBalance from "~/hooks/useBalance";
 import useConnectWallet from "~/hooks/useConnectWallet";
 import formatAmount from "~/lib/formatAmount";
 import ToastExecutedTransactionContent from "./toast-executed-transaction-content";
 import ToastRejectedTransactionContent from "./toast-rejected-transaction-content";
 import TokenActionsTokenOverview from "./token-actions-token-overview";
 import LordsInput from "~/components/lords-input";
+import { useTokenBalance } from "~/hooks/useTokenBalance";
 
 interface TokenActionsMakeOfferProps {
   token: Token;
@@ -57,7 +57,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
   const { account } = useAccount();
   const { createOffer, status } = useCreateOffer();
   const { toast } = useToast();
-  const { data } = useBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
+  const { data } = useTokenBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
   const { ensureConnect } = useConnectWallet({
     account,
     onConnect: () => {

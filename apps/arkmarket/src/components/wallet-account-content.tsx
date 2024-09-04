@@ -11,6 +11,8 @@ import StarknetLogo from "@ark-market/ui/icons/starknet-logo";
 import LordsLogo from "~/icons/lords.svg";
 import { ThemeTabs } from "@ark-market/ui/theme";
 
+import { ETH, STRK } from "~/constants/tokens";
+import usePrices from "~/hooks/usePrices";
 import CopyButton from "./copy-button";
 import ExternalLink from "./external-link";
 import ProfilePicture from "./profile-picture";

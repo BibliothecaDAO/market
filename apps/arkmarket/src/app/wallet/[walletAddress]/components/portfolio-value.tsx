@@ -1,19 +1,17 @@
-import { Ethereum } from "@ark-market/ui/icons";
+import LordsLogo from "~/icons/lords.svg";
 
-import { ETH } from "~/constants/tokens";
-import useBalance from "~/hooks/useBalance";
 import usePrices from "~/hooks/usePrices";
+import { useTokenBalance } from "~/hooks/useTokenBalance";
+import { env } from "~/env";
 
-interface PortfolioValueProps {
-  address?: string;
-}
-
-export default function PortfolioValue({ address }: PortfolioValueProps) {
-  const { data: ethBalance, isPending } = useBalance({ address, token: ETH });
+export default function PortfolioValue() {
   const { convertInUsd, isLoading: isLoadingPrices } = usePrices();
-  const ethBalanceInUsd = convertInUsd({ amount: ethBalance?.value });
+  const { data: lordsBalance } = useTokenBalance({
+    token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
+  });
+  const ethBalanceInUsd = convertInUsd({ token: "lords", amount: lordsBalance.value });
 
-  if (isLoadingPrices || isPending) {
+  if (isLoadingPrices) {
     return null;
   }
 
@@ -22,11 +20,11 @@ export default function PortfolioValue({ address }: PortfolioValueProps) {
       <div className="flex items-center gap-1">
         <div className="flex flex-col">
           <p className="text-sm text-secondary-foreground">Portfolio value</p>
-          <p className="text-md flex items-center space-x-1.5 font-semibold">
-            <Ethereum />
+          <p className="flex items-center text-md font-semibold space-x-1.5">
+            <LordsLogo className="size-5" />
             <div className="text-xl">
-              {ethBalance?.rounded}{" "}
-              <span className="text-secondary-foreground">ETH</span>
+              {lordsBalance.rounded}{" "}
+              <span className="text-secondary-foreground">LORDS</span>
             </div>
           </p>
         </div>
