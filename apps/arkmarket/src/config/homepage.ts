@@ -63,40 +63,45 @@ export const CollectionNames = {
   [Collections.GOLDEN_TOKEN]: "Golden Token",
   [Collections.BLOBERT]: "Blobert",
   [Collections.BANNERS]: "Banners",
-}
+};
 
 interface CollectionDescription {
   created: string;
   description: string;
 }
+
 export const CollectionDescription: Record<string, CollectionDescription> = {
   // @ts-expect-error It's ok compiler
   [CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN]]: {
     created: "2023",
-    description: "Loot Realms"
+    description:
+      "Every Realm has been procedurally generated and is unique down to the language. Each Realm has a map showing the regions, cities, rivers and topography that exist in the world. Each Realm’s rankings will display the number of regions, cities, rivers, and harbors within the Realm. Resource deposits can be found in each realm with varying rarity and there are 50 Wonders spread among the 8000 Realms.",
   },
   // @ts-expect-error It's ok compiler
   [CollectionAddresses[Collections.BEASTS][ChainId.SN_MAIN]]: {
     created: "2023",
-    description: "Beasts from Loot Survivor"
+    description:
+      "Beasts from Loot Survivor. Time to find them all. There are roughly 90,000 Loot Survivor beasts to collect. Each beast is unique and comes with its own set of attributes and characteristics. Collectors can explore various regions to discover and capture these beasts, adding them to their growing collection.",
   },
   // @ts-expect-error It's ok compiler
   [CollectionAddresses[Collections.GOLDEN_TOKEN][ChainId.SN_MAIN]]: {
     created: "2023",
-    description: "One free game for ever...."
+    description:
+      "One free game for ever.... The Golden Token works with Loot Survivor and offers a free game every day forever.",
   },
   // @ts-expect-error It's ok compiler
   [CollectionAddresses[Collections.BLOBERT][ChainId.SN_MAIN]]: {
     created: "2023",
-    description: "Blobert, squire of the Realms"
+    description:
+      "Blobert, squire of the Realms. Snarky blobert has a lot to say. Modeled after the Blobert character from the Realms.",
   },
   // @ts-expect-error It's ok compiler
   [CollectionAddresses[Collections.BANNERS][ChainId.SN_MAIN]]: {
     created: "2023",
-    description: "Golden Token"
+    description:
+      "Pixel Banners. These are dynamically user-generated banners that can be customized and added to your collection. Each banner is unique and can be tailored to represent your personal style or the theme of your collection.",
   },
-}
-
+};
 
 export const homepageConfig = {
   mainCarousel: [
@@ -145,7 +150,6 @@ export const homepageConfig = {
       itemsCount: 9170,
       // floorPrice: 0.12,
     },
-
   ],
   exploreCategory: [
     { name: "Gaming", image: "/collection_categories/gaming.png" },
