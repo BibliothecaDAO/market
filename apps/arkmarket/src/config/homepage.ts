@@ -4,6 +4,7 @@ export enum Collections {
   GOLDEN_TOKEN = "goldentoken",
   BLOBERT = "blobert",
   BANNERS = "banners",
+  LOOTSURVIVOR = "lootsurvivor",
 }
 
 export enum ChainId {
@@ -55,6 +56,11 @@ export const CollectionAddresses: {
       "0x02d66679de61a5c6d57afd21e005a8c96118bd60315fd79a4521d68f5e5430d1",
     [ChainId.SN_SEPOLIA]: "",
   },
+  [Collections.LOOTSURVIVOR]: {
+    [ChainId.SN_MAIN]:
+      "0x01153499afc678b92c825c86219d742f86c9385465c64aeb41a950e2ee34b1fd",
+    [ChainId.SN_SEPOLIA]: "",
+  },
 };
 
 export const CollectionNames = {
@@ -63,6 +69,7 @@ export const CollectionNames = {
   [Collections.GOLDEN_TOKEN]: "Golden Token",
   [Collections.BLOBERT]: "Blobert",
   [Collections.BANNERS]: "Banners",
+  [Collections.LOOTSURVIVOR]: "Loot Survivor",
 };
 
 interface CollectionDescription {
@@ -100,6 +107,12 @@ export const CollectionDescription: Record<string, CollectionDescription> = {
     created: "2023",
     description:
       "Pixel Banners. These are dynamically user-generated banners that can be customized and added to your collection. Each banner is unique and can be tailored to represent your personal style or the theme of your collection.",
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.LOOTSURVIVOR][ChainId.SN_MAIN]]: {
+    created: "2023",
+    description:
+      "Loot Survivor. Each NFT represents a Survivor in the game, dead or alive. Trade them, collect them, and use them to play the game. Each Survivor has a unique set of attributes and characteristics that can be used to your advantage in the game.",
   },
 };
 
@@ -170,6 +183,12 @@ export const homepageConfig = {
   }[],
   trendingNow: [],
   exploreCollections: [
+    {
+      name: CollectionNames[Collections.LOOTSURVIVOR],
+      address: CollectionAddresses[Collections.LOOTSURVIVOR][ChainId.SN_MAIN],
+      image: "/collections/loot-survivor.png",
+      banner_image: "/banners/loot-survivor.png",
+    },
     {
       name: CollectionNames[Collections.REALMS],
       address: CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN],
