@@ -201,6 +201,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
               className="size-20 rounded-full"
             />
           </div>
+          <div className="text-center text-xl font-semibold">Make an offer</div>
           <TokenActionsTokenOverview token={token} amount={startAmount} small />
           <Form {...form}>
             <form
