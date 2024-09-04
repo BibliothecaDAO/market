@@ -47,10 +47,12 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
   >(undefined);
 
   const connect = useCallback(async (connector: Connector) => {
+    setOpen(false)
     setPendingConnectorId(connector.id);
     try {
       await connectAsync({ connector });
     } catch (error) {
+      console.error(error);
     }
     setPendingConnectorId(undefined);
   }, [connectAsync]);
@@ -58,9 +60,11 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
   function isWalletConnecting(connectorId: string) {
     return pendingConnectorId === connectorId;
   }
+  const [open, setOpen] = useState(false);
+  console.log(open)
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="my-auto sm:max-w-[26.25rem]">
         <DialogHeader>
