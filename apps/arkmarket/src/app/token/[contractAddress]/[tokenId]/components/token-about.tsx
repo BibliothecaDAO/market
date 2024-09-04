@@ -20,11 +20,16 @@ import XIcon from "@ark-market/ui/icons/x-icon";
 import type { Token } from "~/types";
 import Media from "~/components/media";
 import ownerOrShortAddress from "~/lib/ownerOrShortAddress";
+import { CollectionDescription } from "~/config/homepage";
 
 interface TokenAboutProps {
   contractAddress: string;
   token: Token;
   tokenId: string;
+}
+const defaultDescription = {
+  created: "",
+  description: ""
 }
 
 export default function TokenAbout({
@@ -37,6 +42,7 @@ export default function TokenAbout({
   const { address } = useAccount();
   const collectionShortenedAddress = shortAddress(contractAddress);
   const { data: starkProfile } = useStarkProfile({ address: token.owner });
+  const description = CollectionDescription[token.collection_address] ?? defaultDescription;
 
   const ownerShortenedAddress =
     starkProfile?.name ??
@@ -75,33 +81,31 @@ export default function TokenAbout({
           <div>
             <h4 className="text-xl font-semibold">{token.collection_name}</h4>
             <p className="mt-2 hidden text-sm lg:block">
-              {`Everai is a pioneering web3 brand set to expand its universe powered
-          by the collective creativity of its artistic partners and vibrant
-          community. In the Everai Universe, the Everais stand as the mightiest
-          heroes of Shodai's civilization… Get yours now to join us in this
-          collaborative journey to shape the Everai Universe!`}
+              {description.description}
             </p>
           </div>
         </div>
 
         <div className="mt-5 flex items-center gap-4 text-muted-foreground lg:mt-10">
-          <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
-            <XIcon className="size-4" />
-          </Button>
-          <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
-            <DiscordIcon className="size-4" />
-          </Button>
-          <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
-            <WebsiteIcon className="size-4" />
-          </Button>
+          <Link href="https://twitter.com/RealmsWorld" className="flex items-center gap-2">
+            <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
+              <XIcon className="size-4" />
+            </Button>
+          </Link>
+          <Link href="https://discord.com/invite/realmsworld" className="flex items-center gap-2">
+            <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
+              <DiscordIcon className="size-4" />
+            </Button>
+          </Link>
+          <Link href="https://realms.world" className="flex items-center gap-2">
+            <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
+              <WebsiteIcon className="size-4" />
+            </Button>
+          </Link>
         </div>
 
         <p className="mt-6 text-sm lg:hidden">
-          {`Everai is a pioneering web3 brand set to expand its universe powered
-          by the collective creativity of its artistic partners and vibrant
-          community. In the Everai Universe, the Everais stand as the mightiest
-          heroes of Shodai's civilization… Get yours now to join us in this
-          collaborative journey to shape the Everai Universe!`}
+          {description.description}
         </p>
 
         <div className="mt-8 flex flex-col gap-4 pb-6">
