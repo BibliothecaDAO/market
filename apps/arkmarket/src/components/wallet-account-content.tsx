@@ -13,7 +13,6 @@ import LordsLogo from "~/icons/lords.svg";
 import { ThemeTabs } from "@ark-market/ui/theme";
 
 import { ETH, STRK } from "~/constants/tokens";
-import useBalance from "~/hooks/useBalance";
 import usePrices from "~/hooks/usePrices";
 import CopyButton from "./copy-button";
 import ExternalLink from "./external-link";

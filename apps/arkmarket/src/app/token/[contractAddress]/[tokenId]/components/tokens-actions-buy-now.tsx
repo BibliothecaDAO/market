@@ -13,13 +13,12 @@ import { toast as sonner } from "@ark-market/ui/sonner";
 import { useToast } from "@ark-market/ui/use-toast";
 
 import type { Token, TokenMarketData } from "~/types";
-import { ETH } from "~/constants/tokens";
 import { env } from "~/env";
-import useBalance from "~/hooks/useBalance";
 import useConnectWallet from "~/hooks/useConnectWallet";
 import ToastExecutedTransactionContent from "./toast-executed-transaction-content";
 import ToastRejectedTransactionContent from "./toast-rejected-transaction-content";
 import TokenActionsTokenOverview from "./token-actions-token-overview";
+import { useTokenBalance } from "~/hooks/useTokenBalance";
 
 interface TokenActionsBuyNowProps {
   token: Token;
@@ -36,7 +35,7 @@ export default function TokenActionsBuyNow({
   const { fulfillListing, status } = useFulfillListing();
   const { address, account } = useAccount();
   const isOwner = areAddressesEqual(tokenMarketData.owner, address);
-  const { data } = useBalance({ token: ETH });
+  const { data } = useTokenBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
   const { toast } = useToast();
 
   const buy = async () => {
