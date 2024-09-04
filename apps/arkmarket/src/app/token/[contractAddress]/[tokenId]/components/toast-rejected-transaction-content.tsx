@@ -17,7 +17,7 @@ export default function ToastRejectedTransactionContent({
   formattedPrice,
 }: ToastRejectedTransactionContentProps) {
   const { convertInUsd } = usePrices();
-  const priceInUsd = convertInUsd({ amount: price });
+  const priceInUsd = convertInUsd({ token: "lords", amount: price });
 
   return (
     <div className="mt-5 flex flex-col gap-6">
