@@ -72,7 +72,7 @@ export default function TokenActionsTokenOverview({
 
       <div className="flex flex-col items-end gap-1">
         <div className="flex whitespace-nowrap text-lg font-semibold sm:text-xl">
-          <LordsLogo className="size-6" />
+          <LordsLogo className="size-6 mr-2" />
           {formattedAmount || "---"} LORDS
         </div>
         <div className="overflow-hidden text-clip text-right text-sm font-semibold text-muted-foreground">
