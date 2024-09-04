@@ -1,5 +1,7 @@
 import getCollection from "~/lib/getCollection";
 import Collection from "./components/collection";
+import { notFound } from "next/navigation";
+import { CollectionDescription } from "~/config/homepage";
 
 interface CollectionPageProps {
   params: {
@@ -19,6 +21,12 @@ export default async function CollectionPage({
     collectionAddress,
   });
 
+  const collection = CollectionDescription[collectionAddress];
+  if (!collection) {
+    return notFound();
+  }
+
+
   // const collectionTokensInitialData = await getCollectionTokens({
   //   collectionAddress,
   //   sortDirection: direction,
@@ -34,7 +42,7 @@ export default async function CollectionPage({
     <Collection
       collectionAddress={collectionAddress}
       collectionInitialData={collectionInitialData}
-      // collectionTokensInitialData={collectionTokensInitialData}
+    // collectionTokensInitialData={collectionTokensInitialData}
     />
   );
 }

@@ -78,7 +78,7 @@ export default function DesktopTokenActivity({
                 </TableCell>
                 <TableCell>
                   {activity.price !== null ? (
-                    <PriceTag price={activity.price} />
+                    <PriceTag price={activity.price} token="lords" />
                   ) : (
                     "_"
                   )}

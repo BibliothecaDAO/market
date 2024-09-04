@@ -21,6 +21,7 @@ import type { ViewType } from "../../../../components/view-type-toggle-group";
 import type { WalletToken } from "../queries/getWalletData";
 import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenId]/components/token-actions-create-listing";
 import Media from "~/components/media";
+import { CollectionDescription } from "~/config/homepage";
 
 const LargeGridContainer = forwardRef<
   HTMLDivElement,
@@ -61,22 +62,26 @@ export default function CollectionItemsDataGridView({
   viewType,
   isOwner,
 }: CollectionItemsDataGridViewProps) {
+  const filteredWalletTokens = walletTokens.filter((token, idx) => {
+    const collection = CollectionDescription[token.collection_address];
+    return collection !== undefined
+  });
   return (
     <VirtuosoGrid
       // initialItemCount same as totalCount but needed for SSR
-      initialItemCount={walletTokens.length}
-      totalCount={walletTokens.length}
+      initialItemCount={filteredWalletTokens.length}
+      totalCount={filteredWalletTokens.length}
       useWindowScroll
       components={{
         List:
           viewType === "large-grid" ? LargeGridContainer : SmallGridContainer,
       }}
       itemContent={(index) => {
-        const token = walletTokens[index];
-        console.log(token);
+        const token = filteredWalletTokens[index];
         if (token === undefined) {
           return null;
         }
+
         const canListItem = isOwner && !token.list_price;
 
         return (
@@ -133,7 +138,7 @@ export default function CollectionItemsDataGridView({
 
                   {token.list_price ? (
                     <p className={cn("mt-2 text-sm font-semibold", ellipsableStyles)}>
-                      {formatUnits(token.list_price, 18)} ETH
+                      {formatUnits(token.list_price, 18)} LORDS
                     </p>
                   ) : (
                     <p className="mt-2 text-sm font-semibold">Not for sale</p>
@@ -143,7 +148,7 @@ export default function CollectionItemsDataGridView({
               <div className="mt-5 h-5">
                 {token.last_price ? (
                   <p className="mt-5 text-sm font-medium text-secondary-foreground">
-                    Last sale {formatEther(BigInt(token.last_price))} ETH
+                    Last sale {formatEther(BigInt(token.last_price))} LORDS
                   </p>
                 ) : null}
               </div>

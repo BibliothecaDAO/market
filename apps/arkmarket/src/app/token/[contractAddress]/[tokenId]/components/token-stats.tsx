@@ -7,7 +7,7 @@ import { formatEther } from "viem";
 
 import type { PropsWithClassName } from "@ark-market/ui";
 import { cn, ellipsableStyles } from "@ark-market/ui";
-import EthereumLogo2 from "@ark-market/ui/icons/ethereum-logo-2";
+import LordsLogo from "~/icons/lords.svg";
 import { Separator } from "@ark-market/ui/separator";
 
 import type { Token, TokenMarketData } from "~/types";
@@ -66,9 +66,9 @@ export default function TokenStats({
           Collection Floor
         </p>
         <div className="flex min-h-6 items-center gap-1 font-medium font-numbers text-xl">
-          <EthereumLogo2 className="size-5" />
+          <LordsLogo className="size-5" />
           {isLoading || (
-            <>{formatEther(BigInt(collection?.data.floor ?? 0))} ETH</>
+            <>{formatEther(BigInt(collection?.data.floor ?? 0))} LORDS</>
           )}
           {/* TODO @YohanTz: Proper color */}
           {/* <p className={cn("text-sm font-semibold text-green-500")}>+ {"_"}%</p> */}
@@ -78,9 +78,9 @@ export default function TokenStats({
       <div className="flex w-full flex-col gap-2 rounded-lg bg-card p-3.5 lg:bg-inherit lg:p-0">
         <p className="text-sm font-medium text-muted-foreground">Last sale</p>
         <div className="flex items-center gap-1 font-numbers text-xl">
-          <EthereumLogo2 className="size-5" />
+          <LordsLogo className="size-5" />
           <p className="font-medium">
-            {formatEther(BigInt(data?.last_price ?? 0))} ETH
+            {formatEther(BigInt(data?.last_price ?? 0))} LORDS
           </p>
         </div>
       </div>
@@ -88,9 +88,9 @@ export default function TokenStats({
       <div className="flex w-full flex-col gap-2 rounded-lg bg-card p-3.5 lg:bg-inherit lg:p-0">
         <p className="text-sm font-medium text-muted-foreground">Top offer</p>
         <div className="flex items-center gap-1 font-numbers text-xl">
-          <EthereumLogo2 className="size-5" />
+          <LordsLogo className="size-5" />
           <p className="font-medium">
-            {formatEther(BigInt(data?.top_offer.amount ?? 0))} ETH
+            {formatEther(BigInt(data?.top_offer.amount ?? 0))} LORDS
           </p>
         </div>
       </div>

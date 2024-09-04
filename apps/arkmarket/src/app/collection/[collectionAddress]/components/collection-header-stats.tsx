@@ -1,6 +1,6 @@
 import type { PropsWithClassName } from "@ark-market/ui";
 import { cn, formatNumber, formatUnits } from "@ark-market/ui";
-import EthereumLogo2 from "@ark-market/ui/icons/ethereum-logo-2";
+import LordsLogo from "~/icons/lords.svg";
 import { Separator } from "@ark-market/ui/separator";
 
 import type { Collection } from "~/types";
@@ -25,8 +25,8 @@ export default function CollectionHeaderStats({
       <div className="rounded-lg bg-card p-3.5 md:bg-transparent md:p-0">
         <p className="text-sm font-medium text-muted-foreground">Floor</p>
         <div className="flex items-center gap-2 font-medium font-numbers text-xl">
-          <EthereumLogo2 className="size-5" />
-          <p>{formatUnits(collection.floor ?? 0, 18)} ETH</p>
+          <LordsLogo className="size-5" />
+          <p>{formatUnits(collection.floor ?? 0, 18)} LORDS</p>
           {/* TODO @YohanTz: Proper color */}
           {/* <p
             className={cn(
@@ -48,9 +48,9 @@ export default function CollectionHeaderStats({
           Total Volume
         </p>
         <div className="flex items-center font-numbers gap-2 text-xl">
-          <EthereumLogo2 className="size-5" />
+          <LordsLogo className="size-5" />
           <p className="font-medium">
-            {formatNumber(collection.total_volume)} ETH
+            {formatNumber(collection.total_volume)} LORDS
           </p>
         </div>
       </div>
@@ -59,9 +59,9 @@ export default function CollectionHeaderStats({
       <div className="rounded-lg bg-card p-3.5 md:bg-transparent md:p-0">
         <p className="text-sm font-medium text-muted-foreground">7D Volume</p>
         <div className="flex items-center gap-2 font-numbers text-xl">
-          <EthereumLogo2 className="size-5" />
+          <LordsLogo className="size-5" />
           <p className="font-medium">
-            {formatNumber(collection.volume_7d_eth)} ETH
+            {formatNumber(collection.volume_7d_eth)} LORDS
           </p>
         </div>
       </div>

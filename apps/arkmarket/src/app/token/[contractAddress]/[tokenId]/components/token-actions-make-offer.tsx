@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useEffect, useState } from "react";
-import { useConfig, useCreateOffer } from "@ark-project/react";
+import { useCreateOffer } from "@ark-project/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAccount } from "@starknet-react/core";
 import { LoaderCircle, Tag } from "lucide-react";
@@ -18,7 +18,6 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@ark-market/ui/dialog";
-import EthInput from "@ark-market/ui/eth-input";
 import {
   Form,
   FormControl,
@@ -37,7 +36,6 @@ import {
 import { useToast } from "@ark-market/ui/use-toast";
 
 import type { Token } from "~/types";
-import { ETH } from "~/constants/tokens";
 import { env } from "~/env";
 import useBalance from "~/hooks/useBalance";
 import useConnectWallet from "~/hooks/useConnectWallet";
@@ -45,6 +43,7 @@ import formatAmount from "~/lib/formatAmount";
 import ToastExecutedTransactionContent from "./toast-executed-transaction-content";
 import ToastRejectedTransactionContent from "./toast-rejected-transaction-content";
 import TokenActionsTokenOverview from "./token-actions-token-overview";
+import LordsInput from "~/components/lords-input";
 
 interface TokenActionsMakeOfferProps {
   token: Token;
@@ -53,11 +52,10 @@ interface TokenActionsMakeOfferProps {
 
 function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const config = useConfig();
   const { account } = useAccount();
   const { createOffer, status } = useCreateOffer();
   const { toast } = useToast();
-  const { data } = useBalance({ token: ETH });
+  const { data } = useBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
   const { ensureConnect } = useConnectWallet({
     account,
     onConnect: () => {
@@ -140,7 +138,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
 
     const processedValues = {
       brokerId: env.NEXT_PUBLIC_BROKER_ID,
-      currencyAddress: config?.starknetCurrencyContract,
+      currencyAddress: env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
       tokenAddress: token.collection_address,
       tokenId: BigInt(token.token_id),
       startAmount: parseEther(values.startAmount),
@@ -200,12 +198,12 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
                     <FormItem>
                       <FormLabel>Set price</FormLabel>
                       <FormControl>
-                        <EthInput
+                        <LordsInput
                           value={field.value}
                           onChange={field.onChange}
                           status={
                             formattedStartAmount !== "-" &&
-                            fieldState.error?.message
+                              fieldState.error?.message
                               ? "error"
                               : "default"
                           }

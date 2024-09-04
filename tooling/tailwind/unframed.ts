@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 import base from "./base";
 

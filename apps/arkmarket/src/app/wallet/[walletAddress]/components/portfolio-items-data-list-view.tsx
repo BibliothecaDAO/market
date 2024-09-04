@@ -4,7 +4,7 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { cn, ellipsableStyles, formatUnits, timeSince } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import EthereumLogo2 from "@ark-market/ui/icons/ethereum-logo-2";
+import LordsLogo from "~/icons/lords.svg";
 import {
   Table,
   TableBody,
@@ -17,6 +17,7 @@ import {
 import type { WalletToken } from "../queries/getWalletData";
 import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenId]/components/token-actions-create-listing";
 import Media from "~/components/media";
+import { CollectionDescription } from "~/config/homepage";
 
 const gridTemplateColumnValue =
   "grid-cols-[minmax(11rem,2fr)_repeat(4,minmax(6.5rem,1fr))_minmax(6.5rem,8rem)]";
@@ -32,10 +33,15 @@ export default function PortfolioItemsDataListView({
 }: PortfolioItemsDataListViewProps) {
   const tableRef = useRef<HTMLTableElement | null>(null);
 
+  const filteredWalletTokens = walletTokens.filter((token, idx) => {
+    const collection = CollectionDescription[token.collection_address];
+    return collection !== undefined
+  });
+
   const rowVirtualizer = useWindowVirtualizer({
     // Approximate initial rect for SSR
     initialRect: { height: 1080, width: 1920 },
-    count: walletTokens.length,
+    count: filteredWalletTokens.length,
     estimateSize: () => 75, // Estimation of row height for accurate scrollbar dragging
     // Measure dynamic row height, except in firefox because it measures table border height incorrectly
     measureElement:
@@ -80,7 +86,7 @@ export default function PortfolioItemsDataListView({
         }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const token = walletTokens[virtualRow.index];
+          const token = filteredWalletTokens[virtualRow.index];
           if (token === undefined) {
             return null;
           }
@@ -118,10 +124,10 @@ export default function PortfolioItemsDataListView({
               <TableCell>
                 {token.list_price ? (
                   <div className="flex items-center">
-                    <EthereumLogo2 className="size-4" />
+                    <LordsLogo className="size-4" />
                     <p>
                       {formatUnits(token.list_price, 18)}{" "}
-                      <span className="text-muted-foreground">ETH</span>
+                      <span className="text-muted-foreground">LORDS</span>
                     </p>
                   </div>
                 ) : (
@@ -131,10 +137,10 @@ export default function PortfolioItemsDataListView({
               <TableCell>
                 {token.best_offer ? (
                   <div className="flex items-center">
-                    <EthereumLogo2 className="size-4" />
+                    <LordsLogo className="size-4" />
                     <p>
                       {formatUnits(token.best_offer, 18)}{" "}
-                      <span className="text-muted-foreground">ETH</span>
+                      <span className="text-muted-foreground">LORDS</span>
                     </p>
                   </div>
                 ) : (
@@ -144,7 +150,7 @@ export default function PortfolioItemsDataListView({
               <TableCell>
                 {token.floor ? (
                   <div className="flex items-center">
-                    <EthereumLogo2 className="size-4" />
+                    <LordsLogo className="size-4" />
                     <p>
                       {formatUnits(token.floor, 18)}{" "}
                       <span className="text-muted-foreground">ETH</span>
