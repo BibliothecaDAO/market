@@ -15,6 +15,7 @@ import {
 import { Separator } from "@ark-market/ui/separator";
 
 import { useConnectWalletStore } from "~/app/stores/connect-wallet";
+import Image from "next/image";
 
 const walletIdToName = new Map([
   ["argentX", "Argent X"],
@@ -22,6 +23,13 @@ const walletIdToName = new Map([
   ["argentWebWallet", "Email"],
   ["argentMobile", "Argent mobile"],
 ]);
+
+const backgroundImageStyle = {
+  backgroundImage: `url(/pink_crown.gif)`,
+  backgroundPosition: "top",
+  backgroundRepeat: "repeat-y",
+  backgroundOpacity: 0.1,
+};
 
 export default function ConnectWalletDialog() {
   const { isOpen, setIsOpen } = useConnectWalletStore();
@@ -61,7 +69,15 @@ export default function ConnectWalletDialog() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="my-auto sm:max-w-[26.25rem]">
         <DialogHeader>
-          <div className="mx-auto mb-3 mt-3 size-20 rounded-full bg-secondary" />
+          <div style={backgroundImageStyle} className="mx-auto mb-3 mt-3 size-20 rounded-full bg-secondary">
+            <Image
+              alt="profile image"
+              width={16}
+              height={16}
+              src="/pink_crown.gif"
+              className="size-20 rounded-full"
+            />
+          </div>
           <DialogTitle className="mx-auto text-xl font-semibold">
             Connect to Realms.World Market
           </DialogTitle>
