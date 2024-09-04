@@ -62,27 +62,26 @@ export default function CollectionItemsDataGridView({
   viewType,
   isOwner,
 }: CollectionItemsDataGridViewProps) {
+  const filteredWalletTokens = walletTokens.filter((token, idx) => {
+    const collection = CollectionDescription[token.collection_address];
+    return collection !== undefined
+  });
   return (
     <VirtuosoGrid
       // initialItemCount same as totalCount but needed for SSR
-      initialItemCount={walletTokens.length}
-      totalCount={walletTokens.length}
+      initialItemCount={filteredWalletTokens.length}
+      totalCount={filteredWalletTokens.length}
       useWindowScroll
       components={{
         List:
           viewType === "large-grid" ? LargeGridContainer : SmallGridContainer,
       }}
       itemContent={(index) => {
-        const token = walletTokens[index];
-        console.log(token);
+        const token = filteredWalletTokens[index];
         if (token === undefined) {
           return null;
         }
 
-        const collection = CollectionDescription[token.collection_address];
-        if (!collection) {
-          return null;
-        }
         const canListItem = isOwner && !token.list_price;
 
         return (
