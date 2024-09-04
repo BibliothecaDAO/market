@@ -50,9 +50,6 @@ export default function TokenStats({
     address: data?.owner ?? tokenMarketData.owner,
   });
 
-  const gridItemClass = "w-full sm:w-1/2 lg:w-1/4 p-2 flex items-center";
-  const innerContentClass = "flex flex-col h-full justify-between space-y-1";
-
   return (
     <div
       className={cn(
@@ -102,41 +99,33 @@ export default function TokenStats({
         </div>
       </div>
 
-      <Separator orientation="vertical" className="hidden h-14 lg:block" />
-
-      <div className={gridItemClass}>
-        <div className={innerContentClass}>
-          <p className="text-sm font-medium text-muted-foreground">Top offer</p>
-          <div className="font-numbers flex items-center gap-1 text-lg">
-            <Ethereum className="size-5 flex-shrink-0" />
-            <div className="min-w-0 flex-1 truncate">
-              {formatEther(BigInt(data?.top_offer.amount ?? 0))} ETH
-            </div>
+      <div className="flex flex-col justify-between p-2 lg:border-l lg:px-4">
+        <p className="text-sm font-medium text-muted-foreground">Top offer</p>
+        <div className="font-numbers flex items-center gap-1 text-lg">
+          <Ethereum className="size-5 flex-shrink-0" />
+          <div className="min-w-0 flex-1 truncate">
+            {formatEther(BigInt(data?.top_offer.amount ?? 0))} ETH
           </div>
         </div>
       </div>
 
-      <Separator orientation="vertical" className="hidden h-14 lg:block" />
-
-      <div className={gridItemClass}>
-        <div className={innerContentClass}>
-          <p className="text-sm font-medium text-muted-foreground">Owner</p>
-          <div className="font-numbers flex items-center gap-2 text-lg">
-            <ProfilePicture
-              address={data?.owner ?? tokenMarketData.owner}
-              className="size-6 flex-shrink-0 rounded-full"
-            />
-            <div className="min-w-0 flex-1">
-              <Link href={`/wallet/${data?.owner}`} className="block">
-                <p className="truncate font-medium">
-                  {starkProfile?.name ??
-                    ownerOrShortAddress({
-                      ownerAddress: data?.owner ?? tokenMarketData.owner,
-                      address,
-                    })}
-                </p>
-              </Link>
-            </div>
+      <div className="flex flex-col justify-between p-2 lg:border-l lg:pl-4">
+        <p className="text-sm font-medium text-muted-foreground">Owner</p>
+        <div className="font-numbers flex items-center gap-2 text-lg">
+          <ProfilePicture
+            address={data?.owner ?? tokenMarketData.owner}
+            className="size-6 flex-shrink-0 rounded-full"
+          />
+          <div className="min-w-0 flex-1">
+            <Link href={`/wallet/${data?.owner}`} className="block">
+              <p className="truncate font-medium">
+                {starkProfile?.name ??
+                  ownerOrShortAddress({
+                    ownerAddress: data?.owner ?? tokenMarketData.owner,
+                    address,
+                  })}
+              </p>
+            </Link>
           </div>
         </div>
       </div>
