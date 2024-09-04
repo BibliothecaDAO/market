@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import type { PropsWithChildren } from "react";
 import { mainnet } from "@starknet-react/chains";
 import {
+  nethermindProvider,
   argent,
   braavos,
   nethermindProvider,
