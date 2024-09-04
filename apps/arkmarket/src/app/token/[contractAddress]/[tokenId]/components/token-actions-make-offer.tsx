@@ -138,7 +138,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
 
     const processedValues = {
       brokerId: env.NEXT_PUBLIC_BROKER_ID,
-      currencyAddress: env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
+      currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
       tokenAddress: token.collection_address,
       tokenId: BigInt(token.token_id),
       startAmount: parseEther(values.startAmount),

@@ -127,7 +127,7 @@ export default function TokenActionsMakeBid({
 
     const processedValues = {
       brokerId: env.NEXT_PUBLIC_BROKER_ID,
-      currencyAddress: config.starknetCurrencyContract,
+      currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
       tokenAddress: token.collection_address,
       tokenId: BigInt(token.token_id),
       startAmount: parseEther(values.startAmount),
