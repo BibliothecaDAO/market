@@ -40,6 +40,7 @@ export default function TokenActions({
 
   const isOwner = areAddressesEqual(address, data?.owner);
 
+
   if (!data || (!data.has_offer && !data.is_listed)) {
     return <TokenActionsEmpty token={token} isOwner={isOwner} />;
   }

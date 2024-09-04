@@ -23,8 +23,7 @@ const AcceptOffer: React.FC<AcceptOfferProps> = ({
 }) => {
   const { account } = useAccount();
   const { fulfillOffer, status } = useFulfillOffer();
-  const { fulfill: fulfillAuction, status: statusAuction } =
-    useFulfillAuction();
+  const { fulfill: fulfillAuction, status: statusAuction } = useFulfillAuction();
 
   const handleClick = async () => {
     if (tokenMarketData.is_listed && tokenMarketData.listing.is_auction) {
@@ -36,6 +35,7 @@ const AcceptOffer: React.FC<AcceptOfferProps> = ({
         orderHash: tokenMarketData.listing.order_hash,
         relatedOrderHash: offer.hash,
         startAmount: offer.price,
+        currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
       });
     } else {
       await fulfillOffer({
@@ -44,6 +44,7 @@ const AcceptOffer: React.FC<AcceptOfferProps> = ({
         tokenAddress: token.collection_address,
         tokenId: token.token_id,
         orderHash: offer.hash,
+        currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
       });
     }
   };

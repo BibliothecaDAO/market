@@ -44,11 +44,19 @@ import ToastRejectedTransactionContent from "./toast-rejected-transaction-conten
 import TokenActionsTokenOverview from "./token-actions-token-overview";
 import LordsInput from "~/components/lords-input";
 import { useTokenBalance } from "~/hooks/useTokenBalance";
+import Image from "next/image";
 
 interface TokenActionsMakeOfferProps {
   token: Token;
   small?: boolean;
 }
+
+const backgroundImageStyle = {
+  backgroundImage: `url(/pink_crown.gif)`,
+  backgroundPosition: "top",
+  backgroundRepeat: "repeat-y",
+  backgroundOpacity: 0.1,
+};
 
 function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -182,7 +190,15 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
       >
         <DialogHeader className="items-center"></DialogHeader>
         <div className="flex flex-col gap-6">
-          <div className="mx-auto size-20 rounded-full bg-secondary" />
+          <div style={backgroundImageStyle} className="mx-auto mb-3 mt-3 size-20 rounded-full bg-secondary">
+            <Image
+              alt="profile image"
+              width={16}
+              height={16}
+              src="/pink_crown.gif"
+              className="size-20 rounded-full"
+            />
+          </div>
           <div className="text-center text-xl font-semibold">Make an offer</div>
           <TokenActionsTokenOverview token={token} amount={startAmount} small />
           <Form {...form}>
