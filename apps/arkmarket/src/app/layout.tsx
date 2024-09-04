@@ -23,24 +23,67 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 export const revalidate = 0;
 
+const title = "Home to the Adventurers";
+const description =
+  "Created for Adventurers by Bibliotheca DAO - your window into the onchain world of Realms and the Lootverse.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     env.VERCEL_ENV === "production"
       ? "https://market.realms.world"
       : "http://localhost:3000",
   ),
-  title: "Realms World Market",
-  description: "FOCGing trade center",
-  openGraph: {
-    title: "Realms.World Market",
-    description: "Simple monorepo with starknet marketplace",
-    url: "https://market.realms.world",
-    siteName: "Realms.World Market",
+  title: {
+    template: "%s | Realms.World",
+    default: "Realms.World | Home to the Adventurers",
+  },
+  description: description,
+  icons: {
+    icon: "/rw-logo.svg",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@RealmsWorld",
-    creator: "@RealmsWorld",
+    title: "Realms.World | " + title,
+    description: description,
+    siteId: "1467726470533754880",
+    creator: "@bibliothecadao",
+    creatorId: "1467726470533754880",
+    images: ["https://market.realms.world/backgrounds/banner.png"],
+  },
+  openGraph: {
+    title: "Realms.World |" + title,
+    description: description,
+    url: "https://market.realms.world",
+    siteName: "Realms World",
+    images: [
+      {
+        url: "https://market.realms.world/backgrounds/banner.png",
+        width: 800,
+        height: 600,
+        alt: "Realms Autonomous World",
+      },
+      {
+        url: "https://market.realms.world/backgrounds/banner.png",
+        width: 1800,
+        height: 1600,
+        alt: "Realms Autonomous World",
+      },
+    ],
+    locale: "en-US",
+    type: "website",
+  },
+  robots: {
+    index: false,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
