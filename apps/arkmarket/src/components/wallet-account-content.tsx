@@ -15,6 +15,7 @@ import CopyButton from "./copy-button";
 import ExternalLink from "./external-link";
 import ProfilePicture from "./profile-picture";
 import { env } from "~/env";
+import { useTokenBalance } from "~/hooks/useTokenBalance";
 
 const itemCommonClassName = cn(
   "flex items-center gap-2 rounded-xs px-1.5 py-2 transition-colors hover:bg-card",
@@ -32,13 +33,13 @@ export default function WalletAccountContent({
   const { disconnect } = useDisconnect();
   const { data: starkProfile } = useStarkProfile({ address });
   const { convertInUsd } = usePrices();
-  const { data: ethBalance } = useBalance({ token: ETH });
-  const { data: strkBalance } = useBalance({ token: STRK });
-  const { data: lordsBalance } = useBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
+  const { data: ethBalance } = useTokenBalance({ token: ETH });
+  const { data: strkBalance } = useTokenBalance({ token: STRK });
+  const { data: lordsBalance } = useTokenBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
 
   const ethBalanceInUsd = convertInUsd({ amount: ethBalance.value });
-  const strkBalanceInUsd = convertInUsd({ amount: strkBalance.value });
-  const lordsBalanceInUsd = convertInUsd({ amount: lordsBalance.value });
+  const strkBalanceInUsd = convertInUsd({ token: "starknet", amount: strkBalance.value });
+  const lordsBalanceInUsd = convertInUsd({ token: "lords", amount: lordsBalance.value });
   const isWebWallet = connector?.id === "argentWebWallet";
   const shortenedAddress = shortAddress(address ?? "0x");
   const nameOrShortAddress = starkProfile?.name ?? shortenedAddress;

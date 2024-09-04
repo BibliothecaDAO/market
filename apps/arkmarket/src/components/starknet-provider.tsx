@@ -4,7 +4,7 @@ import type { Connector } from "@starknet-react/core";
 import type { PropsWithChildren } from "react";
 import { mainnet } from "@starknet-react/chains";
 import {
-  alchemyProvider,
+  nethermindProvider,
   argent,
   braavos,
   StarknetConfig,
@@ -17,8 +17,8 @@ import { WebWalletConnector } from "starknetkit/webwallet";
 import { env } from "~/env";
 
 export function StarknetProvider({ children }: PropsWithChildren) {
-  const provider = alchemyProvider({
-    apiKey: "ssydbI7745ocbNd_c-xULVsq9xXF947b",
+  const provider = nethermindProvider({
+    apiKey: env.NEXT_PUBLIC_RPC_API_KEY,
   });
   const { connectors: injectedConnectors } = useInjectedConnectors({
     recommended: [argent(), braavos()],

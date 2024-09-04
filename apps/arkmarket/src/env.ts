@@ -29,6 +29,8 @@ export const env = createEnv({
     NEXT_PUBLIC_THEME: z.enum(["unframed", "realms", "default"]).default("default"),
     NEXT_PUBLIC_MOBULA_API_KEY: z.string(),
     NEXT_PUBLIC_LORDS_TOKEN_ADDRESS: z.string(),
+    NEXT_PUBLIC_RPC_API_KEY: z.string(),
+    NEXT_PUBLIC_RPC_URL: z.string(),
   },
   /**
    * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
@@ -47,6 +49,8 @@ export const env = createEnv({
     NEXT_PUBLIC_THEME: process.env.NEXT_PUBLIC_THEME,
     NEXT_PUBLIC_MOBULA_API_KEY: process.env.NEXT_PUBLIC_MOBULA_API_KEY,
     NEXT_PUBLIC_LORDS_TOKEN_ADDRESS: process.env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
+    NEXT_PUBLIC_RPC_API_KEY: process.env.NEXT_PUBLIC_RPC_API_KEY,
+    NEXT_PUBLIC_RPC_URL: process.env.NEXT_PUBLIC_RPC_URL,
   },
   skipValidation:
     !!process.env.CI || process.env.npm_lifecycle_event === "lint",

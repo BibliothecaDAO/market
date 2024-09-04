@@ -4,18 +4,21 @@ import { useAccount, useNetwork, useStarkProfile } from "@starknet-react/core";
 
 import { cn, ellipsableStyles, shortAddress } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import { Ethereum, Wallet } from "@ark-market/ui/icons";
+import LordsLogo from "~/icons/lords.svg";
+import WalletIcon from "@ark-market/ui/icons/wallet-icon";
 import { Separator } from "@ark-market/ui/separator";
 
-import { ETH } from "~/constants/tokens";
-import useBalance from "~/hooks/useBalance";
 import ConnectWalletModal from "./connect-wallet-modal";
 import ProfilePicture from "./profile-picture";
 import WalletAccountModal from "./wallet-account-modal";
 import WalletAccountPopover from "./wallet-account-popover";
 import WrongNetworkModal from "./wrong-network-modal";
+import { useTokenBalance } from "~/hooks/useTokenBalance";
+import { env } from "~/env";
 
 export function UserNav() {
+  const { address, chainId } = useAccount();
+  const { data: lordsBalance } = useTokenBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
   const { chain } = useNetwork();
   const { address, chainId } = useAccount();
   const { data: ethBalance } = useBalance({ address, token: ETH });
@@ -23,6 +26,7 @@ export function UserNav() {
   const isWrongNetwork = chainId && chainId !== chain.id;
   const nameOrShortAddress =
     starkProfile?.name ?? shortAddress(address ?? "0x");
+  const roundedEthBalance = parseFloat(lordsBalance.formatted ?? "0").toFixed(4);
 
   if (!address) {
     return (
@@ -60,10 +64,10 @@ export function UserNav() {
           variant="secondary"
           size="md"
         >
-          <Ethereum className="size-6 flex-shrink-0 md:size-8" />
+          <LordsLogo className="size-4 flex-shrink-0 md:size-6" />
           <p>
-            {ethBalance?.rounded}
-            <span className="text-muted-foreground"> ETH</span>
+            {roundedEthBalance}
+            <span className="text-muted-foreground"> LORDS</span>
           </p>
           <Separator orientation="vertical" className="bg-background" />
           <ProfilePicture address={address} />
