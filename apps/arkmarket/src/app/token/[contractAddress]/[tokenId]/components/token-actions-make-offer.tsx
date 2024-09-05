@@ -62,6 +62,7 @@ const backgroundImageStyle = {
 function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
   const { account, address } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
+  const [modalEnabled, setModalEnabled] = useState(true);
   const { account } = useAccount();
   const { createOffer, status } = useCreateOffer();
   const { toast } = useToast();
@@ -146,6 +147,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
     if (!account) {
       return;
     }
+    setModalEnabled(false)
 
     const processedValues = {
       brokerId: env.NEXT_PUBLIC_BROKER_ID,
@@ -160,6 +162,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
       starknetAccount: account,
       ...processedValues,
     });
+    setModalEnabled(true)
   }
 
   const isLoading = status === "loading";
@@ -169,7 +172,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
   const formattedStartAmount = formatAmount(startAmount);
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} modal={modalEnabled} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           className={cn(small ?? "relative w-full lg:max-w-[50%]")}

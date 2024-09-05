@@ -29,13 +29,14 @@ export function useTokenBalance({ token: currency_address, radix = 16 }: { token
   useEffect(() => {
     setIsLoading(true);
     async function fetchPrice() {
+      if (!address) return null;
       const rpcProvider = getL2Rpc();
 
       const res = await rpcProvider.callContract({
         contractAddress: currency_address,
         entrypoint: "balance_of",
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        calldata: [address!],
+
+        calldata: [address],
       }, BlockTag.LATEST)
       // if there's an error we use de default decimals of 18 : 0x12 in hex
       const balance = res[0] ?? "0x0";

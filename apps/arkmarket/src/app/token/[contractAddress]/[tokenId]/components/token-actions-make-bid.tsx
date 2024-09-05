@@ -58,6 +58,7 @@ export default function TokenActionsMakeBid({
 }: TokenActionsMakeBidProps) {
   const { account, address } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
+  const [modalEnabled, setModalEnabled] = useState(true);
   const config = useConfig();
   const { createOffer, status } = useCreateOffer();
   const { toast } = useToast();
@@ -141,7 +142,15 @@ export default function TokenActionsMakeBid({
   }, [status]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (!account) {
+    if (!account || !config) {
+      return;
+    }
+    setModalEnabled(false)
+
+    const tokenIdNumber = parseInt(token.token_id, 10);
+
+    if (isNaN(tokenIdNumber)) {
+      console.error("Invalid token ID");
       return;
     }
 
@@ -157,6 +166,7 @@ export default function TokenActionsMakeBid({
       starknetAccount: account,
       ...processedValues,
     });
+    setModalEnabled(true)
   }
 
   const isLoading = status === "loading";
@@ -170,7 +180,7 @@ export default function TokenActionsMakeBid({
   );
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} modal={modalEnabled} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           className={cn(small ?? "relative w-full lg:max-w-[50%]")}

@@ -32,6 +32,7 @@ export default function TokenActionsBuyNow({
   small,
 }: TokenActionsBuyNowProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalEnabled, setModalEnabled] = useState(true);
   const { fulfillListing, status } = useFulfillListing();
   const { address, account } = useAccount();
   const isOwner = areAddressesEqual(tokenMarketData.owner, address);
@@ -46,6 +47,7 @@ export default function TokenActionsBuyNow({
       sonner.error("Insufficient balance");
       return;
     }
+    setModalEnabled(false);
 
     setIsOpen(true);
 
@@ -58,6 +60,7 @@ export default function TokenActionsBuyNow({
       startAmount: tokenMarketData.listing.start_amount,
       currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
     });
+    setModalEnabled(true)
   };
 
   const { ensureConnect } = useConnectWallet({
@@ -109,7 +112,7 @@ export default function TokenActionsBuyNow({
 
   return (
     <>
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog open={isOpen} modal={modalEnabled} onOpenChange={setIsOpen}>
         <DialogContent
           className="justify-normal lg:justify-center"
           onInteractOutside={(e) => {

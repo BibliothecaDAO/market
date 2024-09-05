@@ -32,6 +32,7 @@ const backgroundImageStyle = {
 
 export default function ConnectWalletModal({ children }: PropsWithChildren) {
   const { connectors, connectAsync } = useConnect();
+  const [modalEnabled, setModalEnabled] = useState(false);
   const regularConnectors = useMemo(
     () => connectors.filter((connector) => connector.id !== "argentWebWallet"),
     [connectors],
@@ -47,11 +48,12 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
   >(undefined);
 
   const connect = useCallback(async (connector: Connector) => {
-    setOpen(false)
+    setModalEnabled(false)
     setPendingConnectorId(connector.id);
     try {
       await connectAsync({ connector });
     } catch (error) {
+      setModalEnabled(true);
       console.error(error);
     }
     setPendingConnectorId(undefined);
@@ -60,11 +62,9 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
   function isWalletConnecting(connectorId: string) {
     return pendingConnectorId === connectorId;
   }
-  const [open, setOpen] = useState(false);
-  console.log(open)
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog modal={modalEnabled} onOpenChange={setModalEnabled}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="my-auto sm:max-w-[26.25rem]">
         <DialogHeader>
@@ -147,7 +147,7 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
           )}
 
           <p className="text-sm text-muted-foreground">
-            By using “marketplace_name”, you agree to our Terms of Service and
+            By using RealmsWorld marketplace, you agree to our Terms of Service and
             our Privacy Policy.
           </p>
         </div>
