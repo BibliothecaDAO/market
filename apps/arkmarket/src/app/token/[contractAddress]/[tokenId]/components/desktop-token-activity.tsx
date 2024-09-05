@@ -1,21 +1,8 @@
 import Link from "next/link";
 import { useAccount } from "@starknet-react/core";
 
-import type { PropsWithClassName } from "@ark-market/ui";
 import { timeSince } from "@ark-market/ui";
-import {
-  ActivityCancelOffer,
-  ActivityDelist,
-  ActivityList,
-  ActivityOffer,
-  ArrowLeftRight,
-  CircleDot,
-  Flame,
-  Gavel,
-  NoActivity,
-  ShoppingCart,
-  TimerReset
-} from "@ark-market/ui/icons";
+import { NoActivity } from "@ark-market/ui/icons";
 import { PriceTag } from "@ark-market/ui/price-tag";
 import {
   Table,
@@ -27,46 +14,21 @@ import {
 } from "@ark-market/ui/table";
 
 import type { TokenActivity } from "~/types";
+import activityTypeMetadata from "~/constants/activity-type-metadata";
 import ownerOrShortAddress from "~/lib/ownerOrShortAddress";
-
-export const activityTypeToItem = new Map([
-  ["FULFILL", { icon: <ShoppingCart size={16} />, title: "Sale in progress" }],
-  ["EXECUTED", { icon: <ShoppingCart size={16} />, title: "Sale" }],
-  ["SALE", { icon: <ShoppingCart size={16} />, title: "Sale" }],
-  ["TRANSFER", { icon: <ArrowLeftRight size={16} />, title: "Transfer" }],
-  ["LISTING", { icon: <ActivityList size={16} />, title: "List" }],
-  ["OFFER", { icon: <ActivityOffer size={16} />, title: "Offer" }],
-  [
-    "CANCELLED",
-    { icon: <ActivityCancelOffer size={16} />, title: "Cancel Offer" },
-  ],
-  ["MINT", { icon: <CircleDot size={16} />, title: "Mint" }],
-  ["AUCTION", { icon: <Gavel size={16} />, title: "Put in auction" }],
-  ["DELISTING", { icon: <ActivityDelist size={16} />, title: "Delist" }],
-  ["BURN", { icon: <Flame size={16} />, title: "Burn" }],
-  ["BURN", { icon: <Flame size={16} />, title: "Burn" }],
-  ["CANCEL_AUCTION", { icon: <Gavel size={16} />, title: "Put in auction" }],
-  ["CANCELLED", { icon: <ActivityDelist size={16} />, title: "Delist" }],
-  [
-    "CANCEL_OFFER",
-    { icon: <ActivityCancelOffer size={16} />, title: "Cancel Offer" },
-  ],
-  ["EXPIRED_OFFER", { icon: <TimerReset size={16} />, title: "Expired Offer" }],
-]);
 
 interface DesktopTokenActivityProps {
   tokenActivity: TokenActivity[];
 }
 
 export default function DesktopTokenActivity({
-  className,
   tokenActivity,
-}: PropsWithClassName<DesktopTokenActivityProps>) {
+}: DesktopTokenActivityProps) {
   const { address } = useAccount();
 
   return (
     <>
-      <Table className={className}>
+      <Table>
         <TableHeader>
           <TableRow className="hover:bg-background">
             <TableHead className="pl-5">Event</TableHead>
