@@ -49,6 +49,7 @@ export default function TokenActionsMakeBid({
   small,
 }: TokenActionsMakeBidProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalEnabled, setModalEnabled] = useState(true);
   const config = useConfig();
   const { account } = useAccount();
   const { response, createOffer, status } = useCreateOffer();
@@ -117,6 +118,7 @@ export default function TokenActionsMakeBid({
     if (!account || !config) {
       return;
     }
+    setModalEnabled(false)
 
     const tokenIdNumber = parseInt(token.token_id, 10);
 
@@ -137,6 +139,7 @@ export default function TokenActionsMakeBid({
       starknetAccount: account,
       ...processedValues,
     });
+    setModalEnabled(true)
   }
 
   const isDisabled = form.formState.isSubmitting || status === "loading";
@@ -146,7 +149,7 @@ export default function TokenActionsMakeBid({
   );
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} modal={modalEnabled} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           className={cn(small ?? "relative w-full lg:max-w-[50%]")}

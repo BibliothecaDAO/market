@@ -1,6 +1,7 @@
 "use client";
 
 import type { Connector } from "@starknet-react/core";
+import { useMemo } from "react";
 import type { PropsWithChildren } from "react";
 import { mainnet } from "@starknet-react/chains";
 import {
@@ -13,11 +14,10 @@ import {
 } from "@starknet-react/core";
 import { ArgentMobileConnector } from "starknetkit/argentMobile";
 import { WebWalletConnector } from "starknetkit/webwallet";
+import CartridgeConnector from "@cartridge/connector";
 
 import { env } from "~/env";
-import { getConnectors } from "./connectors";
 
-const { connectors: cartridgeConnectors } = getConnectors();
 
 export function StarknetProvider({ children }: PropsWithChildren) {
   const provider = nethermindProvider({
@@ -29,8 +29,10 @@ export function StarknetProvider({ children }: PropsWithChildren) {
     order: "alphabetical",
   });
 
-  const connectors = [
-    ...cartridgeConnectors,
+  const connectors = useMemo(() => [
+    new CartridgeConnector({
+      rpc: env.NEXT_PUBLIC_RPC_URL + "?apikey=" + env.NEXT_PUBLIC_RPC_API_KEY,
+    }),
     ...injectedConnectors,
     new WebWalletConnector({ url: "https://web.argent.xyz" }),
     new ArgentMobileConnector({
@@ -39,7 +41,7 @@ export function StarknetProvider({ children }: PropsWithChildren) {
       icons: [],
       description: "Realms.World",
     }),
-  ] as Connector[];
+  ] as Connector[], []);
 
   return (
     <StarknetConfig

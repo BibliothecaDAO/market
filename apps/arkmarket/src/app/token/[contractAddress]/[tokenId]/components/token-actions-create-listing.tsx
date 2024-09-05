@@ -57,6 +57,7 @@ export function TokenActionsCreateListing({
 }: TokenActionsCreateListingProps) {
   const { account } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
+  const [modalEnabled, setModalEnabled] = useState(true);
   const [isAuction, setIsAuction] = useState(false);
   const { data: collection } = useQuery(
     ["collection", token.collection_address],
@@ -195,6 +196,7 @@ export function TokenActionsCreateListing({
       console.error("Account is missing");
       return;
     }
+    setModalEnabled(false);
 
     const processedValues = {
       brokerId: env.NEXT_PUBLIC_BROKER_ID,
@@ -231,6 +233,7 @@ export function TokenActionsCreateListing({
       }
     } catch (error) {
       console.error("error: create listing failed", error);
+      setModalEnabled(true);
     }
   }
 
@@ -250,7 +253,7 @@ export function TokenActionsCreateListing({
   const startAmountInUsd = convertInUsd({ token: "lords", amount: parseEther(startAmount) });
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} modal={modalEnabled} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {children ?? (
           <Button

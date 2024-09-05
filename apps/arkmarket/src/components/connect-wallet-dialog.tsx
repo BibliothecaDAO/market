@@ -148,7 +148,7 @@ export default function ConnectWalletDialog() {
           )}
 
           <p className="text-sm text-muted-foreground">
-            By using “marketplace_name”, you agree to our Terms of Service and
+            By using RealmsWorld marketplace, you agree to our Terms of Service and
             our Privacy Policy.
           </p>
         </div>
