@@ -17,9 +17,7 @@ import { WebWalletConnector } from "starknetkit/webwallet";
 import CartridgeConnector from "@cartridge/connector";
 
 import { env } from "~/env";
-import { getConnectors } from "./connectors";
 
-const { connectors: cartridgeConnectors } = getConnectors();
 
 
 export function StarknetProvider({ children }: PropsWithChildren) {
