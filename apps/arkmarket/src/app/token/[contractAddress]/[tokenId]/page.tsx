@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import type { Token, TokenMarketData } from "~/types";
 import getToken from "~/lib/getToken";
 import getTokenMarketData from "~/lib/getTokenMarketData";
 import TokenAbout from "./components/token-about";
