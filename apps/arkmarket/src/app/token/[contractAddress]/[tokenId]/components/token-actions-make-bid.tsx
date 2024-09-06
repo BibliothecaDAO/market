@@ -4,17 +4,15 @@ import { useEffect, useState } from "react";
 import { useConfig, useCreateOffer } from "@ark-project/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAccount } from "@starknet-react/core";
-import { LoaderCircle, Tag } from "@ark-market/ui/icons";
 import { useForm } from "react-hook-form";
 import { formatEther, parseEther } from "viem";
 import * as z from "zod";
 
-import { cn, ellipsableStyles } from "@ark-market/ui";
+import { cn } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@ark-market/ui/dialog";
@@ -25,17 +23,27 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@ark-market/ui/form";
-import { Ethereum } from "@ark-market/ui/icons";
-import { VerifiedIcon } from "@ark-market/ui/icons";
+import { ActivityOffer, LoaderCircle, NoOffer } from "@ark-market/ui/icons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@ark-market/ui/select";
 import { useToast } from "@ark-market/ui/use-toast";
 
 import type { Token, TokenMarketData } from "~/types";
-import Media from "~/components/media";
+import { ETH } from "~/constants/tokens";
 import { env } from "~/env";
+import useBalance from "~/hooks/useBalance";
 import useConnectWallet from "~/hooks/useConnectWallet";
+import formatAmount from "~/lib/formatAmount";
 import ToastExecutedTransactionContent from "./toast-executed-transaction-content";
 import ToastRejectedTransactionContent from "./toast-rejected-transaction-content";
+import TokenActionsTokenOverview from "./token-actions-token-overview";
 
 interface TokenActionsMakeBidProps {
   token: Token;
@@ -48,41 +56,59 @@ export default function TokenActionsMakeBid({
   tokenMarketData,
   small,
 }: TokenActionsMakeBidProps) {
+  const { account, address } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
   const [modalEnabled, setModalEnabled] = useState(true);
   const config = useConfig();
-  const { account } = useAccount();
-  const { response, createOffer, status } = useCreateOffer();
-  const formSchema = z.object({
-    startAmount: z.string(),
-  });
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      startAmount: formatEther(
-        BigInt(tokenMarketData.listing.start_amount ?? 0),
-      ),
-    },
-  });
+  const { createOffer, status } = useCreateOffer();
+  const { toast } = useToast();
+  const { data: ethBalance } = useBalance({ address, token: ETH });
   const { ensureConnect } = useConnectWallet({
     account,
     onConnect: () => {
       setIsOpen(true);
     },
   });
-  const { toast } = useToast();
+
+  const formSchema = z.object({
+    startAmount: z
+      .string()
+      .refine(
+        (val) => {
+          const num = parseFloat(val);
+          return !isNaN(num) && num > 0.00001;
+        },
+        {
+          message: "Must be a valid amount and greater than 0.00001",
+        },
+      )
+      .refine(
+        (val) => {
+          const num = parseEther(val);
+
+          return ethBalance && ethBalance.value >= num;
+        },
+        {
+          message: "You don't have enough funds in your wallet",
+        },
+      ),
+    duration: z.string(),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    mode: "all",
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      startAmount: formatEther(
+        BigInt(tokenMarketData.listing.start_amount ?? 0),
+      ),
+      duration: "719",
+    },
+  });
 
   useEffect(() => {
     form.reset();
   }, [form, isOpen]);
-
-  useEffect(() => {
-    if (response) {
-      setIsOpen(false);
-    }
-  }, [response]);
-
-  const startAmount = form.watch("startAmount");
 
   useEffect(() => {
     if (status === "error") {
@@ -99,9 +125,10 @@ export default function TokenActionsMakeBid({
         ),
       });
     } else if (status === "success") {
+      setIsOpen(false);
       toast({
         variant: "success",
-        title: "Your bid has been sucessfullly sent!",
+        title: "Your bid has been sucessfullly sent",
         additionalContent: (
           <ToastExecutedTransactionContent
             token={token}
@@ -142,7 +169,11 @@ export default function TokenActionsMakeBid({
     setModalEnabled(true)
   }
 
-  const isDisabled = form.formState.isSubmitting || status === "loading";
+  const isLoading = status === "loading";
+  const isDisabled =
+    !form.formState.isValid || form.formState.isSubmitting || isLoading;
+  const startAmount = form.watch("startAmount");
+  const formattedStartAmount = formatAmount(startAmount);
   const price = formatEther(BigInt(tokenMarketData.listing.start_amount ?? 0));
   const reservePrice = formatEther(
     BigInt(tokenMarketData.listing.end_amount ?? 0),
@@ -153,73 +184,34 @@ export default function TokenActionsMakeBid({
       <DialogTrigger asChild>
         <Button
           className={cn(small ?? "relative w-full lg:max-w-[50%]")}
-          variant="secondary"
           size={small ? "xl" : "xxl"}
+          variant="secondary"
           onClick={ensureConnect}
         >
-          <Tag
-            size={small ? 20 : 24}
-            className={cn("left-4", small ? "" : "absolute")}
-          />
-          Make a bid
+          <ActivityOffer />
+          Place a bid
         </Button>
       </DialogTrigger>
+      <DialogTitle className="hidden">Place a bid</DialogTitle>
       <DialogContent
         onInteractOutside={(e) => {
           e.preventDefault();
         }}
       >
-        <DialogHeader>
-          <DialogTitle className="sr-only">Place a bid</DialogTitle>
-        </DialogHeader>
         <div className="flex flex-col gap-6">
-          <div className="mx-auto size-20 rounded-full bg-secondary" />
-          <div className="text-center text-xl font-semibold">Place a bid</div>
-
-          <div className="flex justify-between">
-            <div className="flex items-center gap-4">
-              <Media
-                src={token.metadata?.image}
-                mediaKey={token.metadata?.image_key}
-                alt={token.metadata?.name ?? "Empty"}
-                className={cn(
-                  "aspect-square size-16 w-full flex-shrink-0 overflow-hidden rounded-xl object-contain transition-transform group-hover:scale-110",
-                )}
-                height={192}
-                width={192}
-              />
-
-              <div className="flex flex-col items-start justify-between overflow-hidden">
-                <div
-                  className={cn(
-                    "w-full text-xl font-semibold",
-                    ellipsableStyles,
-                  )}
-                >
-                  {token.metadata?.name ?? `#${token.token_id}`}
-                </div>
-                <div className="flex w-full items-center gap-1 sm:gap-2">
-                  <p
-                    className={cn(
-                      "text-sm font-semibold text-muted-foreground sm:text-lg",
-                      ellipsableStyles,
-                    )}
-                  >
-                    {token.collection_name || "Unknown"}
-                  </p>
-                  <VerifiedIcon className="size-4 flex-shrink-0 text-primary sm:size-6" />
-                </div>
-              </div>
+          <div className="mx-auto flex flex-col items-center justify-center rounded-full text-2xl">
+            <NoOffer />
+            <div className="text-center text-xl font-semibold">Place a bid</div>
+          </div>
+          <TokenActionsTokenOverview token={token} amount={startAmount} small />
+          <div className="">
+            <div className="flex justify-between">
+              <div className="text-sm text-gray-500">Starting price</div>
+              <div className="text-sm text-gray-500">{price} ETH</div>
             </div>
-
-            <div className="flex flex-col items-end gap-1">
-              <div className="flex items-center justify-center whitespace-nowrap text-lg font-semibold sm:text-xl">
-                <Ethereum className="size-6" />
-                {price} ETH
-              </div>
-              <div className="overflow-hidden text-clip text-right text-sm font-semibold text-muted-foreground">
-                Reserve {reservePrice} ETH
-              </div>
+            <div className="flex justify-between">
+              <div className="text-sm text-gray-500">Reserve price</div>
+              <div className="text-sm text-gray-500">{reservePrice} ETH</div>
             </div>
           </div>
           <Form {...form}>
@@ -230,30 +222,64 @@ export default function TokenActionsMakeBid({
               <FormField
                 control={form.control}
                 name="startAmount"
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <FormItem>
-                    <FormLabel>Price</FormLabel>
+                    <FormLabel>Set Price</FormLabel>
                     <FormControl>
                       <EthInput
-                        autoComplete="off"
-                        placeholder="Price"
-                        {...field}
+                        value={field.value}
+                        onChange={field.onChange}
+                        status={
+                          formattedStartAmount !== "-" &&
+                          fieldState.error?.message
+                            ? "error"
+                            : "default"
+                        }
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="duration"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex justify-between">
+                      <FormLabel>Offer expiration</FormLabel>
+                    </div>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value.toString()}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="Theme" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">1 hour</SelectItem>
+                        <SelectItem value="3">3 hours</SelectItem>
+                        <SelectItem value="6">6 hours</SelectItem>
+                        <SelectItem value="24">1 day</SelectItem>
+                        <SelectItem value="72">3 days</SelectItem>
+                        <SelectItem value="168">7 days</SelectItem>
+                        <SelectItem value="719">1 month</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
               <Button
                 type="submit"
                 disabled={isDisabled}
-                size="xl"
                 className="mx-auto w-full px-10 lg:w-auto"
+                size="xl"
               >
-                {status === "loading" ? (
-                  <LoaderCircle className="animate-spin" />
-                ) : (
-                  "Place a bid"
-                )}
+                {isLoading && <LoaderCircle className="mr-2 animate-spin" />}
+                Place bid
               </Button>
             </form>
           </Form>
