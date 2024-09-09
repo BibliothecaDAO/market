@@ -1,8 +1,7 @@
 import { parseEther } from "viem";
 
 import { cn, ellipsableStyles } from "@ark-market/ui";
-import LordsLogo from "~/icons/lords.svg";
-import VerifiedIcon from "@ark-market/ui/icons/verified-icon";
+import { VerifiedIcon, Lords } from "@ark-market/ui/icons";
 
 import type { WalletToken } from "~/app/wallet/[walletAddress]/queries/getWalletData";
 import type { CollectionToken, Token } from "~/types";
@@ -72,7 +71,7 @@ export default function TokenActionsTokenOverview({
 
       <div className="flex flex-col items-end gap-1">
         <div className="flex whitespace-nowrap text-lg font-semibold sm:text-xl">
-          <LordsLogo className="size-6 mr-2" />
+          <Lords className="size-6 mr-2" />
           {formattedAmount || "---"} LORDS
         </div>
         <div className="overflow-hidden text-clip text-right text-sm font-semibold text-muted-foreground">

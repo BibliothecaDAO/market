@@ -5,9 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { cn, focusableStyles } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import DiscordIcon from "@ark-market/ui/icons/discord-icon";
-import GithubIcon from "@ark-market/ui/icons/github-icon";
-import XIcon from "@ark-market/ui/icons/x-icon";
+import { Discord as DiscordIcon, XIcon, Github as GithubIcon } from "@ark-market/ui/icons";
 
 import { siteConfig } from "~/config/site";
 import { Icons } from "./icons";

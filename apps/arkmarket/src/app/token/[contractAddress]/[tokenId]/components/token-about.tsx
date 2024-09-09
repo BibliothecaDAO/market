@@ -97,12 +97,12 @@ export default function TokenAbout({
           </Link>
           <Link href="https://discord.com/invite/realmsworld" className="flex items-center gap-2">
             <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
-              <DiscordIcon className="size-4" />
+              <Discord className="size-4" />
             </Button>
           </Link>
           <Link href="https://realms.world" className="flex items-center gap-2">
             <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
-              <WebsiteIcon className="size-4" />
+              <Globe className="size-4" />
             </Button>
           </Link>
         </div>

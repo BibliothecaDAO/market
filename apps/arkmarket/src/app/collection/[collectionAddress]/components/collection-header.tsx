@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 
 import { cn, focusableStyles } from "@ark-market/ui";
 import {
@@ -20,9 +19,10 @@ import {
 import type { Collection } from "~/types";
 import CopyButton from "~/components/copy-button";
 import ExternalLink from "~/components/external-link";
-import getCollection from "~/lib/getCollection";
 import CollectionHeaderStats from "./collection-header-stats";
 import { CollectionDescription } from "~/config/homepage";
+import { useQuery } from "@tanstack/react-query";
+import getCollection from "~/lib/getCollection";
 
 interface CollectionHeaderProps {
   collectionAddress: string;
@@ -37,6 +37,17 @@ export default function CollectionHeader({
 
   const description = CollectionDescription[collection.address];
   if (!description) {
+    return null;
+  }
+
+  const { data } = useQuery({
+    queryKey: ["collection", collectionAddress],
+    queryFn: () => getCollection({ collectionAddress }),
+    initialData: collection,
+    refetchInterval: 15_000,
+  });
+
+  if (!data) {
     return null;
   }
 
@@ -101,11 +112,11 @@ export default function CollectionHeader({
           <p className="flex items-center gap-2 pt-8">
             Created
 
-            { }
+            {}
             <span className="text-muted-foreground"> {description.created}</span>
           </p>
           <p className="max-w-lg pt-4 text-sm">
-            { }
+            {}
             {description.description}
           </p>
           <div className="block lg:hidden">

@@ -1,8 +1,7 @@
 import type { PropsWithClassName } from ".";
 import { cn, formatUnits } from ".";
-import EthereumLogo2 from "./icons/ethereum-logo-2";
+import { Ethereum, Lords } from "./icons";
 
-import LordsLogo from "./svg/lords.svg";
 interface PriceTagProps {
   price: number | bigint | string;
   token?: "ethereum" | "starknet" | "lords";
@@ -36,8 +35,8 @@ function CurrencySymbol({ token }: { token?: "ethereum" | "starknet" | "lords" }
 
 function CurrencyLogo({ token }: { token?: "ethereum" | "starknet" | "lords" }) {
   if (token === "lords") {
-    return <LordsLogo className="size-5" />;
+    return <Lords className="size-5" />;
   }
 
-  return <EthereumLogo2 className="size-5" />;
+  return <Ethereum className="size-5" />;
 }

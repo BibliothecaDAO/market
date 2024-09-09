@@ -60,7 +60,6 @@ const backgroundImageStyle = {
 };
 
 function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
-  const { account, address } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
   const [modalEnabled, setModalEnabled] = useState(true);
   const { account } = useAccount();
