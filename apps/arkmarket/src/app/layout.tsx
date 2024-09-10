@@ -131,20 +131,20 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={
+      className={cn(
+
         env.NEXT_PUBLIC_THEME === "unframed"
           ? "unframed"
-          : env.NEXT_PUBLIC_THEME
+          : env.NEXT_PUBLIC_THEME,
+        silkscreen.variable,
+        inconsolata.variable,
+        vt323.variable,
+      )
       }
     >
       <body
         style={backgroundImageStyle}
-        className={cn(
-          "min-h-screen overscroll-y-none bg-background text-foreground antialiased lg:pb-10",
-          silkscreen.variable,
-          inconsolata.variable,
-          vt323.variable,
-        )}
+        className="min-h-screen overscroll-y-none bg-background text-foreground antialiased lg:pb-10"
       >
         <CustomFonts />
         <Providers>

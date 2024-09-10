@@ -219,6 +219,7 @@
     --font-spacemono: var(--font-vt323);
     --font-baebasneue: var(--font-vt323);
     --font-silkscreen: var(--font-vt323);
+    --font-inconsolata: var(--font-vt323);
     --background: 0 0 8%;
     --foreground: 110 92% 56%;
     --card: var(--background);
