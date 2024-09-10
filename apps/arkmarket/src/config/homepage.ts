@@ -58,7 +58,7 @@ export const CollectionAddresses: {
   },
   [Collections.LOOTSURVIVOR]: {
     [ChainId.SN_MAIN]:
-      "0x01153499afc678b92c825c86219d742f86c9385465c64aeb41a950e2ee34b1fd",
+      "0x018108b32cea514a78ef1b0e4a0753e855cdf620bc0565202c02456f618c4dc4",
     [ChainId.SN_SEPOLIA]: "",
   },
 };
@@ -145,7 +145,6 @@ export const homepageConfig = {
       itemsCount: 3788,
       // floorPrice: 0.12,
     },
-
   ],
   exploreCategory: [
     { name: "Gaming", image: "/collection_categories/gaming.png" },
