@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, Space_Mono } from "next/font/google";
+import { Bebas_Neue, Space_Mono, VT323 } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { cn } from "@ark-market/ui";
@@ -113,6 +113,12 @@ const inconsolata = Space_Mono({
   weight: "400",
   display: "swap",
 });
+const vt323 = VT323({
+  subsets: ["latin"],
+  variable: "--font-vt323",
+  weight: "400",
+  display: "swap",
+})
 
 const backgroundImageStyle = {
   backgroundImage: `url(/backgrounds/map.svg)`,
@@ -137,6 +143,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           "min-h-screen overscroll-y-none bg-background text-foreground antialiased lg:pb-10",
           silkscreen.variable,
           inconsolata.variable,
+          vt323.variable,
         )}
       >
         <CustomFonts />
