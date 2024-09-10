@@ -1,0 +1,17 @@
+<svg width="500" height="600" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+  <style>text{text-transform: uppercase;font-family: Courier, monospace;fill: #3DEC00;}g{fill: #3DEC00;}</style>
+  <rect width="100%" height="100%"/>
+  <text x="50%" y="90" text-anchor="middle" font-size="48" fill="#3F3">
+        THE SYNDICATE
+    </text>
+  <path id="icon1" d="M219.7 315.4V300h61.6v15.4h7.7v77h-23.1v30.8h-30.8v-30.8H212v-77zm7.7 30.8V377h15.4v15.4h15.4V377h15.4v-30.8h-15.4V377h-15.4v-30.8z" fill="#3F3"/>
+  <path id="icon2" d="M123 217v6h3v6h18v-36h6v36h18v-6h3v-6h-6v6h-9v-30h6v-12h-6v6h-6v-6h-6v6h-6v-6h-6v12h6v30h-9v-6z" fill="purple"/>
+  <path id="icon3" fill-rule="evenodd" clip-rule="evenodd" d="M264 156.471v-3h-3v-3h-6v3h3v9h-3v6h-3v3h-3v3h-3v3h-3v3h-6v3h-9v-3h-3v6h3v3h3v3h12v-3h6v-3h3v-3h3v-3h3v-3h3v-3h3v-6h3v-12zm-30 18h3v-3h3v-3h3v-3h3v-3h3v-3h6v-6h-3v-3h-3v3h-6v3h-3v3h-3v3h-3v3h-3v3h-3v6h-3v3h3v3h6z" fill="yellow"/>
+  <path id="icon4" fill-rule="evenodd" clip-rule="evenodd" d="M367 202.471v3h-3v9h-12v-3h9v-27h-3v21h-3v-24h-3v24h-3v-21h-3v24h-3v-15h-3v30h3v6h15v-3h6v-3h3v-6h3v-15z" fill="gray"/>
+  <path id="icon5" fill-rule="evenodd" clip-rule="evenodd" d="M395 296.471h6v-3h-6zm9-9v-9h-3v3h-3v6h-3v3h12v-3zm6-12h-3v12h3zm18 0v12h3v-12zm12 12v-6h-3v-3h-3v9h-3v3h12v-3zm-3 9h6v-3h-6zm-15-3h-6v-3h-9v3h-3v12h12v-3h6v3h12v-12h-3v-3h-9zm3 18v3h3v6h3v-6h3v-6h-12v3zm-9-3h6v-3h-6zm0 3v-3h-12v6h3v6h3v-6h3v-3zm6 0h-6v3h-3v6h12v-6h-3z" fill="green"/>
+  <path id="icon6" fill-rule="evenodd" clip-rule="evenodd" d="M408.5 380.471v-3h-12v6h15v-3zm9-3h-6v3h6zm0 6h-6v3h6zm0 9v-3h-6v3zm0 6v-3h-6v3zm0 6v-3h-6v3zm15 0v-3h-6v3zm0-6v-3h-6v3zm0-6v-3h-6v3zm0-9h-6v3h6zm0-6h-6v3h6zm-9 3v-3h-3v6h6v-3zm0 21h3v-3h-3v-3h3v-3h-3v-3h3v-3h-6v18h3zm-6 9v-3h-6v-3h-3v-3h3v-3h-3v-3h3v-3h-3v-3h3v-3h-15v30h18v-6zm15 0h-3v-3h-9v3h-3v6h-3v3h21v-6h-3zm-36 15h15v-3h3v-3h-18zm39 0v-3h-21v3zm3 0h12v-3h-12zm9-12v-3h-3v-3h-6v3h-3v3h3v6h12v-6zm-12-6h-3v3h3zm-331.5-123h-3v-3h-6v-3H83v3h-6v3h-3v6h-3v30h3v3h3v3h6v-12h-3v-6h-3v-3h-3v-6h12v12h6v-12h12v6h-3v3h-3v6h-3v12h6v-3h3v-3h3v-30h-3zm-39 0v-3h-3v-3h-3v9h3v6h3v3h3v-6h3v-6zm51-6v3h-3v3h-6v6h3v6h3v-3h3v-6h3v-9z" fill="blue"/>
+  <path id="icon7" fill-rule="evenodd" clip-rule="evenodd" d="M270 526.471v-6h-3v-3h-3v-3h-3v-3h-3v-3h-6v-3h-18v3h-3v3h-3v24h3v3h3v3h12v-3h3v-3h-12v-3h-3v-18h3v-3h12v3h6v3h3v3h3v3h3v3h3v3h-6v3h3v3h6v-3h3v-6zm-18 9v3h3v-3zm3 0h6v-3h-6zm12 9v-6h-3v6zm-18-6v6h3v-6zm6 12h6v-3h-6zm-3-6v3h3v-3zm9 3h3v-3h-3zm0-9h3v-3h-3zm-6 6h6v-6h-6z" fill="purple"/>
+  <path id="icon8" fill-rule="evenodd" clip-rule="evenodd" d="M128 511.471h6v-3h-6zm0-6h9v-3h-9zm3-18h-3v12h9v-3h3v-12h-9zm0-6h9v-6h-9zm12 0h3v-3h3v3h3v-6h-9zm21-6h-9v6h9zm0 12v-3h-9v12h3v3h9v-12zm-6 18h9v-3h-9zm3 6h6v-3h-6zm-18-12h3v3h3v-3h3v-15h-9z" fill="yellow"/>
+  <path id="icon9" fill-rule="evenodd" clip-rule="evenodd" d="M89 386.471v-3h-6v-3h-3v-3h-6v6h-3v6h-3v3h6v-3h6v6h-3v6h-3v6h-3v6h-3v6h-3v6h6v-6h3v-6h3v-6h3v-6h3v-6h6v15h6v-6h3v-6h3v-6h3v-6z" fill="gray"/>
+  <path id="icon10" fill-rule="evenodd" clip-rule="evenodd" d="M373.5 481.471v-3h-3v-3h-9v3h-3v3h-3v3h-3v-3h-3v-3h-3v-3h-9v3h-3v3h-3v12h3v6h3v3h3v3h3v3h3v3h3v3h3v3h3v-3h3v-3h3v-3h3v-3h3v-3h3v-3h3v-6h3v-12z" fill="green"/>
+</svg>

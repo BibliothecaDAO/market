@@ -5,6 +5,8 @@ export enum Collections {
   BLOBERT = "blobert",
   BANNERS = "banners",
   LOOTSURVIVOR = "lootsurvivor",
+  SYNDICATE = "syndicate",
+  DUNGEON_DUCKS = "dungeonducks",
 }
 
 export enum ChainId {
@@ -61,6 +63,18 @@ export const CollectionAddresses: {
       "0x018108b32cea514a78ef1b0e4a0753e855cdf620bc0565202c02456f618c4dc4",
     [ChainId.SN_SEPOLIA]: "",
   },
+  [Collections.SYNDICATE]: {
+    [ChainId.SN_MAIN]:
+      "0x065a413ce0b5c169c583c7efad857913523485f1febcf5ef4f3909133f04904a",
+    [ChainId.SN_SEPOLIA]: "",
+
+  },
+  [Collections.DUNGEON_DUCKS]: {
+    [ChainId.SN_MAIN]:
+      "0x058949fa2955b10b3a82521934e8b0505dc0b7ba929c3049622ae91d2c52e194",
+    [ChainId.SN_SEPOLIA]: "",
+
+  },
 };
 
 export const CollectionNames = {
@@ -70,6 +84,8 @@ export const CollectionNames = {
   [Collections.BLOBERT]: "Blobert",
   [Collections.BANNERS]: "Banners",
   [Collections.LOOTSURVIVOR]: "Loot Survivor",
+  [Collections.SYNDICATE]: "Syndicate",
+  [Collections.DUNGEON_DUCKS]: "Dungeon Ducks",
 };
 
 interface CollectionDescription {
@@ -114,6 +130,18 @@ export const CollectionDescription: Record<string, CollectionDescription> = {
     description:
       "Loot Survivor. Each NFT represents a Survivor in the game, dead or alive. Trade them, collect them, and use them to play the game. Each Survivor has a unique set of attributes and characteristics that can be used to your advantage in the game.",
   },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.SYNDICATE][ChainId.SN_MAIN]]: {
+    created: "2024",
+    description:
+      "A Syndicate of Web3 communities, initially assembled for the purpose of winning the Loot Survivor launch tournament",
+  },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN]]: {
+    created: "2024",
+    description:
+      "A collection of feathered adventurers, initially created for the purpose of including the Ducks Everywhere community in the Loot Survivor launch tournament",
+  },
 };
 
 export const homepageConfig = {
@@ -145,6 +173,24 @@ export const homepageConfig = {
       itemsCount: 3788,
       // floorPrice: 0.12,
     },
+    {
+      bannerSrc: "/banners/syndicate-banner.png",
+      collectionSrc: "/collections/syndicate-collection.svg",
+      name: CollectionNames[Collections.SYNDICATE],
+      description: "Syndicate",
+      address: CollectionAddresses[Collections.SYNDICATE][ChainId.SN_MAIN],
+      itemsCount: 1600,
+      // floorPrice: 0.12,
+    },
+    // {
+    //   bannerSrc: "/banners/dungeon-ducks-banner.png",
+    //   collectionSrc: "/collections/dungeon-ducks-collection.png",
+    //   name: CollectionNames[Collections.DUNGEON_DUCKS],
+    //   description: "Dungeon Ducks",
+    //   address: CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN],
+    //   itemsCount: 300,
+    //   // floorPrice: 0.12,
+    // },
   ],
   exploreCategory: [
     { name: "Gaming", image: "/collection_categories/gaming.png" },
@@ -201,6 +247,18 @@ export const homepageConfig = {
       image: "/collections/pixel-banners.png",
       banner_image: "/banners/pixel-banners.png",
     },
+    {
+      name: CollectionNames[Collections.SYNDICATE],
+      address: CollectionAddresses[Collections.SYNDICATE][ChainId.SN_MAIN],
+      image: "/collections/syndicate-collection.svg",
+      banner_image: "/banners/syndicate-banner.png",
+    },
+    // {
+    //   name: CollectionNames[Collections.DUNGEON_DUCKS],
+    //   address: CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN],
+    //   image: "/collections/dungeon-ducks-collection.png",
+    //   banner_image: "/banners/dungeon-ducks-banner.png",
+    // },
   ],
   liveAuctions: [],
   latestSales: [

@@ -11,7 +11,7 @@ import { VerifiedIcon } from "@ark-market/ui/icons";
 import { homepageConfig } from "~/config/homepage";
 
 export default function ExploreCollection() {
-  const [exploreCollectionsToShow, setExploreCollectionsToShow] = useState(6);
+  const [exploreCollectionsToShow, setExploreCollectionsToShow] = useState(9);
   const canShowMoreExploreCollectionsItems =
     exploreCollectionsToShow < homepageConfig.exploreCollections.length;
 
@@ -22,7 +22,7 @@ export default function ExploreCollection() {
   }
 
   function showLessCollectionsToExplore() {
-    setExploreCollectionsToShow(6);
+    setExploreCollectionsToShow(9);
   }
 
   if (homepageConfig.exploreCollections.length === 0) {

@@ -195,7 +195,7 @@ export default function PortfolioActivityData({
                 </div>
               </TableCell>
               <TableCell>
-                {activity.price ? <PriceTag price={activity.price} /> : "_"}
+                {activity.price ? <PriceTag price={activity.price} token="lords" /> : "_"}
               </TableCell>
               <TableCell>
                 {activity.from ? (
