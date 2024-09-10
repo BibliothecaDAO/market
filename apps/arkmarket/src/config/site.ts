@@ -4,9 +4,10 @@ export const siteConfig = {
   ogImage: "",
   description: "NFTs for the Realms World",
   links: {
-    twitter: "https://twitter.com/RealmsWorld",
+    twitter: "https://x.com/LootRealms",
     github: "https://github.com/bibliothecaDAO",
     discord: "https://discord.com/invite/realmsworld",
+    realms: "https://realms.world",
   },
 };
 

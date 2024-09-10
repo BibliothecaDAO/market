@@ -19,7 +19,6 @@ import CartridgeConnector from "@cartridge/connector";
 import { env } from "~/env";
 
 
-
 export function StarknetProvider({ children }: PropsWithChildren) {
   const provider = nethermindProvider({
     apiKey: env.NEXT_PUBLIC_RPC_API_KEY,

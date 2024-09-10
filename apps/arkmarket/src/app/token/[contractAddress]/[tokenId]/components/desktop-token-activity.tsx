@@ -40,14 +40,13 @@ export default function DesktopTokenActivity({
         </TableHeader>
         <TableBody className="font-numbers text-sm font-medium">
           {tokenActivity.map((activity, index) => {
-            const activityItem = activityTypeToItem.get(activity.activity_type);
 
             return (
               <TableRow className="group h-[4.6875rem]" key={index}>
                 <TableCell className="pl-5 transition-colors group-hover:text-muted-foreground">
                   <div className="flex items-center gap-4 whitespace-nowrap">
-                    {activityItem?.icon}
-                    <p>{activityItem?.title}</p>
+                    {activityTypeMetadata[activity.activity_type].icon}
+                    <p>{activityTypeMetadata[activity.activity_type].title}</p>
                   </div>
                 </TableCell>
                 <TableCell>

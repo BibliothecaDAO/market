@@ -5,9 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { cn, focusableStyles } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import DiscordIcon from "@ark-market/ui/icons/discord-icon";
-import GithubIcon from "@ark-market/ui/icons/github-icon";
-import XIcon from "@ark-market/ui/icons/x-icon";
+import { Discord as DiscordIcon, XIcon, Github } from "@ark-market/ui/icons";
 
 import { siteConfig } from "~/config/site";
 import { Icons } from "./icons";
@@ -35,23 +33,23 @@ export default function Footer() {
           </Link>
           <p className="font-medium text-muted-foreground">Realms World</p>
           <div className="flex items-center gap-4">
-            <Link href="https://twitter.com/RealmsWorld" className="flex items-center gap-2">
+            <Link href={siteConfig.links.twitter} className="flex items-center gap-2">
               <Button variant="outline" className="w-full lg:w-auto" size="xl">
                 <p className="hidden lg:block">Follow us on </p>
                 <XIcon className="size-4" />
               </Button>
             </Link>
 
-            <Link href="https://discord.com/invite/realmsworld" className="flex items-center gap-2">
+            <Link href={siteConfig.links.discord} className="flex items-center gap-2">
               <Button variant="outline" className="w-full lg:w-auto" size="xl">
                 <p className="hidden lg:block">Join us on</p>
                 <DiscordIcon className="size-4" />
               </Button>
             </Link>
-            <Link href="https://github.com/bibliothecaDAO" className="flex items-center gap-2">
+            <Link href={siteConfig.links.github} className="flex items-center gap-2">
               <Button variant="outline" className="w-full lg:w-auto" size="xl">
                 <p className="hidden lg:block">Browse our code </p>
-                <GithubIcon className="size-4" />
+                <Github className="size-4" />
               </Button>
             </Link>
           </div>

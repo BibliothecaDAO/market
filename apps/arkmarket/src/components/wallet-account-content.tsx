@@ -6,9 +6,7 @@ import {
 } from "@starknet-react/core";
 
 import { cn, focusableStyles, shortAddress } from "@ark-market/ui";
-import EthereumLogo from "@ark-market/ui/icons/ethereum-logo";
-import StarknetLogo from "@ark-market/ui/icons/starknet-logo";
-import LordsLogo from "~/icons/lords.svg";
+import { Ethereum, Lords, Starknet, User, HelpCircle, Power } from "@ark-market/ui/icons"
 import { ThemeTabs } from "@ark-market/ui/theme";
 
 import { ETH, STRK } from "~/constants/tokens";
@@ -139,7 +137,7 @@ export default function WalletAccountContent({
         </div>
         <div className="mt-0.5 flex h-16 items-center justify-between rounded-b-lg bg-card p-4">
           <div className="flex items-center gap-2.5">
-            <LordsLogo />
+            <Lords />
             <span className="font-bold">LORDS</span>
           </div>
           <div className="flex flex-col items-end gap-1">

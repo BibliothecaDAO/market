@@ -5,7 +5,6 @@ import { useAccount, useNetwork, useStarkProfile } from "@starknet-react/core";
 import { cn, ellipsableStyles, shortAddress } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
 import LordsLogo from "~/icons/lords.svg";
-import WalletIcon from "@ark-market/ui/icons/wallet-icon";
 import { Separator } from "@ark-market/ui/separator";
 
 import ConnectWalletModal from "./connect-wallet-modal";
@@ -15,13 +14,12 @@ import WalletAccountPopover from "./wallet-account-popover";
 import WrongNetworkModal from "./wrong-network-modal";
 import { useTokenBalance } from "~/hooks/useTokenBalance";
 import { env } from "~/env";
+import { Wallet } from "@ark-market/ui/icons";
 
 export function UserNav() {
-  const { address, chainId } = useAccount();
   const { data: lordsBalance } = useTokenBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
   const { chain } = useNetwork();
   const { address, chainId } = useAccount();
-  const { data: ethBalance } = useBalance({ address, token: ETH });
   const { data: starkProfile } = useStarkProfile({ address });
   const isWrongNetwork = chainId && chainId !== chain.id;
   const nameOrShortAddress =

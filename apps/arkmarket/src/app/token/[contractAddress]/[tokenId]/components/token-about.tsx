@@ -24,6 +24,7 @@ import type { Token } from "~/types";
 import Media from "~/components/media";
 import ownerOrShortAddress from "~/lib/ownerOrShortAddress";
 import { CollectionDescription } from "~/config/homepage";
+import { siteConfig } from "~/config/site";
 
 interface TokenAboutProps {
   contractAddress: string;
@@ -90,19 +91,19 @@ export default function TokenAbout({
         </div>
 
         <div className="mt-5 flex items-center gap-4 text-muted-foreground lg:mt-10">
-          <Link href="https://twitter.com/RealmsWorld" className="flex items-center gap-2">
+          <Link href={siteConfig.links.twitter} className="flex items-center gap-2">
             <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
               <XIcon className="size-4" />
             </Button>
           </Link>
-          <Link href="https://discord.com/invite/realmsworld" className="flex items-center gap-2">
+          <Link href={siteConfig.links.discord} className="flex items-center gap-2">
             <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
-              <DiscordIcon className="size-4" />
+              <Discord className="size-4" />
             </Button>
           </Link>
-          <Link href="https://realms.world" className="flex items-center gap-2">
+          <Link href={siteConfig.links.realms} className="flex items-center gap-2">
             <Button variant="outline" size="icon-xl" className="w-full lg:w-12">
-              <WebsiteIcon className="size-4" />
+              <Globe className="size-4" />
             </Button>
           </Link>
         </div>
