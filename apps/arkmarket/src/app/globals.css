@@ -139,7 +139,6 @@
     --chart-5: 27 87% 67%;
   }
   .realms.dark {
-
     --background: 69 9% 15%;
     --foreground: 36 88.9% 85.9%;
     --card: 69 9% 15%;
@@ -214,6 +213,37 @@
     --lightness: 0.26;
     --limit: 320;
     --distance: 8;
+  }
+
+  .lootsurvivor.dark, .lootsurvivor.light {
+    --font-spacemono: var(--font-vt323);
+    --font-baebasneue: var(--font-vt323);
+    --font-silkscreen: var(--font-vt323);
+    --background: 0 0 8%;
+    --foreground: 110 92% 56%;
+    --card: var(--background);
+    --card-foreground: 36 5% 10%;
+    --popover: var(--background);
+    --popover-foreground: var(--primary);
+    --primary: 110 92% 56%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: var(--background);
+    --secondary-foreground: var(--primary);
+    --muted: var(--background);
+    --muted-foreground: var(--primary);
+    --accent: 110 92% 56%;
+    --accent-foreground: var(--background);
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 36 5% 90%;
+    --border: 110 92% 56%;
+    --input: 110 92% 56%;
+    --ring: 36 88.9% 85.9%;
+    --radius: 0.3rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
 }
 

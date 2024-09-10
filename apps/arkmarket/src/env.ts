@@ -26,7 +26,7 @@ export const env = createEnv({
     NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: z.string(),
     NEXT_PUBLIC_IMAGE_CDN_URL: z.string().url(),
     NEXT_PUBLIC_IMAGE_PROXY_URL: z.string().url(),
-    NEXT_PUBLIC_THEME: z.enum(["unframed", "realms", "default"]).default("default"),
+    NEXT_PUBLIC_THEME: z.enum(["unframed", "realms", "lootsurvivor", "default"]).default("default"),
     NEXT_PUBLIC_MOBULA_API_KEY: z.string(),
     NEXT_PUBLIC_LORDS_TOKEN_ADDRESS: z.string(),
     NEXT_PUBLIC_RPC_API_KEY: z.string(),

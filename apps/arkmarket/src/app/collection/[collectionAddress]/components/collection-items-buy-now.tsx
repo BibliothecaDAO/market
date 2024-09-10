@@ -74,7 +74,7 @@ export default function CollectionItemsBuyNow({
       tokenId: token.token_id,
       orderHash: tokenMarketData.listing.order_hash,
       startAmount: tokenMarketData.listing.start_amount,
-      currencyAddress: tokenMarketData.listing.currency_address,
+      currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
     });
   };
 

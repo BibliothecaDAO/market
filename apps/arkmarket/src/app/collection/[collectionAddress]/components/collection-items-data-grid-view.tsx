@@ -90,7 +90,7 @@ export default function CollectionItemsDataGridView({
                   />
                 </NftCardMedia>
                 <NftCardContent>
-                  <div className="flex w-full justify-between">
+                  <div className="flex w-full justify-between text-foreground">
                     <div className="w-full">
                       <p
                         className={cn(
