@@ -71,7 +71,7 @@ export const CollectionAddresses: {
   },
   [Collections.DUNGEON_DUCKS]: {
     [ChainId.SN_MAIN]:
-      "0x058949fa2955b10b3a82521934e8b0505dc0b7ba929c3049622ae91d2c52e194",
+      "0x04fa864a706e3403fd17ac8df307f22eafa21b778b73353abf69a622e47a2003",
     [ChainId.SN_SEPOLIA]: "",
 
   },
@@ -182,15 +182,15 @@ export const homepageConfig = {
       itemsCount: 1600,
       // floorPrice: 0.12,
     },
-    // {
-    //   bannerSrc: "/banners/dungeon-ducks-banner.png",
-    //   collectionSrc: "/collections/dungeon-ducks-collection.png",
-    //   name: CollectionNames[Collections.DUNGEON_DUCKS],
-    //   description: "Dungeon Ducks",
-    //   address: CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN],
-    //   itemsCount: 300,
-    //   // floorPrice: 0.12,
-    // },
+    {
+      bannerSrc: "/banners/dungeon-ducks-banner.png",
+      collectionSrc: "/collections/dungeon-ducks-collection.png",
+      name: CollectionNames[Collections.DUNGEON_DUCKS],
+      description: "Dungeon Ducks",
+      address: CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN],
+      itemsCount: 300,
+      // floorPrice: 0.12,
+    },
   ],
   exploreCategory: [
     { name: "Gaming", image: "/collection_categories/gaming.png" },
@@ -253,12 +253,12 @@ export const homepageConfig = {
       image: "/collections/syndicate-collection.svg",
       banner_image: "/banners/syndicate-banner.png",
     },
-    // {
-    //   name: CollectionNames[Collections.DUNGEON_DUCKS],
-    //   address: CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN],
-    //   image: "/collections/dungeon-ducks-collection.png",
-    //   banner_image: "/banners/dungeon-ducks-banner.png",
-    // },
+    {
+      name: CollectionNames[Collections.DUNGEON_DUCKS],
+      address: CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN],
+      image: "/collections/dungeon-ducks-collection.png",
+      banner_image: "/banners/dungeon-ducks-banner.png",
+    },
   ],
   liveAuctions: [],
   latestSales: [
