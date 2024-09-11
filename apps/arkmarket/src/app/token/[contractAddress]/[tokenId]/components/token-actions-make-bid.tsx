@@ -212,11 +212,11 @@ export default function TokenActionsMakeBid({
           <div className="">
             <div className="flex justify-between">
               <div className="text-sm text-gray-500">Starting price</div>
-              <div className="text-sm text-gray-500">{price} ETH</div>
+              <div className="text-sm text-gray-500">{price} LORDS</div>
             </div>
             <div className="flex justify-between">
               <div className="text-sm text-gray-500">Reserve price</div>
-              <div className="text-sm text-gray-500">{reservePrice} ETH</div>
+              <div className="text-sm text-gray-500">{reservePrice} LORDS</div>
             </div>
           </div>
           <Form {...form}>
