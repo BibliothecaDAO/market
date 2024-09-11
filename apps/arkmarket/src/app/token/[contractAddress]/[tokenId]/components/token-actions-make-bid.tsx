@@ -36,10 +36,12 @@ import {
 import { useToast } from "@ark-market/ui/use-toast";
 
 import type { Token, TokenMarketData } from "~/types";
+import LordsInput from "~/components/lords-input";
 import { ETH } from "~/constants/tokens";
 import { env } from "~/env";
 import useBalance from "~/hooks/useBalance";
 import useConnectWallet from "~/hooks/useConnectWallet";
+import { useTokenBalance } from "~/hooks/useTokenBalance";
 import formatAmount from "~/lib/formatAmount";
 import ToastExecutedTransactionContent from "./toast-executed-transaction-content";
 import ToastRejectedTransactionContent from "./toast-rejected-transaction-content";
@@ -62,7 +64,10 @@ export default function TokenActionsMakeBid({
   const config = useConfig();
   const { createOffer, status } = useCreateOffer();
   const { toast } = useToast();
-  const { data: ethBalance } = useBalance({ address, token: ETH });
+  const { data: lordsBalance } = useTokenBalance({
+    token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
+  });
+  // const { data: lordsBalance } = useBalance({ address, token: ETH });
   const { ensureConnect } = useConnectWallet({
     account,
     onConnect: () => {
@@ -86,7 +91,7 @@ export default function TokenActionsMakeBid({
         (val) => {
           const num = parseEther(val);
 
-          return ethBalance && ethBalance.value >= num;
+          return lordsBalance && lordsBalance.value >= num;
         },
         {
           message: "You don't have enough funds in your wallet",
@@ -145,7 +150,7 @@ export default function TokenActionsMakeBid({
     if (!account || !config) {
       return;
     }
-    setModalEnabled(false)
+    setModalEnabled(false);
 
     const tokenIdNumber = parseInt(token.token_id, 10);
 
@@ -166,7 +171,7 @@ export default function TokenActionsMakeBid({
       starknetAccount: account,
       ...processedValues,
     });
-    setModalEnabled(true)
+    setModalEnabled(true);
   }
 
   const isLoading = status === "loading";
@@ -226,7 +231,7 @@ export default function TokenActionsMakeBid({
                   <FormItem>
                     <FormLabel>Set Price</FormLabel>
                     <FormControl>
-                      <EthInput
+                      <LordsInput
                         value={field.value}
                         onChange={field.onChange}
                         status={
@@ -236,6 +241,16 @@ export default function TokenActionsMakeBid({
                             : "default"
                         }
                       />
+                      {/* <EthInput
+                        value={field.value}
+                        onChange={field.onChange}
+                        status={
+                          formattedStartAmount !== "-" &&
+                          fieldState.error?.message
+                            ? "error"
+                            : "default"
+                        }
+                      /> */}
                     </FormControl>
                     <FormMessage />
                   </FormItem>
