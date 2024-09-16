@@ -22,17 +22,21 @@ interface TokenPageProps {
 export default async function TokenPage({
   params: { contractAddress, tokenId },
 }: TokenPageProps) {
-  const token = await getToken({
-    contractAddress,
-    tokenId,
-  });
+  let token;
+  try {
+    token = await getToken({
+      contractAddress,
+      tokenId,
+    });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (err) {
+    return notFound();
+  }
+
   const tokenMarketData = await getTokenMarketData({
     contractAddress,
     tokenId,
   });
-  if (!token) {
-    return notFound();
-  }
 
   const collection = CollectionDescription[token.collection_address];
   if (!collection) {
