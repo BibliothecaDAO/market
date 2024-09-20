@@ -34,7 +34,7 @@ export default function TokenOffersListItem({
 
   const isOwner = address
     ? validateAndParseAddress(address) ===
-      validateAndParseAddress(tokenMarketData.owner)
+    validateAndParseAddress(tokenMarketData.owner)
     : false;
   const isOfferer = address
     ? validateAndParseAddress(address) === validateAndParseAddress(offer.source)
@@ -49,7 +49,7 @@ export default function TokenOffersListItem({
       <div className="mb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 overflow-hidden">
-            <PriceTag price={offer.price} className="h-7 text-xs" />
+            <PriceTag price={offer.price} token="lords" className="h-7 text-xs" />
             {offer.floor_difference ? (
               <p
                 className={cn(

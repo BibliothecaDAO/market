@@ -28,6 +28,7 @@ export default function CollectionItemsBuyNow({
   token,
 }: CollectionItemsBuyNowProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalEnabled, setModalEnabled] = useState(true);
   const { fulfillListing, status } = useFulfillListing();
   const { account, address } = useAccount();
   const { data } = useTokenBalance({ token: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS });
@@ -36,6 +37,7 @@ export default function CollectionItemsBuyNow({
   const queryClient = useQueryClient();
 
   const buy = async () => {
+    setModalEnabled(false);
     let tokenMarketData: TokenMarketData | undefined;
 
     try {
@@ -54,6 +56,7 @@ export default function CollectionItemsBuyNow({
     }
 
     if (!tokenMarketData) {
+      setModalEnabled(true);
       return;
     }
 
@@ -62,6 +65,7 @@ export default function CollectionItemsBuyNow({
       data.value < BigInt(tokenMarketData.listing.start_amount ?? 0)
     ) {
       sonner.error("Insufficient balance");
+      setModalEnabled(true);
       return;
     }
 
@@ -123,6 +127,7 @@ export default function CollectionItemsBuyNow({
     <>
       <BuyNowDialog
         isOpen={isOpen}
+        modalEnabled={modalEnabled}
         setIsOpen={setIsOpen}
         isSuccess={status === "success"}
         token={token}

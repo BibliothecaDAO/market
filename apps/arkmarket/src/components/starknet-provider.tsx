@@ -1,8 +1,6 @@
 "use client";
 
-import type { Connector } from "@starknet-react/core";
 import type { PropsWithChildren } from "react";
-import { useMemo } from "react";
 import CartridgeConnector from "@cartridge/connector";
 import { mainnet } from "@starknet-react/chains";
 import {
@@ -28,9 +26,11 @@ export function StarknetProvider({ children }: PropsWithChildren) {
     order: "alphabetical",
   });
 
-  const connectors = useMemo(
-    () =>
-      [
+  return (
+    <StarknetConfig
+      chains={[mainnet]}
+      provider={provider}
+      connectors={[
         new CartridgeConnector({
           rpc: "https://api.cartridge.gg/x/starknet/mainnet",
         }),
@@ -42,15 +42,7 @@ export function StarknetProvider({ children }: PropsWithChildren) {
           icons: [],
           description: "Realms.World",
         }),
-      ] as Connector[],
-    [],
-  );
-
-  return (
-    <StarknetConfig
-      chains={[mainnet]}
-      provider={provider}
-      connectors={connectors}
+      ]}
       explorer={voyager}
       autoConnect
     >

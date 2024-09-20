@@ -10,6 +10,7 @@ import TokenActionsTokenOverview from "~/app/token/[contractAddress]/[tokenId]/c
 interface BuyNowDialogProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  modalEnabled: boolean;
   isSuccess: boolean;
   token: Token | CollectionToken;
   price?: string;
@@ -18,12 +19,13 @@ interface BuyNowDialogProps {
 export default function BuyNowDialog({
   isOpen,
   setIsOpen,
+  modalEnabled,
   isSuccess,
   token,
   price,
 }: BuyNowDialogProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} modal={modalEnabled} onOpenChange={setIsOpen}>
       <DialogContent
         className="justify-normal lg:justify-center"
         onInteractOutside={(e) => {

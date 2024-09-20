@@ -12,7 +12,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@ark-market/ui/carousel";
-import { Ethereum } from "@ark-market/ui/icons";
 
 import { homepageConfig } from "~/config/homepage";
 

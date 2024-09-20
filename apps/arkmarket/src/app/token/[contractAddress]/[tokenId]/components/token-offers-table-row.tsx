@@ -36,7 +36,7 @@ export default function TokenOffersTableItem({
   const expiresIn = getRoundedRemainingTime(offer.expire_at);
   const isOwner = address
     ? validateAndParseAddress(address) ===
-      validateAndParseAddress(tokenMarketData.owner)
+    validateAndParseAddress(tokenMarketData.owner)
     : false;
   const isOfferer = address
     ? validateAndParseAddress(address) === validateAndParseAddress(offer.source)
@@ -52,7 +52,7 @@ export default function TokenOffersTableItem({
       className="grid h-[4.625rem] w-full grid-cols-5 items-center"
     >
       <TableCell>
-        <PriceTag price={offer.price} />
+        <PriceTag price={offer.price} token="lords" />
       </TableCell>
       <TableCell>
         {offer.floor_difference ? (
