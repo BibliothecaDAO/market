@@ -7,6 +7,7 @@ export enum Collections {
   LOOTSURVIVOR = "lootsurvivor",
   SYNDICATE = "syndicate",
   DUNGEON_DUCKS = "dungeonducks",
+  KARAT = "karat",
 }
 
 export enum ChainId {
@@ -75,6 +76,12 @@ export const CollectionAddresses: {
     [ChainId.SN_SEPOLIA]: "",
 
   },
+  [Collections.KARAT]: {
+    [ChainId.SN_MAIN]:
+      "0x07d8ea58612a5de25f29281199a4fc1f2ce42f0f207f93c3a35280605f3b8e68",
+    [ChainId.SN_SEPOLIA]: "",
+
+  },
 };
 
 export const CollectionNames = {
@@ -86,6 +93,7 @@ export const CollectionNames = {
   [Collections.LOOTSURVIVOR]: "Loot Survivor",
   [Collections.SYNDICATE]: "Syndicate",
   [Collections.DUNGEON_DUCKS]: "Dungeon Ducks",
+  [Collections.KARAT]: "Karat",
 };
 
 interface CollectionDescription {
@@ -142,6 +150,12 @@ export const CollectionDescription: Record<string, CollectionDescription> = {
     description:
       "A collection of feathered adventurers, initially created for the purpose of including the Ducks Everywhere community in the Loot Survivor launch tournament",
   },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.KARAT][ChainId.SN_MAIN]]: {
+    created: "2024",
+    description:
+      "Karats are composable gems discovered under the Realms. A fully on-chain generative art collection made with Dojo.",
+  },
 };
 
 export const homepageConfig = {
@@ -189,6 +203,15 @@ export const homepageConfig = {
       description: "Dungeon Ducks",
       address: CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN],
       itemsCount: 300,
+      // floorPrice: 0.12,
+    },
+    {
+      bannerSrc: "/banners/karat.png",
+      collectionSrc: "/collections/karat.png",
+      name: CollectionNames[Collections.KARAT],
+      description: "Karat",
+      address: CollectionAddresses[Collections.KARAT][ChainId.SN_MAIN],
+      itemsCount: 512,
       // floorPrice: 0.12,
     },
   ],
@@ -258,6 +281,12 @@ export const homepageConfig = {
       address: CollectionAddresses[Collections.DUNGEON_DUCKS][ChainId.SN_MAIN],
       image: "/collections/dungeon-ducks-collection.png",
       banner_image: "/banners/dungeon-ducks-banner.png",
+    },
+    {
+      name: CollectionNames[Collections.KARAT],
+      address: CollectionAddresses[Collections.KARAT][ChainId.SN_MAIN],
+      image: "/collections/karat.png",
+      banner_image: "/banners/karat.png",
     },
   ],
   liveAuctions: [],
