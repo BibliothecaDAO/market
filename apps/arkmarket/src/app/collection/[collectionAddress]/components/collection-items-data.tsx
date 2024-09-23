@@ -14,6 +14,9 @@ import useInfiniteWindowScroll from "~/hooks/useInfiniteWindowScroll";
 import { getCollectionTokens } from "~/lib/getCollectionTokens";
 import CollectionItemsDataGridView from "./collection-items-data-grid-view";
 import CollectionItemsDataListView from "./collection-items-data-list-view";
+import getTokenMarketData from "~/lib/getTokenMarketData";
+import { getOrder } from "@ark-project/core";
+import { useConfig } from "@ark-project/react";
 
 interface CollectionItemsDataProps {
   collectionAddress: string;
@@ -30,6 +33,7 @@ export default function CollectionItemsData({
   viewType,
   filters,
 }: CollectionItemsDataProps) {
+  const config = useConfig();
   const {
     data: infiniteData,
     fetchNextPage,
@@ -68,6 +72,10 @@ export default function CollectionItemsData({
     () => infiniteData?.pages.flatMap((page) => page.data) ?? [],
     [infiniteData],
   );
+  // FIX: we hide token 861 because it was listed out in another currency than lords.
+  // Becase we force the use of lords it causes a bug where nobody can buy it
+  // To fix, we need to have the field `currency_address` supported for listing
+  const collectionTokensFiltered = useMemo(() => collectionTokens.filter((token) => token.token_id !== "861" && token.collection_address === "0x00539f522b29ae9251dbf7443c7a950cf260372e69efab3710a11bf17a9599f1"), [collectionTokens]);
 
   if (isLoading) {
     return null;
@@ -76,11 +84,11 @@ export default function CollectionItemsData({
   return (
     <>
       {viewType === "list" ? (
-        <CollectionItemsDataListView collectionTokens={collectionTokens} />
+        <CollectionItemsDataListView collectionTokens={collectionTokensFiltered} />
       ) : (
         <CollectionItemsDataGridView
           className="mb-6"
-          collectionTokens={collectionTokens}
+          collectionTokens={collectionTokensFiltered}
           viewType={viewType}
         />
       )}
