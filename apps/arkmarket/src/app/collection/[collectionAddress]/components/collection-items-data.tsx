@@ -75,7 +75,7 @@ export default function CollectionItemsData({
   // FIX: we hide token 861 because it was listed out in another currency than lords.
   // Becase we force the use of lords it causes a bug where nobody can buy it
   // To fix, we need to have the field `currency_address` supported for listing
-  const collectionTokensFiltered = useMemo(() => collectionTokens.filter((token) => token.token_id !== "861" && token.collection_address === "0x00539f522b29ae9251dbf7443c7a950cf260372e69efab3710a11bf17a9599f1"), [collectionTokens]);
+  const collectionTokensFiltered = useMemo(() => collectionTokens.filter((token) => !(token.token_id === "861" && token.collection_address === "0x00539f522b29ae9251dbf7443c7a950cf260372e69efab3710a11bf17a9599f1"), [collectionTokens]));
 
   if (isLoading) {
     return null;
