@@ -37,11 +37,13 @@ export default function TokenActionsCancelListing({
         title: "The listing could not be canceled",
         additionalContent: (
           <ToastRejectedTransactionContent
-            token={token}
             price={BigInt(tokenMarketData.listing.start_amount ?? 0)}
             formattedPrice={formatEther(
               BigInt(tokenMarketData.listing.start_amount ?? 0),
             )}
+            collectionName={token.collection_name}
+            tokenId={token.token_id}
+            tokenMetadata={token.metadata}
           />
         ),
       });
@@ -51,11 +53,13 @@ export default function TokenActionsCancelListing({
         title: "Your listing is successfully canceled",
         additionalContent: (
           <ToastExecutedTransactionContent
-            token={token}
             price={BigInt(tokenMarketData.listing.start_amount ?? 0)}
             formattedPrice={formatEther(
               BigInt(tokenMarketData.listing.start_amount ?? 0),
             )}
+            collectionName={token.collection_name}
+            tokenId={token.token_id}
+            tokenMetadata={token.metadata}
           />
         ),
       });
@@ -76,10 +80,8 @@ export default function TokenActionsCancelListing({
     });
   };
 
-  const isDisabled =
-    tokenMarketData.buy_in_progress ||
-    status === "loading" ||
-    status === "success";
+  const isLoading = status === "loading" || status === "success";
+  const isDisabled = isLoading || tokenMarketData.buy_in_progress;
 
   return (
     <Button
@@ -89,7 +91,7 @@ export default function TokenActionsCancelListing({
       size={small ? "xl" : "xxl"}
       variant="secondary"
     >
-      {status === "loading" ? (
+      {isLoading ? (
         <LoaderCircle
           className={cn("animate-spin", small ?? "absolute left-4")}
           size={small ? 20 : 24}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import type { ViewType } from "../../../../components/view-type-toggle-group";
 import type {
@@ -24,6 +24,7 @@ interface CollectionItemsDataProps {
   sortDirection: CollectionSortDirection;
   viewType: ViewType;
   filters: Filters;
+  buyNow: boolean;
 }
 
 export default function CollectionItemsData({
@@ -32,6 +33,7 @@ export default function CollectionItemsData({
   sortDirection,
   viewType,
   filters,
+  buyNow,
 }: CollectionItemsDataProps) {
   const config = useConfig();
   const {
@@ -39,14 +41,14 @@ export default function CollectionItemsData({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isLoading,
-  } = useInfiniteQuery({
+  } = useSuspenseInfiniteQuery({
     queryKey: [
       "collectionTokens",
       sortDirection,
       sortBy,
       collectionAddress,
       filters,
+      buyNow,
     ],
     refetchInterval: 10_000,
     getNextPageParam: (lastPage: CollectionTokensApiResponse) =>
@@ -59,6 +61,7 @@ export default function CollectionItemsData({
         sortDirection,
         sortBy,
         filters,
+        buyNow,
       }),
   });
 
@@ -69,7 +72,7 @@ export default function CollectionItemsData({
   });
 
   const collectionTokens: CollectionToken[] = useMemo(
-    () => infiniteData?.pages.flatMap((page) => page.data) ?? [],
+    () => infiniteData.pages.flatMap((page) => page.data),
     [infiniteData],
   );
   // FIX: we hide token 861 because it was listed out in another currency than lords.

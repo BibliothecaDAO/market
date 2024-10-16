@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { cn, focusableStyles } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import { VerifiedIcon } from "@ark-market/ui/icons";
+import { VerifiedIcon, ViewMore } from "@ark-market/ui/icons";
 
 import { homepageConfig } from "~/config/homepage";
+import ExploreCollectionCard from "./explore-collection-card";
+import ExploreCollectionImage from "./explore-collection-image";
 
 export default function ExploreCollection() {
   const [exploreCollectionsToShow, setExploreCollectionsToShow] = useState(9);
@@ -31,8 +33,7 @@ export default function ExploreCollection() {
 
   return (
     <section>
-      <h2 className="text-3xl font-semibold">Explore Collections</h2>
-      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {homepageConfig.exploreCollections
           .slice(0, exploreCollectionsToShow)
           .map((collection, index) => {
@@ -64,15 +65,50 @@ export default function ExploreCollection() {
                     <h4 className="text-xl font-semibold">{collection.name}</h4>
                     <VerifiedIcon className="text-primary" />
                   </div>
-                </div>
-              </Link>
+                )}
+                {index === 1 && (
+                  <div className="hidden sm:block">
+                    <ExploreCollectionCard />
+                  </div>
+                )}
+                <Link
+                  href={`/collection/${collection.address}`}
+                  className={cn(
+                    "group overflow-hidden rounded-lg border border-border bg-card transition-transform hover:scale-[1.02]",
+                    focusableStyles,
+                  )}
+                >
+                  <div>
+                    <ExploreCollectionImage
+                      collectionAddress={collection.address}
+                      bannerImage={collection.banner_image}
+                      collectionName={collection.name}
+                    />
+                    <div className="flex items-center gap-2 px-3 py-4">
+                      <Image
+                        className="aspect-square w-16 rounded-sm object-contain"
+                        src={collection.image}
+                        alt={collection.name}
+                        height={124}
+                        width={124}
+                        unoptimized={collection.image.endsWith(".gif")}
+                      />
+                      <h4 className="text-xl font-semibold">
+                        {collection.name}
+                      </h4>
+                      <VerifiedIcon className="mt-2 text-primary" />
+                    </div>
+                  </div>
+                </Link>
+              </React.Fragment>
             );
           })}
       </div>
       <div className="mt-16 flex justify-center">
         {canShowMoreExploreCollectionsItems ? (
           <Button variant="outline" onClick={showMoreCollectionsToExplore}>
-            View more
+            <ViewMore />
+            <p>View more</p>
           </Button>
         ) : (
           <Button variant="outline" onClick={showLessCollectionsToExplore}>

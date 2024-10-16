@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useFulfillListing } from "@ark-project/react";
 import { useAccount } from "@starknet-react/core";
 import { useQueryClient } from "@tanstack/react-query";
+import { LoaderCircle } from "lucide-react";
 import { formatEther } from "viem";
 
 import { areAddressesEqual } from "@ark-market/ui";
@@ -97,9 +98,11 @@ export default function CollectionItemsBuyNow({
         title: "Purchase canceled",
         additionalContent: (
           <ToastRejectedTransactionContent
-            token={token}
             price={BigInt(token.price ?? 0)}
             formattedPrice={formatEther(BigInt(token.price ?? 0))}
+            collectionName={token.collection_name}
+            tokenId={token.token_id}
+            tokenMetadata={token.metadata}
           />
         ),
       });
@@ -109,9 +112,11 @@ export default function CollectionItemsBuyNow({
         title: "Your purchase is confirmed",
         additionalContent: (
           <ToastExecutedTransactionContent
-            token={token}
             price={BigInt(token.price ?? 0)}
             formattedPrice={formatEther(BigInt(token.price ?? 0))}
+            collectionName={token.collection_name}
+            tokenId={token.token_id}
+            tokenMetadata={token.metadata}
           />
         ),
       });
@@ -147,6 +152,9 @@ export default function CollectionItemsBuyNow({
             }
           }}
         >
+          {status === "loading" && (
+            <LoaderCircle className="absolute left-4 animate-spin" size={20} />
+          )}
           Buy now
         </Button>
       </div>

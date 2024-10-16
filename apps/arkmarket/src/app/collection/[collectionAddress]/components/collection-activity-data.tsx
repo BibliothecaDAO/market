@@ -1,57 +1,32 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import Link from "next/link";
-import { useAccount } from "@starknet-react/core";
+import { useMemo } from "react";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
-import { useWindowVirtualizer } from "@tanstack/react-virtual";
-
-import {
-  cn,
-  ellipsableStyles,
-  focusableStyles,
-  timeSince,
-} from "@ark-market/ui";
-import { Button } from "@ark-market/ui/button";
-import { ArrowUpRight, VerifiedIcon } from "@ark-market/ui/icons";
-import { PriceTag } from "@ark-market/ui/price-tag";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@ark-market/ui/table";
 
 import type { CollectionActivityApiResponse } from "~/lib/getCollectionActivity";
-import ExternalLink from "~/components/external-link";
-import Media from "~/components/media";
-import activityTypeMetadata from "~/constants/activity-type-metadata";
+import type { ActivityType } from "~/types";
 import useInfiniteWindowScroll from "~/hooks/useInfiniteWindowScroll";
 import { getCollectionActivity } from "~/lib/getCollectionActivity";
-import ownerOrShortAddress from "~/lib/ownerOrShortAddress";
+import DesktopCollectionActivityData from "./desktop-collection-activity";
+import MobileCollectionActivity from "./mobile-collection-activity";
 
-interface CollectionActivityDataProps {
+interface CollectionProps {
   collectionAddress: string;
+  collectionTokenCount: number;
+  filters: ActivityType[];
 }
-
-const gridTemplateColumnValue =
-  "grid-cols-[minmax(8rem,1fr)_minmax(11rem,2fr)_repeat(4,minmax(7.5rem,1fr))_minmax(4.5rem,4.5rem)]";
 
 export default function CollectionActivityData({
   collectionAddress,
-}: CollectionActivityDataProps) {
-  const tableRef = useRef<HTMLTableElement | null>(null);
-  const { address } = useAccount();
-
+  filters,
+}: CollectionProps) {
   const {
     data: infiniteData,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["collectionActivity", collectionAddress],
+    queryKey: ["collectionActivity", collectionAddress, ...filters],
     refetchInterval: 10_000,
     placeholderData: keepPreviousData,
     getNextPageParam: (lastPage: CollectionActivityApiResponse) =>
@@ -61,9 +36,9 @@ export default function CollectionActivityData({
       getCollectionActivity({
         page: pageParam,
         collectionAddress,
+        activityFilters: filters,
       }),
   });
-
   useInfiniteWindowScroll({
     fetchNextPage,
     hasNextPage,
@@ -74,20 +49,6 @@ export default function CollectionActivityData({
     () => infiniteData?.pages.flatMap((page) => page.data) ?? [],
     [infiniteData],
   );
-
-  const rowVirtualizer = useWindowVirtualizer({
-    // Approximate initial rect for SSR
-    initialRect: { height: 1080, width: 1920 },
-    count: collectionActivity.length,
-    estimateSize: () => 75, // Estimation of row height for accurate scrollbar dragging
-    // Measure dynamic row height, except in firefox because it measures table border height incorrectly
-    measureElement:
-      typeof window !== "undefined" && !navigator.userAgent.includes("Firefox")
-        ? (element) => element.getBoundingClientRect().height
-        : undefined,
-    overscan: 5,
-    scrollMargin: tableRef.current?.offsetTop ?? 0,
-  });
 
   return (
     <Table ref={tableRef}>

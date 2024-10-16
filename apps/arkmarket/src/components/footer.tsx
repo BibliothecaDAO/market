@@ -8,6 +8,7 @@ import { Button } from "@ark-market/ui/button";
 import { Discord as DiscordIcon, XIcon, Github } from "@ark-market/ui/icons";
 
 import { siteConfig } from "~/config/site";
+import ExternalLink from "./external-link";
 import { Icons } from "./icons";
 
 export default function Footer() {

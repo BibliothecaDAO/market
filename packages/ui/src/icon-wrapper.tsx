@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+
 import { cn } from "@ark-market/ui";
 
 interface IconProps {
   icon: string;
   className?: string;
+  weight?: number;
 }
+
+export type IconWeightProps = Pick<IconProps, "weight">;
 
 const calculateFontWeight = (fontSize: number): number => {
   if (fontSize <= 16) {
@@ -19,8 +23,8 @@ const calculateFontWeight = (fontSize: number): number => {
   }
 };
 
-export const Icon: React.FC<IconProps> = ({ icon, className }) => {
-  const [fontWeight, setFontWeight] = useState<number>(20);
+export const Icon: React.FC<IconProps> = ({ icon, className, weight }) => {
+  const [fontWeight, setFontWeight] = useState<number | undefined>(weight);
   const [iconSize, setIconSize] = useState<string>("1em");
   const [marginTop, setMarginTop] = useState<string>("0.15em");
   const ref = useRef<HTMLSpanElement>(null);
@@ -32,13 +36,15 @@ export const Icon: React.FC<IconProps> = ({ icon, className }) => {
       if (isNaN(fontSize)) {
         return;
       }
-      
-      const minSize = 16;
+
+      const minSize = 14;
       const maxSize = 24;
 
       const clampedSize = Math.min(Math.max(fontSize, minSize), maxSize);
-      const calculatedWeight = calculateFontWeight(clampedSize);
-      setFontWeight(isNaN(calculatedWeight) ? 20 : calculatedWeight);
+      if (weight === undefined) {
+        const calculatedWeight = calculateFontWeight(clampedSize);
+        setFontWeight(isNaN(calculatedWeight) ? 20 : calculatedWeight);
+      }
 
       if (fontSize < minSize) {
         setIconSize(`${minSize / fontSize}em`);
@@ -61,7 +67,7 @@ export const Icon: React.FC<IconProps> = ({ icon, className }) => {
   return (
     <span
       ref={ref}
-      className={cn("items-bottom inline-flex justify-center", className)}
+      className={cn("inline-flex items-center justify-center", className)}
       style={{
         fontFamily: "UnframedIconFont",
         fontSize: iconSize,

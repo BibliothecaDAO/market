@@ -51,24 +51,10 @@ export default function TokenActivity({
     isFetchingNextPage,
   });
 
-  // const rowVirtualizer = useWindowVirtualizer({
-  //   // Approximate initial rect for SSR
-  //   initialRect: { height: 1080, width: 1920 },
-  //   count: tokenActivity.length,
-  //   estimateSize: () => 75, // Estimation of row height for accurate scrollbar dragging
-  //   // Measure dynamic row height, except in firefox because it measures table border height incorrectly
-  //   measureElement:
-  //     typeof window !== "undefined" && !navigator.userAgent.includes("Firefox")
-  //       ? (element) => element.getBoundingClientRect().height
-  //       : undefined,
-  //   overscan: 5,
-  //   scrollMargin: tableContainer.current?.offsetTop ?? 0,
-  // });
-
   return (
     <div className={cn("", className)}>
       <div className="flex items-center gap-4 lg:gap-1.5">
-        <h2 className="text-2xl font-semibold">Activity</h2>
+        <h2 className="font-display text-2xl font-semibold">Activity</h2>
         <div className="flex h-6 items-center rounded-full bg-secondary px-3 text-sm font-medium text-secondary-foreground">
           {totalCount}
         </div>

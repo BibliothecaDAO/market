@@ -1,25 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "@ark-market/ui/icons";
+import Link from "next/link";
 
 import type { PropsWithClassName } from "@ark-market/ui";
-import { cn } from "@ark-market/ui";
+import { cn, focusableStyles } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@ark-market/ui/collapsible";
+import { ChevronDown, ChevronUp, NoTraits } from "@ark-market/ui/icons";
 
 import type { TokenMetadata } from "~/types";
 
 interface TokenTraitsProps {
+  contractAddress: string;
   tokenAttributes: TokenMetadata["attributes"];
 }
 
 export default function TokenTraits({
   className,
+  contractAddress,
   tokenAttributes,
 }: PropsWithClassName<TokenTraitsProps>) {
   const [open, setOpen] = useState(true);
@@ -35,7 +38,7 @@ export default function TokenTraits({
     >
       <div className="flex h-[4.5rem] items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <h3 className="text-2xl font-semibold">Traits</h3>
+          <h3 className="font-display text-2xl font-semibold">Traits</h3>
           <div className="flex h-6 items-center rounded-full bg-secondary px-3 text-sm text-secondary-foreground">
             {tokenAttributes.length}
           </div>
@@ -48,22 +51,42 @@ export default function TokenTraits({
       </div>
 
       <CollapsibleContent className="data-[state=closed]:animate-[collapsible-up_150ms_ease] data-[state=open]:animate-[collapsible-down_150ms_ease]">
-        <div className="grid grid-cols-2 gap-2 pb-6 sm:grid-cols-[repeat(auto-fill,_minmax(12rem,1fr))]">
-          {tokenAttributes.map((tokenAttribute, index) => {
-            return (
-              <div className="rounded-lg bg-card p-3.5" key={index}>
-                <p className="text-sm font-medium text-muted-foreground">
-                  {tokenAttribute.trait_type}
-                </p>
-                <p className="text-lg font-semibold">{tokenAttribute.value}</p>
-                {/* <p className="mt-2 text-sm font-medium">
+        {tokenAttributes.length === 0 ? (
+          <div className="flex flex-col items-center pb-8 text-muted-foreground">
+            <NoTraits size={42} className="flex-shrink-0" />
+            <p className="mt-3 text-center text-xl font-semibold">
+              No metadata!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-2 pb-6 sm:grid-cols-[repeat(auto-fill,_minmax(12rem,1fr))]">
+            {tokenAttributes.map((tokenAttribute, index) => {
+              const collectionFilter = {
+                traits: {
+                  [tokenAttribute.trait_type ?? ""]: [tokenAttribute.value],
+                },
+              };
+              return (
+                <Link
+                  className={cn("rounded-lg bg-card p-3.5", focusableStyles)}
+                  key={index}
+                  href={`/collection/${contractAddress}?filters=${encodeURIComponent(JSON.stringify(collectionFilter))}`}
+                >
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {tokenAttribute.trait_type}
+                  </p>
+                  <p className="text-lg font-semibold">
+                    {tokenAttribute.value}
+                  </p>
+                  {/* <p className="mt-2 text-sm font-medium">
                   {formatUnits(data.price, 18)}{" "}
                   <span className="text-muted-foreground">ETH</span>
                 </p> */}
-              </div>
-            );
-          })}
-        </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </CollapsibleContent>
     </Collapsible>
   );

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { CarouselApi } from "@ark-market/ui/carousel";
-import { cn } from "@ark-market/ui";
+import { cn, formatNumber } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
 import {
   Carousel,
@@ -85,11 +85,11 @@ export default function MainCarousel() {
                   <div className="mt-5 flex flex-col justify-center gap-5 rounded-[1.5rem] bg-gradient-to-r from-black/80 to-transparent md:absolute md:inset-0 md:mt-0 md:items-start md:gap-8 md:p-12">
                     <div className="flex gap-4 md:flex-col md:gap-8">
                       <Image
-                        src={carouselItem.collectionSrc}
-                        height={120}
-                        width={120}
+                        src={carouselItem.bannerSrc}
+                        height={555}
+                        width={1448}
                         alt={carouselItem.name}
-                        className="size-16 rounded-lg"
+                        className="h-[22.5rem] w-full rounded-[1.5rem] object-cover md:h-[35rem]"
                       />
                       <div className="flex flex-col gap-2 md:gap-8">
                         <h1 className="text-3xl font-extrabold md:text-5xl">
@@ -104,22 +104,31 @@ export default function MainCarousel() {
                           {/* <p> ETH</p> */}
                         </div>
                       </div>
+                      <p className="text-base md:max-w-lg md:text-xl">
+                        {carouselItem.description}
+                      </p>
+                      <Button
+                        size="xxl"
+                        asChild
+                        className="mt-auto flex-shrink-0"
+                      >
+                        <Link href={`/collection/${carouselItem.address}`}>
+                          View collection
+                        </Link>
+                      </Button>
                     </div>
-                    <p className="text-base md:max-w-lg md:text-xl">
-                      {carouselItem.description}
-                    </p>
-                    <Button size="xxl" asChild className="flex-shrink-0">
-                      <Link href={`/collection/${carouselItem.address}`}>
-                        View collection
-                      </Link>
-                    </Button>
+                    {carouselItem.nftSrc !== undefined && (
+                      <div className="mx-auto hidden w-full justify-center lg:flex">
+                        <NftCards nftSrc={carouselItem.nftSrc} />
+                      </div>
+                    )}
                   </div>
                 </div>
               </CarouselItem>
             );
           })}
         </CarouselContent>
-        <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-8 flex justify-center gap-4 md:mt-0">
           {homepageConfig.mainCarousel.map((_, index) => {
             const isSelected = selectedItem === index;
             const progressWidth =
@@ -131,7 +140,7 @@ export default function MainCarousel() {
               <button
                 className={cn(
                   "relative h-1.5 w-24 overflow-hidden rounded-full",
-                  "bg-card",
+                  "bg-secondary",
                 )}
                 key={index}
                 onClick={() => {
@@ -143,7 +152,7 @@ export default function MainCarousel() {
                 }}
               >
                 <div
-                  className="absolute bottom-0 left-0 top-0 bg-accent transition-[width]"
+                  className="absolute bottom-0 left-0 top-0 bg-primary transition-[width]"
                   style={{ width: progressWidth }}
                 ></div>
               </button>
@@ -151,6 +160,38 @@ export default function MainCarousel() {
           })}
         </div>
       </Carousel>
+    </div>
+  );
+}
+
+interface NftCardsProps {
+  nftSrc: string;
+}
+
+function NftCards({ nftSrc }: NftCardsProps) {
+  return (
+    <div className="relative max-h-full max-w-full">
+      <Image
+        src={nftSrc}
+        height={800}
+        width={800}
+        alt=""
+        className="relative z-30 aspect-square size-56 origin-bottom-left -rotate-6 rounded-[1.5rem] border border-white object-cover md:size-96"
+      />
+      <Image
+        src={nftSrc}
+        height={800}
+        width={800}
+        alt=""
+        className="absolute inset-0 z-10 aspect-square size-56 origin-bottom-left -translate-y-10 translate-x-8 rotate-6 rounded-[1.5rem] border border-white object-cover opacity-25 md:size-96"
+      />
+      <Image
+        src={nftSrc}
+        height={800}
+        width={800}
+        alt=""
+        className="absolute inset-0 z-20 aspect-square size-56 -translate-y-5 translate-x-4 rounded-[1.5rem] border border-white object-cover opacity-50 md:size-96"
+      />
     </div>
   );
 }

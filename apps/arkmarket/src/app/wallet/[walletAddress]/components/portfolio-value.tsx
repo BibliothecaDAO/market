@@ -29,10 +29,6 @@ export default function PortfolioValue() {
           </p>
         </div>
       </div>
-
-      <div className="ml-10 hidden items-end sm:flex">
-        <span className="text-muted-foreground">${ethBalanceInUsd}</span>
-      </div>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
 import Link from "next/link";
+import { LoaderCircle } from "lucide-react";
 import { VirtuosoGrid } from "react-virtuoso";
 
-import type { PropsWithClassName } from "@ark-market/ui";
 import { cn, ellipsableStyles, formatUnits } from "@ark-market/ui";
 import {
   NftCard,
@@ -51,20 +51,19 @@ interface CollectionItemsDataGridViewProps {
 
 export default function CollectionItemsDataGridView({
   collectionTokens,
-  className,
   viewType,
-}: PropsWithClassName<CollectionItemsDataGridViewProps>) {
+}: CollectionItemsDataGridViewProps) {
+  const components = {
+    List: viewType === "large-grid" ? LargeGridContainer : SmallGridContainer,
+  };
+
   return (
-    <div className={className}>
+    <div className="mb-6">
       <VirtuosoGrid
-        // initialItemCount same as totalCount but needed for SSR
         initialItemCount={collectionTokens.length}
         totalCount={collectionTokens.length}
         useWindowScroll
-        components={{
-          List:
-            viewType === "large-grid" ? LargeGridContainer : SmallGridContainer,
-        }}
+        components={components}
         itemContent={(index) => {
           const token = collectionTokens[index];
 
@@ -83,6 +82,7 @@ export default function CollectionItemsDataGridView({
                   <Media
                     src={token.metadata?.image}
                     mediaKey={token.metadata?.image_key}
+                    thumbnailKey={token.metadata?.image_key_540_540}
                     alt={token.metadata?.name ?? "Empty"}
                     className="aspect-square w-full object-contain transition-transform group-hover:scale-110"
                     height={viewType === "large-grid" ? 540 : 340}
@@ -92,7 +92,7 @@ export default function CollectionItemsDataGridView({
                 <NftCardContent>
                   <div className="flex w-full justify-between text-foreground">
                     <div className="w-full">
-                      <p
+                      <div
                         className={cn(
                           "font-bold",
                           viewType === "large-grid" ? "text-xl" : "text-sm",
@@ -100,9 +100,9 @@ export default function CollectionItemsDataGridView({
                         )}
                       >
                         {token.metadata?.name ?? token.token_id}
-                      </p>
+                      </div>
                       {token.price ? (
-                        <p
+                        <div
                           className={cn(
                             "font-medium",
                             viewType === "large-grid" ? "text-sm" : "text-xs",
@@ -112,7 +112,7 @@ export default function CollectionItemsDataGridView({
                           {formatUnits(token.price, 18)} LORDS
                         </p>
                       ) : (
-                        <p
+                        <div
                           className={cn(
                             "font-medium",
                             viewType === "large-grid" ? "text-sm" : "text-xs",
@@ -120,11 +120,10 @@ export default function CollectionItemsDataGridView({
                           )}
                         >
                           Not for sale
-                        </p>
+                        </div>
                       )}
                     </div>
                   </div>
-
                   <p className="mt-5 h-5 text-sm font-medium text-secondary-foreground">
                     {token.last_price ? (
                       <>Last sale {formatUnits(token.last_price, 18)} LORDS</>
@@ -132,7 +131,17 @@ export default function CollectionItemsDataGridView({
                   </p>
                 </NftCardContent>
               </Link>
-              {token.is_listed && !token.listing.is_auction ? (
+              {token.buy_in_progress ? (
+                <div
+                  className={cn(
+                    "absolute bottom-0 left-0 flex h-10 w-full items-center justify-between gap-2 bg-primary px-3 font-medium text-background",
+                    viewType === "large-grid" ? "text-sm" : "text-sm",
+                  )}
+                >
+                  <span className="leading-none">Buy in progress</span>
+                  <LoaderCircle className="left-4 size-4 animate-spin" />
+                </div>
+              ) : token.is_listed && !token.listing.is_auction ? (
                 <CollectionItemsBuyNow token={token} />
               ) : (
                 <NftCardAction asChild>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Link from "next/link";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { cn, ellipsableStyles, formatUnits } from "@ark-market/ui";
@@ -48,36 +47,31 @@ export default function CollectionItemsDataListView({
   });
 
   return (
-    <Table ref={tableRef}>
-      <TableHeader className="h-12">
-        <TableRow
-          className={cn(
-            "absolute grid w-full items-center",
-            gridTemplateColumnValue,
-          )}
-        >
-          <TableHead className="sticky top-0 flex items-center bg-background pl-5">
+    <Table ref={tableRef} className="w-full min-w-[1024px] table-auto">
+      <TableHeader className="sticky top-0 h-10 bg-green-500/20">
+        <TableRow className="flex">
+          <TableHead className="sticky left-0 top-0 flex min-w-[240px] flex-grow items-center bg-background pl-5">
             Item
           </TableHead>
-          <TableHead className="flex items-center bg-background">
+          <TableHead className="flex w-[25%] items-center bg-background">
             Current price
           </TableHead>
-          <TableHead className="flex items-center bg-background">
+          <TableHead className="flex w-[20%] items-center bg-background">
             Last sold
           </TableHead>
-          <TableHead className="flex items-center bg-background">
+          <TableHead className="flex w-[15%] items-center bg-background">
             Floor difference
           </TableHead>
-          <TableHead className="flex items-center bg-background">
+          <TableHead className="flex w-[10%] items-center bg-background">
             Owner
           </TableHead>
-          <TableHead className="flex items-center bg-background">
+          <TableHead className="flex w-[10%] items-center bg-background">
             Time listed
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody
-        className="font-numbers relative font-medium"
+        className="font-numbers relative block font-medium"
         style={{
           height: `${rowVirtualizer.getTotalSize() + 2}px`, // Tells scrollbar how big the table is
         }}
@@ -91,13 +85,13 @@ export default function CollectionItemsDataListView({
 
           return (
             <TableRow
-              data-index={virtualRow.index} // Needed for dynamic row height measurement
-              ref={(node) => rowVirtualizer.measureElement(node)} // Measure dynamic row height
-              className="absolute h-[4.6875rem] w-full"
+              data-index={virtualRow.index}
+              key={`${token.collection_address}-${token.token_id}`}
+              ref={(node) => rowVirtualizer.measureElement(node)}
+              className="group absolute flex w-full items-center"
               style={{
                 transform: `translateY(${virtualRow.start}px)`,
               }}
-              key={`${token.collection_address}-${token.token_id}`}
             >
               <Link
                 prefetch={false}

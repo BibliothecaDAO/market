@@ -3,7 +3,6 @@
 import type { Connector } from "@starknet-react/core";
 import { useMemo, useState } from "react";
 import { argent, useConnect } from "@starknet-react/core";
-import { Loader2, Mail } from "@ark-market/ui/icons";
 
 import { Button } from "@ark-market/ui/button";
 import {
@@ -12,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@ark-market/ui/dialog";
+import { ConnectWallet, Loader2, Mail } from "@ark-market/ui/icons";
 import { Separator } from "@ark-market/ui/separator";
 
 import { useConnectWalletStore } from "~/app/stores/connect-wallet";
@@ -126,7 +126,7 @@ export default function ConnectWalletDialog() {
                 size="xl"
               >
                 <div className="absolute left-2 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-xs bg-background">
-                  <Mail size={20} />
+                  <Mail className="size-5" />
                 </div>
                 <div>
                   <p>

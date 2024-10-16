@@ -13,6 +13,7 @@ export interface Collection {
   total_sales: number;
   total_volume: number;
   volume_7d_eth: number;
+  floor_7d_percentage: string;
 }
 
 export type CollectionTrait = Record<string, number>;
@@ -84,6 +85,7 @@ export interface TokenMetadata {
   animation_key: string | null;
   animation_url: string | null;
   image_key: string | null;
+  image_key_540_540?: string | null;
   attributes: TokenMetadataAttribute[];
 }
 
@@ -100,6 +102,7 @@ export interface Token {
 }
 
 export interface CollectionToken {
+  buy_in_progress: boolean;
   collection_address: string;
   collection_name: string;
   floor_difference: number | null;
@@ -141,22 +144,25 @@ export interface PortfolioToken {
   metadata?: TokenMetadata;
 }
 
-export type ActivityType =
-  | "AUCTION"
-  | "BURN"
-  | "CANCEL_AUCTION"
-  | "CANCEL_OFFER"
-  | "CANCELLED"
-  | "DELISTING"
-  | "EXECUTED"
-  | "EXPIRED_OFFER"
-  | "EXPIRED_LISTING"
-  | "FULFILL"
-  | "LISTING"
-  | "MINT"
-  | "OFFER"
-  | "SALE"
-  | "TRANSFER";
+export const activityTypes = [
+  "AUCTION",
+  "BURN",
+  "CANCELLED",
+  "CANCEL_AUCTION",
+  "CANCEL_OFFER",
+  "DELISTING",
+  "EXECUTED",
+  "EXPIRED_LISTING",
+  "EXPIRED_OFFER",
+  "FULFILL",
+  "LISTING",
+  "MINT",
+  "OFFER",
+  "SALE",
+  "TRANSFER",
+] as const;
+
+export type ActivityType = (typeof activityTypes)[number];
 
 export interface PortfolioActivity {
   activity_type: ActivityType;
@@ -168,14 +174,49 @@ export interface PortfolioActivity {
   price: string;
   time_stamp: number;
   to: string;
-  transaction_hash: string | null;
   token_id: string;
+  transaction_hash: string | null;
+  currency?: {
+    contract: string;
+    decimals: number;
+    symbol: string;
+  } | null;
+}
+
+export interface PortfolioOffers {
+  collection_address: string;
+  collection_name: string;
+  currency_address: string;
+  expire_at: number;
+  floor_difference: string | null;
+  from_address: string;
+  hash: string;
+  is_verified: boolean;
+  metadata?: TokenMetadata;
+  offer_id: number;
+  price: string;
+  to_address: string | null;
+  token_id: string;
+  is_listed: boolean;
+  listing: {
+    currency_address: string | null;
+    end_amount: string | null;
+    end_date: number | null;
+    is_auction: boolean;
+    order_hash: string;
+    start_amount: string | null;
+    start_date: number | null;
+  };
+  currency?: {
+    contract: string;
+    decimals: number;
+    symbol: string;
+  } | null;
 }
 
 export interface CollectionActivity {
   activity_type: ActivityType;
   address: string;
-  collection_address: string;
   from: string;
   is_verified: boolean;
   name: string;
@@ -185,6 +226,11 @@ export interface CollectionActivity {
   token_id: string;
   token_metadata: TokenMetadata | null;
   transaction_hash: string | null;
+  currency?: {
+    contract: string;
+    decimals: number;
+    symbol: string;
+  } | null;
 }
 
 export interface TokenOffer {
@@ -204,10 +250,14 @@ export interface OwnersTokensApiResponse {
   result: Token[];
 }
 
+export interface PortfolioStats {
+  total_value: string | null;
+}
+
 export interface TokenMarketData {
   buy_in_progress: boolean;
   created_timestamp: number | null;
-  floor: string;
+  floor: string | null;
   has_offer: boolean;
   is_listed: boolean;
   last_price: string | null;
@@ -262,8 +312,50 @@ export interface TokenActivity {
   time_stamp: number;
   to: string | null;
   transaction_hash: string | null;
+  currency?: {
+    contract: string;
+    decimals: number;
+    symbol: string;
+  } | null;
 }
 
 export interface Filters {
   traits: Record<string, string[]>;
+}
+
+export interface LatestSales {
+  collection_address: string;
+  collection_name: string;
+  token_id: string;
+  from: string;
+  metadata: TokenMetadata | null;
+  price: string;
+  timestamp: number;
+  to: string;
+  transaction_hash: string | null;
+  currency: {
+    contract: string;
+    decimals: number;
+    symbol: string;
+  } | null;
+}
+
+export interface TrendingNow {
+  collection_address: string;
+  collection_image: string;
+  collection_name: string;
+  floor_difference: number;
+  floor_price: string | null;
+  preview_nfts: [
+    { metadata?: TokenMetadata },
+    { metadata?: TokenMetadata },
+    { metadata?: TokenMetadata },
+  ];
+}
+
+export interface LiveAuctions {
+  collection_address: string;
+  token_id: string;
+  end_timestamp: number;
+  metadata?: TokenMetadata;
 }

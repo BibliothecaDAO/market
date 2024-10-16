@@ -4,7 +4,7 @@ import MainCarousel from "./components/main-carousel";
 export default function HomePage() {
   return (
     <main>
-      <div className="mx-auto mt-1 flex max-w-[120rem] flex-col gap-10 px-5 pb-8 md:mt-8 md:gap-16 md:px-8">
+      <div className="mx-auto mt-1 flex max-w-[120rem] flex-col gap-10 px-5 pb-8 md:gap-16 md:px-8">
         <MainCarousel />
         {/* <ExploreCategory /> */}
         {/* <LatestDrop /> */}

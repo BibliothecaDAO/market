@@ -4,7 +4,6 @@ import type { Connector } from "@starknet-react/core";
 import type { PropsWithChildren } from "react";
 import { useCallback, useMemo, useState } from "react";
 import { argent, useConnect } from "@starknet-react/core";
-import { Loader2, Mail } from "@ark-market/ui/icons";
 
 import { Button } from "@ark-market/ui/button";
 import {
@@ -14,7 +13,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@ark-market/ui/dialog";
+import { ConnectWallet, Loader2, Mail } from "@ark-market/ui/icons";
 import { Separator } from "@ark-market/ui/separator";
+
+import { env } from "~/env";
 
 const walletIdToName = new Map([
   ["argentX", "Argent X"],
@@ -125,7 +127,7 @@ export default function ConnectWalletModal({ children }: PropsWithChildren) {
                 size="xl"
               >
                 <div className="absolute left-2 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-xs bg-background">
-                  <Mail size={20} />
+                  <Mail className="size-5" />
                 </div>
                 <div>
                   <p>

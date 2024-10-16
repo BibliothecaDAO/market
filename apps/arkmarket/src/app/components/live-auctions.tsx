@@ -5,21 +5,32 @@ import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import {
   Carousel,
 } from "@ark-market/ui/carousel";
+import { TimerReset } from "@ark-market/ui/icons";
 
-import { homepageConfig } from "~/config/homepage";
+import Media from "~/components/media";
+import getHomepageLiveAuctions from "~/lib/getHomepageLiveAuctions";
+import LiveAuctionsCard from "./live-auctions-card";
 
 export default function LiveAuctions() {
-  if (homepageConfig.liveAuctions.length === 0) {
+  const { data } = useQuery({
+    queryKey: ["home-page-live-auctions"],
+    queryFn: () => getHomepageLiveAuctions(),
+    refetchInterval: 10_000,
+  });
+
+  if (data === undefined || data.data.length === 0) {
     return null;
   }
 
   return (
     <section>
-      <h2 className="text-3xl font-semibold">Live auctions</h2>
+      <div className="mb-6 sm:mb-0 sm:hidden">
+        <LiveAuctionsCard />
+      </div>
       <Carousel
-        className="mt-8"
         plugins={[WheelGesturesPlugin()]}
         opts={{ skipSnaps: true }}
+        className="-mr-8"
       >
         {/* <CarouselContent> */}
         {/*   {homepageConfig.liveAuctions.map((collection, index) => { */}

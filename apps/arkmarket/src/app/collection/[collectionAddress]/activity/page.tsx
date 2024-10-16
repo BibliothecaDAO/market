@@ -4,7 +4,6 @@ import getCollection from "~/lib/getCollection";
 import CollectionActivity from "../components/collection-activity";
 import CollectionBanner from "../components/collection-banner";
 import CollectionHeader from "../components/collection-header";
-import CollectionNav from "../components/collection-nav";
 import MobileCollectionHeader from "../components/mobile-collection-header";
 
 interface CollectionPageProps {
@@ -37,10 +36,9 @@ export default async function CollectionActivityPage({
         collectionAddress={collectionAddress}
         collection={collection}
       />
-      <CollectionNav collectionAddress={collectionAddress} />
       <CollectionActivity
         collectionAddress={collectionAddress}
-        collectionTokenCount={collection.token_count}
+        tokenCount={collection.token_count}
       />
     </div>
   );

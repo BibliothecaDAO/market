@@ -4,12 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { validateAndParseAddress } from "starknet";
 
-import { cn, getRoundedRemainingTime } from "@ark-market/ui";
+import { getRoundedRemainingTime } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import { PriceTag } from "@ark-market/ui/price-tag";
 import { TableCell, TableRow } from "@ark-market/ui/table";
 
 import type { Token, TokenMarketData, TokenOffer } from "~/types";
+import OfferFloorDiffCell from "~/components/cells/offer-floor-diff-cell";
+import OfferPriceCell from "~/components/cells/offer-price-cell";
 import ConnectWalletModal from "~/components/connect-wallet-modal";
 import ownerOrShortAddress from "~/lib/ownerOrShortAddress";
 import AcceptOffer from "./accept-offer";
@@ -51,6 +52,8 @@ export default function TokenOffersTableItem({
       key={offer.offer_id}
       className="grid h-[4.625rem] w-full grid-cols-5 items-center"
     >
+      <OfferPriceCell offer={offer} />
+      <OfferFloorDiffCell offer={offer} />
       <TableCell>
         <PriceTag price={offer.price} token="lords" />
       </TableCell>
@@ -77,18 +80,27 @@ export default function TokenOffersTableItem({
           <>
             {isOwner && (
               <AcceptOffer
-                offer={offer}
-                token={token}
-                tokenMarketData={tokenMarketData}
                 onSuccess={() => setIsSuccess(true)}
+                collectionAddress={token.collection_address}
+                collectionName={token.collection_name}
+                tokenId={token.token_id}
+                tokenMetadata={token.metadata}
+                offerOrderHash={offer.hash}
+                offerPrice={offer.price}
+                isListed={tokenMarketData.is_listed}
+                listing={tokenMarketData.listing}
+                floor={tokenMarketData.floor}
               />
             )}
             {isOfferer && (
               <CancelOffer
-                address={address}
-                offer={offer}
-                token={token}
                 onSuccess={() => setIsSuccess(true)}
+                tokenId={token.token_id}
+                offerOrderHash={offer.hash}
+                collectionAddress={token.collection_address}
+                offerPrice={offer.price}
+                collectionName={token.collection_name}
+                tokenMetadata={token.metadata}
               />
             )}
           </>

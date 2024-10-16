@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { parseEther } from "viem";
 
 import { cn, ellipsableStyles } from "@ark-market/ui";
@@ -46,14 +47,15 @@ export default function TokenActionsTokenOverview({
             {token.metadata?.name ?? `#${token.token_id}`}
           </div>
           <div className="flex w-full items-center gap-1 sm:gap-2">
-            <p
+            <Link
               className={cn(
-                "text-sm font-semibold text-muted-foreground sm:text-lg",
+                "text-sm font-semibold text-muted-foreground transition-colors hover:text-primary sm:text-lg",
                 ellipsableStyles,
               )}
+              href={`/collection/${token.collection_address}`}
             >
               {token.collection_name || "Unknown"}
-            </p>
+            </Link>
             <VerifiedIcon className="size-4 flex-shrink-0 text-primary sm:size-6" />
           </div>
           {small ?? (

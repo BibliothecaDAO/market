@@ -6,10 +6,18 @@ import {
   Carousel,
 } from "@ark-market/ui/carousel";
 
-import { homepageConfig } from "~/config/homepage";
+import Media from "~/components/media";
+import getHomepageTrendingNow from "~/lib/getHomepageTrendingNow";
+import TrendingNowCard from "./trending-now-card";
 
 export default function TrendingNow() {
-  if (homepageConfig.trendingNow.length === 0) {
+  const { data } = useQuery({
+    queryKey: ["home-page-trending"],
+    queryFn: () => getHomepageTrendingNow(),
+    refetchInterval: 10_000,
+  });
+
+  if (data === undefined || data.data.length === 0) {
     return null;
   }
 

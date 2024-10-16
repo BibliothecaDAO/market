@@ -25,18 +25,37 @@ export default function TokenStats({
   tokenMarketData,
 }: PropsWithClassName<TokenStatsProps>) {
   const { address } = useAccount();
-  const { data } = useTokenMarketdata({
+  const { data, isError } = useTokenMarketdata({
     collectionAddress: token.collection_address,
     tokenId: token.token_id,
     initialData: tokenMarketData,
   });
-  const { data: starkProfile } = useStarkProfile({ address: data.owner });
-  const owner =
-    starkProfile?.name ??
-    ownerOrShortAddress({
-      ownerAddress: data.owner,
-      address,
-    });
+  const { data: starkProfile } = useStarkProfile({ address: data?.owner });
+
+  if (isError) {
+    return null;
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  const owner = starkProfile?.name
+    ? starkProfile.name
+    : data.owner
+      ? ownerOrShortAddress({
+          ownerAddress: data.owner,
+          address,
+        })
+      : "";
+
+  const floor = data.floor ? formatEther(BigInt(data.floor)) : "_";
+  const lastPrice = data.last_price
+    ? formatEther(BigInt(data.last_price))
+    : "_";
+  const topOffer = data.has_offer
+    ? formatEther(BigInt(data.top_offer.amount))
+    : "_";
 
   return (
     <div
@@ -83,7 +102,9 @@ export default function TokenStats({
           />
           <div className="min-w-0 flex-1">
             <Link href={`/wallet/${data.owner}`} className="block">
-              <p className="truncate font-medium">{owner}</p>
+              <p className="truncate font-medium transition-colors hover:text-primary">
+                {owner}
+              </p>
             </Link>
           </div>
         </div>

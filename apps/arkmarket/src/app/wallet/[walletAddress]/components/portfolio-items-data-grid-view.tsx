@@ -1,4 +1,5 @@
-import { forwardRef } from "react";
+import type { Components } from "react-virtuoso";
+import React from "react";
 import Link from "next/link";
 import { VirtuosoGrid } from "react-virtuoso";
 import { formatEther } from "viem";
@@ -9,7 +10,7 @@ import {
   focusableStyles,
   formatUnits,
 } from "@ark-market/ui";
-import { VerifiedIcon } from "@ark-market/ui/icons";
+import { NoResult, VerifiedIcon } from "@ark-market/ui/icons";
 import {
   NftCard,
   NftCardAction,
@@ -23,32 +24,36 @@ import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenI
 import Media from "~/components/media";
 import { CollectionDescription } from "~/config/homepage";
 
-const LargeGridContainer = forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<"div">
->(({ children, ...props }, ref) => (
-  <div
-    ref={ref}
-    {...props}
-    className="mb-2 grid w-full grid-cols-2 gap-4 px-5 py-6 sm:grid-cols-[repeat(auto-fill,_minmax(15rem,1fr))] sm:gap-2"
-  >
-    {children}
-  </div>
-));
+const LargeGridContainer: Components["List"] = React.forwardRef(
+  ({ style, children }, ref) => {
+    return (
+      <div
+        ref={ref}
+        style={style}
+        className="mb-2 grid w-full grid-cols-2 gap-4 px-5 py-6 sm:grid-cols-[repeat(auto-fill,_minmax(15rem,1fr))] sm:gap-2"
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
 LargeGridContainer.displayName = "LargeGridContainer";
 
-const SmallGridContainer = forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<"div">
->(({ children, ...props }, ref) => (
-  <div
-    ref={ref}
-    {...props}
-    className="mb-2 grid w-full grid-cols-2 gap-4 px-5 py-6 sm:grid-cols-[repeat(auto-fill,_minmax(10rem,1fr))] sm:gap-2"
-  >
-    {children}
-  </div>
-));
+const SmallGridContainer: Components["List"] = React.forwardRef(
+  ({ style, children }, ref) => {
+    return (
+      <div
+        ref={ref}
+        style={style}
+        className="mb-2 grid w-full grid-cols-2 gap-4 px-5 py-6 sm:grid-cols-[repeat(auto-fill,_minmax(10rem,1fr))] sm:gap-2"
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
 SmallGridContainer.displayName = "SmallGridContainer";
 
 interface CollectionItemsDataGridViewProps {
@@ -84,57 +89,61 @@ export default function CollectionItemsDataGridView({
 
         const canListItem = isOwner && !token.list_price;
 
-        return (
-          // TODO @YohanTz: Extract to NftCard component and sub-components
-          <NftCard>
-            <Link
-              href={`/token/${token.collection_address}/${token.token_id}`}
-              className={cn("flex items-center gap-1", focusableStyles)}
-            >
-              <NftCardMedia>
-                {/* TODO: Media part of NftCardMedia */}
-                <Media
-                  alt={token.metadata?.name ?? "Empty"}
-                  className="aspect-square w-full object-contain transition-transform group-hover:scale-110"
-                  src={token.metadata?.image}
-                  mediaKey={token.metadata?.image_key}
-                  height={viewType === "large-grid" ? 540 : 340}
-                  width={viewType === "large-grid" ? 540 : 340}
-                />
-              </NftCardMedia>
-            </Link>
-            <NftCardContent>
-              <div className="flex w-full justify-between">
-                <div className="w-full overflow-hidden">
-                  <Link
-                    href={`/token/${token.collection_address}/${token.token_id}`}
-                    className={cn("flex items-center gap-1", focusableStyles)}
-                  >
-                    <p
+          return (
+            // TODO @YohanTz: Extract to NftCard component and sub-components
+            <NftCard>
+              <Link
+                href={`/token/${token.collection_address}/${token.token_id}`}
+                className={cn("flex items-center gap-1", focusableStyles)}
+              >
+                <NftCardMedia>
+                  {/* TODO: Media part of NftCardMedia */}
+                  <Media
+                    alt={token.metadata?.name ?? "Empty"}
+                    className="aspect-square w-full object-contain transition-transform group-hover:scale-110"
+                    src={token.metadata?.image}
+                    mediaKey={token.metadata?.image_key}
+                    thumbnailKey={token.metadata?.image_key_540_540}
+                    height={viewType === "large-grid" ? 540 : 340}
+                    width={viewType === "large-grid" ? 540 : 340}
+                  />
+                </NftCardMedia>
+              </Link>
+              <NftCardContent>
+                <div className="flex w-full justify-between">
+                  <div className="w-full overflow-hidden">
+                    <Link
+                      href={`/token/${token.collection_address}/${token.token_id}`}
+                      className={cn("flex items-center gap-1", focusableStyles)}
+                    >
+                      <p
+                        className={cn(
+                          "text-base font-bold leading-none",
+                          viewType === "large-grid" && "font-bold sm:text-xl",
+                          ellipsableStyles,
+                        )}
+                      >
+                        {token.metadata?.name ?? token.token_id}
+                      </p>
+                    </Link>
+                    <Link
+                      href={`/collection/${token.collection_address}`}
                       className={cn(
-                        "text-base font-bold leading-none",
-                        viewType === "large-grid" && "font-bold sm:text-xl",
-                        ellipsableStyles,
+                        "mt-1 flex items-center gap-1",
+                        focusableStyles,
                       )}
                     >
-                      {token.metadata?.name ?? token.token_id}
-                    </p>
-                  </Link>
-                  <Link
-                    href={`/collection/${token.collection_address}`}
-                    className={cn("flex items-center gap-1 mt-1", focusableStyles)}
-                  >
-                    <p
-                      className={cn(
-                        "text-sm font-normal text-accent-foreground transition-colors hover:text-foreground leading-none",
-                        viewType === "large-grid" && "sm:text-base",
-                        ellipsableStyles,
-                      )}
-                    >
-                      {token.collection_name}
-                    </p>
-                    <VerifiedIcon className="size-4 flex-shrink-0 text-primary" />
-                  </Link>
+                      <p
+                        className={cn(
+                          "text-sm font-normal text-accent-foreground transition-colors hover:text-primary",
+                          viewType === "large-grid" && "sm:text-base",
+                          ellipsableStyles,
+                        )}
+                      >
+                        {token.collection_name}
+                      </p>
+                      <VerifiedIcon className="size-4 flex-shrink-0 text-primary" />
+                    </Link>
 
                   {token.list_price ? (
                     <p className={cn("mt-2 text-sm font-semibold", ellipsableStyles)}>

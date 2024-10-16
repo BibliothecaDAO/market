@@ -23,14 +23,14 @@ export default function PortfolioTabs({
       value={value}
       onValueChange={(val) => onValueChange(val as PortfolioTabsValues)}
     >
-      <TabsListV2 className="flex gap-8 border-b border-border sm:border-none">
+      <TabsListV2 className="flex gap-8">
         <TabsTriggerV2 value="items" className="flex items-center gap-2">
           {isOwner ? "My Items " : "Items "}
           <p className="flex h-5 items-center rounded-full bg-secondary px-1.5 text-xs font-medium text-secondary-foreground">
             {formatNumber(portfolioItemsCount)}
           </p>
         </TabsTriggerV2>
-        {/* <TabsTriggerV2 value="offers">Offers</TabsTriggerV2> */}
+        <TabsTriggerV2 value="offers">Offers</TabsTriggerV2>
         <TabsTriggerV2 value="activity">Activity</TabsTriggerV2>
       </TabsListV2>
     </TabsV2>

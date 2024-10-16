@@ -34,8 +34,10 @@ import { useToast } from "@ark-market/ui/use-toast";
 
 import type { WalletToken } from "~/app/wallet/[walletAddress]/queries/getWalletData";
 import type { Token } from "~/types";
+import durations from "~/constants/durations";
 import { env } from "~/env";
 import usePrices from "~/hooks/usePrices";
+import useTokenMarketdata from "~/hooks/useTokenMarketData";
 import formatAmount from "~/lib/formatAmount";
 import getCollection from "~/lib/getCollection";
 import ToastExecutedTransactionContent from "./toast-executed-transaction-content";
@@ -55,6 +57,10 @@ export function TokenActionsCreateListing({
   children,
 }: TokenActionsCreateListingProps) {
   const { account } = useAccount();
+  const { data: tokenMarketData } = useTokenMarketdata({
+    collectionAddress: token.collection_address,
+    tokenId: token.token_id,
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [modalEnabled, setModalEnabled] = useState(true);
   const [isAuction, setIsAuction] = useState(false);
@@ -90,7 +96,8 @@ export function TokenActionsCreateListing({
           message: "Must be a valid amount and greater than 0.00001",
         },
       ),
-      duration: z.string(),
+      duration: z.string().optional(),
+      endDateTime: z.date().optional(),
     })
     .refine(
       (data) => {
@@ -116,6 +123,7 @@ export function TokenActionsCreateListing({
       startAmount: "",
       endAmount: "",
       duration: "719",
+      endDateTime: undefined,
       username: "",
     },
   });
@@ -128,9 +136,11 @@ export function TokenActionsCreateListing({
         title: "Listing canceled",
         additionalContent: (
           <ToastRejectedTransactionContent
-            token={token}
             price={parseEther(startAmount)}
             formattedPrice={startAmount}
+            collectionName={token.collection_name}
+            tokenId={token.token_id}
+            tokenMetadata={token.metadata}
           />
         ),
       });
@@ -142,9 +152,11 @@ export function TokenActionsCreateListing({
         title: "Your token is successfully listed!",
         additionalContent: (
           <ToastExecutedTransactionContent
-            token={token}
             price={parseEther(startAmount)}
             formattedPrice={startAmount}
+            collectionName={token.collection_name}
+            tokenId={token.token_id}
+            tokenMetadata={token.metadata}
           />
         ),
       });
@@ -160,9 +172,11 @@ export function TokenActionsCreateListing({
         title: "Auction canceled",
         additionalContent: (
           <ToastRejectedTransactionContent
-            token={token}
             price={parseEther(startAmount)}
             formattedPrice={startAmount}
+            collectionName={token.collection_name}
+            tokenId={token.token_id}
+            tokenMetadata={token.metadata}
           />
         ),
       });
@@ -174,9 +188,11 @@ export function TokenActionsCreateListing({
         title: "Auction successfully launched",
         additionalContent: (
           <ToastExecutedTransactionContent
-            token={token}
             price={parseEther(startAmount)}
             formattedPrice={startAmount}
+            collectionName={token.collection_name}
+            tokenId={token.token_id}
+            tokenMetadata={token.metadata}
           />
         ),
       });
@@ -237,7 +253,6 @@ export function TokenActionsCreateListing({
   }
 
   const startAmount = form.watch("startAmount");
-  const isLoading = status === "loading" || auctionStatus === "loading";
 
   const formattedCollectionFloor = formatEther(BigInt(collection?.floor ?? 0));
 
@@ -256,8 +271,19 @@ export function TokenActionsCreateListing({
           <Button
             className={cn(small ?? "relative w-full lg:max-w-[50%]")}
             size={small ? "xl" : "xxl"}
+            disabled={isTriggerDisabled}
           >
-            <List size={24} className={cn("left-4", small ? "" : "absolute")} />
+            {isTriggerLoading ? (
+              <LoaderCircle
+                className={cn("animate-spin", small ?? "absolute left-4")}
+                size={small ? 20 : 24}
+              />
+            ) : (
+              <List
+                size={small ? 20 : 24}
+                className={cn("left-4", small ? "" : "absolute")}
+              />
+            )}
             List for sale
           </Button>
         )}
@@ -267,6 +293,7 @@ export function TokenActionsCreateListing({
           e.preventDefault();
         }}
       >
+        <DialogTitle className="sr-only">Create listing</DialogTitle>
         <div className="flex flex-col gap-8">
           <div className="mt-4 text-center text-xl font-semibold">
             List for sale
@@ -379,34 +406,74 @@ export function TokenActionsCreateListing({
               <FormField
                 control={form.control}
                 name="duration"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg">
-                      Listing expiration
-                    </FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value.toString()}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="">
-                          <SelectValue placeholder="Theme" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="1">1 hour</SelectItem>
-                        <SelectItem value="3">3 hours</SelectItem>
-                        <SelectItem value="6">6 hours</SelectItem>
-                        <SelectItem value="24">1 day</SelectItem>
-                        <SelectItem value="72">3 days</SelectItem>
-                        <SelectItem value="168">7 days</SelectItem>
-                        <SelectItem value="719">1 month</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
+                render={({ field: durationField }) => (
+                  <FormField
+                    control={form.control}
+                    name="endDateTime"
+                    render={({ field: endDateTimeField }) => {
+                      return (
+                        <FormItem>
+                          <FormLabel className="text-lg">
+                            Listing expiration
+                          </FormLabel>
+                          <div className="grid grid-cols-[1fr_2fr] gap-4">
+                            <Select
+                              onValueChange={(value) => {
+                                if (value.length === 0) {
+                                  return;
+                                }
+                                durationField.onChange(value);
+                                endDateTimeField.onChange(undefined);
+                              }}
+                              value={
+                                durationField.value === "custom"
+                                  ? undefined
+                                  : durationField.value
+                              }
+                            >
+                              <FormControl>
+                                <SelectTrigger className="">
+                                  <SelectValue placeholder="Custom">
+                                    {durationField.value === "custom"
+                                      ? "Custom"
+                                      : durations[durationField.value]}
+                                  </SelectValue>
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="1">1 hour</SelectItem>
+                                <SelectItem value="3">3 hours</SelectItem>
+                                <SelectItem value="6">6 hours</SelectItem>
+                                <SelectItem value="24">1 day</SelectItem>
+                                <SelectItem value="72">3 days</SelectItem>
+                                <SelectItem value="168">7 days</SelectItem>
+                                <SelectItem value="719">1 month</SelectItem>
+                                <SelectItem value="custom">Custom</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <DateTimePicker
+                              hourCycle={12}
+                              value={
+                                durationField.value === "custom"
+                                  ? endDateTimeField.value
+                                  : moment()
+                                      .add(form.getValues("duration"), "hours")
+                                      .toDate()
+                              }
+                              onChange={(value) => {
+                                endDateTimeField.onChange(value);
+                                durationField.onChange("custom");
+                              }}
+                            />
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
                 )}
               />
+
               <div className="!mt-8 text-xl font-semibold">
                 <div className="flex items-center justify-between">
                   <p>Earning details</p>
