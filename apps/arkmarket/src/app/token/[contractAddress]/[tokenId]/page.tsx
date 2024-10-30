@@ -2,9 +2,6 @@
 
 import { notFound } from "next/navigation";
 
-import type { Token, TokenMarketData } from "~/types";
-import getToken from "~/lib/getToken";
-import getTokenMarketData from "~/lib/getTokenMarketData";
 import TokenAbout from "./components/token-about";
 import TokenActions from "./components/token-actions";
 import TokenActivity from "./components/token-activity";
@@ -12,7 +9,7 @@ import TokenOffers from "./components/token-offers";
 import TokenStats from "./components/token-stats";
 import TokenSummary from "./components/token-summary";
 import TokenTraits from "./components/token-traits";
-import { CollectionDescription } from "~/config/homepage";
+import { useTokenLoading } from "~/hooks/useTokenLoading";
 
 interface TokenPageProps {
   params: {
@@ -24,28 +21,13 @@ interface TokenPageProps {
 export default async function TokenPage({
   params: { contractAddress, tokenId },
 }: TokenPageProps) {
-  let token;
-  try {
-    token = await getToken({
-      contractAddress,
-      tokenId,
-    });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
+  const { token, tokenMarketData, isRealmsCollection, isLoading } = await useTokenLoading({ contractAddress, tokenId });
+
+  if (!isRealmsCollection) {
     return notFound();
   }
 
-  const tokenMarketData = await getTokenMarketData({
-    contractAddress,
-    tokenId,
-  });
-
-  const collection = CollectionDescription[token.collection_address];
-  if (!collection) {
-    return notFound();
-  }
-
-  if (!token.owner || !tokenMarketData) {
+  if (!token?.owner || !tokenMarketData) {
     return notFound();
   }
 

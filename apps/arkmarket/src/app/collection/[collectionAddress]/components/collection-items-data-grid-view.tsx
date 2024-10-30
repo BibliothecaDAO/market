@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef } from "react"
 import Link from "next/link";
 import { LoaderCircle } from "lucide-react";
 import { VirtuosoGrid } from "react-virtuoso";
@@ -13,8 +13,8 @@ import {
 
 import type { ViewType } from "../../../../components/view-type-toggle-group";
 import type { CollectionToken } from "~/types";
-import Media from "~/components/media";
 import CollectionItemsBuyNow from "./collection-items-buy-now";
+import { CollectionTokenImage } from "./collection-token-image";
 
 const LargeGridContainer = forwardRef<
   HTMLDivElement,
@@ -78,13 +78,9 @@ export default function CollectionItemsDataGridView({
                 key={`${token.collection_address}-${token.token_id}`}
                 prefetch={false}
               >
-                <NftCardMedia>
-                  <Media
-                    src={token.metadata?.image}
-                    mediaKey={token.metadata?.image_key}
-                    thumbnailKey={token.metadata?.image_key_540_540}
-                    alt={token.metadata?.name ?? "Empty"}
-                    className="aspect-square w-full object-contain transition-transform group-hover:scale-110"
+                <NftCardMedia className="aspect-auto">
+                  <CollectionTokenImage
+                    token={token}
                     height={viewType === "large-grid" ? 540 : 340}
                     width={viewType === "large-grid" ? 540 : 340}
                   />
@@ -110,7 +106,7 @@ export default function CollectionItemsDataGridView({
                           )}
                         >
                           {formatUnits(token.price, 18)} LORDS
-                        </p>
+                        </div>
                       ) : (
                         <div
                           className={cn(

@@ -2,6 +2,7 @@ import { useAccount } from "@starknet-react/core";
 
 import { timeSince } from "@ark-market/ui";
 import { NoActivity } from "@ark-market/ui/icons";
+import type { TokenSymbol } from "@ark-market/ui/price-tag";
 import { PriceTag } from "@ark-market/ui/price-tag";
 import {
   Table,
@@ -25,6 +26,7 @@ export default function DesktopTokenActivity({
   tokenActivity,
 }: DesktopTokenActivityProps) {
   const { address } = useAccount();
+
   return (
     <>
       <Table>
@@ -39,52 +41,40 @@ export default function DesktopTokenActivity({
           </TableRow>
         </TableHeader>
         <TableBody className="font-numbers text-sm font-medium">
-          {tokenActivity.map((activity, index) => {
-
+          {tokenActivity.map((activity) => {
             return (
-              <TableRow className="group h-[4.6875rem]" key={index}>
-                <TableCell className="pl-5 transition-colors group-hover:text-muted-foreground">
-                  <div className="flex items-center gap-4 whitespace-nowrap">
-                    {activityTypeMetadata[activity.activity_type].icon}
-                    <p>{activityTypeMetadata[activity.activity_type].title}</p>
-                  </div>
-                </TableCell>
+              <TableRow
+                className="group h-[4.6875rem]"
+                key={`activity-${activity.time_stamp}`}
+              >
+                <EventCell activity={activity} />
                 <TableCell>
-                  {activity.price !== null ? (
-                    <PriceTag price={activity.price} token="lords" />
+                  {activity.price ? (
+                    <PriceTag
+                      price={activity.price}
+                      token={activity.currency?.symbol.toLowerCase() as TokenSymbol | undefined}
+                    />
                   ) : (
                     "_"
                   )}
                 </TableCell>
-                <TableCell>
-                  {activity.from ? (
-                    <Link href={`/wallet/${activity.from}`}>
-                      {ownerOrShortAddress({
-                        ownerAddress: activity.from,
-                        address,
-                      })}
-                    </Link>
-                  ) : (
-                    "_"
-                  )}
-                </TableCell>
-                <TableCell>
-                  {activity.to ? (
-                    <Link href={`/wallet/${activity.to}`}>
-                      {ownerOrShortAddress({
-                        ownerAddress: activity.to,
-                        address,
-                      })}
-                    </Link>
-                  ) : (
-                    "_"
-                  )}
-                </TableCell>
-                <TableCell className="text-end">
-                  {timeSince(activity.time_stamp)}
-                </TableCell>
+
+                <ActivityToFromCell
+                  ownerAddress={activity.from ?? ""}
+                  address={address}
+                />
+
+                <ActivityToFromCell
+                  ownerAddress={activity.to ?? ""}
+                  address={address}
+                />
+
+                <TableCell>{timeSince(activity.time_stamp)}</TableCell>
+                <ActivityTransaction
+                  transactionHash={activity.transaction_hash}
+                />
               </TableRow>
-            );
+            )
           })}
         </TableBody>
       </Table>

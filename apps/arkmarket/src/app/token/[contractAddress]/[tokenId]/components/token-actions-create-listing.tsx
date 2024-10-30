@@ -13,7 +13,7 @@ import * as z from "zod";
 
 import { cn } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@ark-market/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@ark-market/ui/dialog";
 import {
   Form,
   FormControl,
@@ -44,6 +44,7 @@ import ToastExecutedTransactionContent from "./toast-executed-transaction-conten
 import ToastRejectedTransactionContent from "./toast-rejected-transaction-content";
 import TokenActionsTokenOverview from "./token-actions-token-overview";
 import LordsInput from "~/components/lords-input";
+import { DateTimePicker } from "@ark-market/ui/date-time-picker";
 
 interface TokenActionsCreateListingProps {
   token: Token | WalletToken;
@@ -263,6 +264,10 @@ export function TokenActionsCreateListing({
     auctionStatus === "loading";
 
   const startAmountInUsd = convertInUsd({ token: "lords", amount: parseEther(startAmount) });
+  const isLoading = status === "loading" || auctionStatus === "loading";
+  const isTriggerLoading = status === "success" || auctionStatus === "success";
+  const isTriggerDisabled =
+    isTriggerLoading || tokenMarketData?.buy_in_progress;
 
   return (
     <Dialog open={isOpen} modal={modalEnabled} onOpenChange={setIsOpen}>
@@ -273,7 +278,7 @@ export function TokenActionsCreateListing({
             size={small ? "xl" : "xxl"}
             disabled={isTriggerDisabled}
           >
-            {isTriggerLoading ? (
+            {isLoading ? (
               <LoaderCircle
                 className={cn("animate-spin", small ?? "absolute left-4")}
                 size={small ? 20 : 24}
@@ -457,8 +462,8 @@ export function TokenActionsCreateListing({
                                 durationField.value === "custom"
                                   ? endDateTimeField.value
                                   : moment()
-                                      .add(form.getValues("duration"), "hours")
-                                      .toDate()
+                                    .add(form.getValues("duration"), "hours")
+                                    .toDate()
                               }
                               onChange={(value) => {
                                 endDateTimeField.onChange(value);

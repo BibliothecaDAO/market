@@ -6,7 +6,7 @@ import {
 } from "@starknet-react/core";
 
 import { cn, focusableStyles, shortAddress } from "@ark-market/ui";
-import { Ethereum, Lords, Starknet, User, HelpCircle, Power } from "@ark-market/ui/icons"
+import { Ethereum, Lords, Starknet, User, Wallet } from "@ark-market/ui/icons"
 import { ThemeTabs } from "@ark-market/ui/theme";
 
 import { ETH, STRK } from "~/constants/tokens";
@@ -16,6 +16,7 @@ import ExternalLink from "./external-link";
 import ProfilePicture from "./profile-picture";
 import { env } from "~/env";
 import { useTokenBalance } from "~/hooks/useTokenBalance";
+import { LifeBuoy, LogOut } from "lucide-react";
 
 const itemCommonClassName = cn(
   "flex items-center gap-2 rounded-xs px-1.5 py-2 transition-colors hover:bg-card",
@@ -100,14 +101,14 @@ export default function WalletAccountContent({
             </ExternalLink>
           )}
           <Link href="/" className={itemCommonClassName} onClick={onClose}>
-            <Support size={24} className="!size-6 !text-xl" weight={45} />
+            <LifeBuoy size={24} className="!size-6 !text-xl" />
             <p className="font-bold">Support</p>
           </Link>
           <button
             className={cn(itemCommonClassName)}
             onClick={() => disconnect()}
           >
-            <LogOut size={24} className="!size-6 !text-xl" weight={45} />
+            <LogOut size={24} className="!size-6 !text-xl" />
             <p className="font-bold">Log out</p>
           </button>
         </div>

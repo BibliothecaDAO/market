@@ -27,7 +27,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@ark-market/ui/form";
-import { ActivityOffer, LoaderCircle, NoOffer } from "@ark-market/ui/icons";
+import { ActivityOffer, LoaderCircle } from "@ark-market/ui/icons";
 import {
   Select,
   SelectContent,
@@ -38,6 +38,7 @@ import {
 import { useToast } from "@ark-market/ui/use-toast";
 
 import type { Token } from "~/types";
+import durations from "~/constants/durations";
 import { env } from "~/env";
 import useConnectWallet from "~/hooks/useConnectWallet";
 import formatAmount from "~/lib/formatAmount";
@@ -294,8 +295,8 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
                                 durationField.value === "custom"
                                   ? endDateTimeField.value
                                   : moment()
-                                      .add(form.getValues("duration"), "hours")
-                                      .toDate()
+                                    .add(form.getValues("duration"), "hours")
+                                    .toDate()
                               }
                               onChange={(value) => {
                                 endDateTimeField.onChange(value);

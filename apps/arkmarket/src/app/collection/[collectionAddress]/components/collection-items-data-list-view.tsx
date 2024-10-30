@@ -18,6 +18,7 @@ import {
 import type { CollectionToken } from "~/types";
 import Media from "~/components/media";
 import { PriceTag } from "@ark-market/ui/price-tag";
+import Link from "next/link";
 
 const gridTemplateColumnValue =
   "grid-cols-[minmax(10rem,2fr)_repeat(5,minmax(7.25rem,1fr))]";

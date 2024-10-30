@@ -6,10 +6,10 @@ import { VerifiedIcon } from "@ark-market/ui/icons";
 
 import type { Token } from "~/types";
 import CopyButton from "~/components/copy-button";
-import Media from "~/components/media";
 import RefreshMetadataButton from "./refresh-metadata-button";
 import TokenSummaryMobileActions from "./token-summary-mobile-actions";
 import TokenSummaryShareDropdown from "./token-summary-share-dropdown";
+import { TokenImage } from "./token-image";
 
 interface TokenSummaryProps {
   token: Token;
@@ -26,17 +26,7 @@ export default function TokenSummary({
         className,
       )}
     >
-      <Media
-        src={token.metadata?.animation_url ?? token.metadata?.image}
-        mediaKey={token.metadata?.image_key}
-        alt={
-          token.metadata?.name ?? `${token.collection_name} #${token.token_id}`
-        }
-        className="aspect-square w-full rounded-lg object-contain"
-        height={1000}
-        width={1000}
-        priority
-      />
+      <TokenImage token={token} />
       <div className="flex flex-col lg:gap-0">
         <div className="flex items-center gap-1.5">
           <Link

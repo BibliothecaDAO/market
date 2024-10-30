@@ -9,7 +9,6 @@ interface GetCollectionTokenProps {
   contractAddress: string;
   tokenId: string;
 }
-
 export default async function getToken({
   contractAddress,
   tokenId,

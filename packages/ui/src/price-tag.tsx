@@ -1,22 +1,12 @@
 import type { PropsWithClassName } from ".";
 import { cn, formatUnits } from ".";
-import { Ethereum, Lords } from "./icons";
+import { Ethereum, Lords, Starknet } from "./icons";
 
-import LordsLogo from "./svg/lords.svg";
+export type TokenSymbol = "eth" | "strk" | "lords" | "starknet" | "ethereum";
+
 interface PriceTagProps {
   price: number | bigint | string;
-  token?: "ethereum" | "starknet" | "lords";
-}
-
-function CurrencyIcon({ symbol }: { symbol: string }) {
-  switch (symbol) {
-    case "STRK":
-      return <Starknet className="size-5" />;
-    case "ETH":
-      return <Ethereum className="size-5" />;
-    default:
-      return null;
-  }
+  token?: TokenSymbol;
 }
 
 export function PriceTag({
@@ -27,8 +17,6 @@ export function PriceTag({
   if (!price) {
     return null;
   }
-
-  const parsedPrice = parseFloat(formatUnits(price, 18));
 
   return (
     <div
@@ -45,16 +33,23 @@ export function PriceTag({
     </div>
   );
 }
-function CurrencySymbol({ token }: { token?: "ethereum" | "starknet" | "lords" }) {
+
+function CurrencySymbol({ token }: { token?: TokenSymbol }) {
   if (token === "lords") {
     return <>LORDS</>;
+  }
+  if (token === "starknet" || token === "strk") {
+    return <>STRK</>;
   }
   return <>ETH</>;
 }
 
-function CurrencyLogo({ token }: { token?: "ethereum" | "starknet" | "lords" }) {
+function CurrencyLogo({ token }: { token?: TokenSymbol }) {
   if (token === "lords") {
     return <Lords className="size-5" />;
+  }
+  if (token === "starknet" || token === "strk") {
+    return <Starknet className="size-5" />;
   }
 
   return <Ethereum className="size-5" />;

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
-import { cn, ellipsableStyles } from "@ark-market/ui";
+import { cn, ellipsableStyles, formatUnits, timeSince } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
 import LordsLogo from "~/icons/lords.svg";
 import {
@@ -20,6 +20,8 @@ import ActivityTime from "~/components/cells/activity-time-cell";
 import TokenLastSoldCell from "~/components/cells/token-last-price-cell";
 import Media from "~/components/media";
 import { CollectionDescription } from "~/config/homepage";
+import { NftCardAction } from "@ark-market/ui/nft-card";
+import { NoResult } from "@ark-market/ui/icons";
 
 const gridTemplateColumnValue =
   "grid-cols-[minmax(11rem,2fr)_repeat(4,minmax(10rem,1fr))_minmax(6.5rem,8rem)]";
@@ -83,41 +85,17 @@ export default function PortfolioItemsDataListView({
           </TableRow>
         </TableHeader>
         <TableBody
-          className="font-numbers relative block font-medium"
+          className="font-numbers relative font-medium"
           style={{
             height: `${rowVirtualizer.getTotalSize() + 2}px`, // Tells scrollbar how big the table is
           }}
         >
-          <TableHead className="sticky top-0 flex items-center bg-background pl-5">
-            Item
-          </TableHead>
-          <TableHead className="sticky top-0 flex items-center bg-background">
-            List price
-          </TableHead>
-          <TableHead className="sticky top-0 flex items-center bg-background">
-            Best offer
-          </TableHead>
-          <TableHead className="sticky top-0 flex items-center bg-background">
-            Floor
-          </TableHead>
-          <TableHead className="sticky top-0 flex items-center bg-background">
-            Received date
-          </TableHead>
-          <TableHead className="sticky top-0 flex items-center bg-background"></TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody
-        className="font-numbers relative font-medium"
-        style={{
-          height: `${rowVirtualizer.getTotalSize() + 2}px`, // Tells scrollbar how big the table is
-        }}
-      >
-        {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const token = filteredWalletTokens[virtualRow.index];
-          if (token === undefined) {
-            return null;
-          }
-          const canListItem = isOwner && !token.list_price;
+          {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+            const token = filteredWalletTokens[virtualRow.index];
+            if (token === undefined) {
+              return null;
+            }
+            const canListItem = isOwner && !token.list_price;
 
             return (
               <TableRow
@@ -143,67 +121,66 @@ export default function PortfolioItemsDataListView({
                       width={94}
                     />
 
-                  <p className={cn("w-full", ellipsableStyles)}>
-                    {token.metadata?.name ?? token.token_id}
-                  </p>
-                </div>
-              </TableCell>
-              <TableCell>
-                {token.list_price ? (
-                  <div className="flex items-center">
-                    <LordsLogo className="size-4" />
-                    <p>
-                      {formatUnits(token.list_price, 18)}{" "}
-                      <span className="text-muted-foreground">LORDS</span>
+                    <p className={cn("w-full", ellipsableStyles)}>
+                      {token.metadata?.name ?? token.token_id}
                     </p>
                   </div>
-                ) : (
-                  "_"
-                )}
-              </TableCell>
-              <TableCell>
-                {token.best_offer ? (
-                  <div className="flex items-center">
-                    <LordsLogo className="size-4" />
-                    <p>
-                      {formatUnits(token.best_offer, 18)}{" "}
-                      <span className="text-muted-foreground">LORDS</span>
-                    </p>
-                  </div>
-                ) : (
-                  "_"
-                )}
-              </TableCell>
-              <TableCell>
-                {token.floor ? (
-                  <div className="flex items-center">
-                    <LordsLogo className="size-4" />
-                    <p>
-                      {formatUnits(token.floor, 18)}{" "}
-                      <span className="text-muted-foreground">ETH</span>
-                    </p>
-                  </div>
-                ) : (
-                  "_"
-                )}
-              </TableCell>
-              <TableCell>
-                {token.received_at ? timeSince(token.received_at) : "_"}
-              </TableCell>
-              <TableCell>
-                {canListItem ? (
-                  <TokenActionsCreateListing token={token}>
-                    <Button
-                      className="w-full opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
-                      size="xl"
-                      asChild
-                    >
+                </TableCell>
+                <TableCell>
+                  {token.list_price ? (
+                    <div className="flex items-center">
+                      <LordsLogo className="size-4" />
+                      <p>
+                        {formatUnits(token.list_price, 18)}{" "}
+                        <span className="text-muted-foreground">LORDS</span>
+                      </p>
+                    </div>
+                  ) : (
+                    "_"
+                  )}
+                </TableCell>
+                <TableCell>
+                  {token.best_offer ? (
+                    <div className="flex items-center">
+                      <LordsLogo className="size-4" />
+                      <p>
+                        {formatUnits(token.best_offer, 18)}{" "}
+                        <span className="text-muted-foreground">LORDS</span>
+                      </p>
+                    </div>
+                  ) : (
+                    "_"
+                  )}
+                </TableCell>
+                <TableCell>
+                  {token.floor ? (
+                    <div className="flex items-center">
+                      <LordsLogo className="size-4" />
+                      <p>
+                        {formatUnits(token.floor, 18)}{" "}
+                        <span className="text-muted-foreground">ETH</span>
+                      </p>
+                    </div>
+                  ) : (
+                    "_"
+                  )}
+                </TableCell>
+                <TableCell>
+                  {token.received_at ? timeSince(token.received_at) : "_"}
+                </TableCell>
+                <TableCell>
+                  {canListItem ? (
+                    <TokenActionsCreateListing token={token}>
+                      <NftCardAction>List for sale</NftCardAction>
+                    </TokenActionsCreateListing>
+                  ) : (
+                    <NftCardAction asChild>
                       <Link
                         href={`/token/${token.collection_address}/${token.token_id}`}
                       >
                         Details
                       </Link>
-                    </Button>
+                    </NftCardAction>
                   )}
                 </TableCell>
               </TableRow>
