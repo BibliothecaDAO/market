@@ -44,9 +44,9 @@ export default function TokenStats({
     ? starkProfile.name
     : data.owner
       ? ownerOrShortAddress({
-          ownerAddress: data.owner,
-          address,
-        })
+        ownerAddress: data.owner,
+        address,
+      })
       : "";
 
   const floor = data.floor ? formatEther(BigInt(data.floor)) : "_";

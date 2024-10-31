@@ -2,14 +2,10 @@
 
 import { notFound } from "next/navigation";
 
-import TokenAbout from "./components/token-about";
-import TokenActions from "./components/token-actions";
-import TokenActivity from "./components/token-activity";
-import TokenOffers from "./components/token-offers";
-import TokenStats from "./components/token-stats";
-import TokenSummary from "./components/token-summary";
-import TokenTraits from "./components/token-traits";
 import { useTokenLoading } from "~/hooks/useTokenLoading";
+import { Suspense } from "react";
+import { TokenPageDetails, TokenPageDetailsSkeleton } from "./components/token-page-details";
+import { CollectionDescription } from "~/config/homepage";
 
 interface TokenPageProps {
   params: {
@@ -21,13 +17,8 @@ interface TokenPageProps {
 export default async function TokenPage({
   params: { contractAddress, tokenId },
 }: TokenPageProps) {
-  const { token, tokenMarketData, isRealmsCollection, isLoading } = await useTokenLoading({ contractAddress, tokenId });
-
+  const isRealmsCollection = CollectionDescription[contractAddress];
   if (!isRealmsCollection) {
-    return notFound();
-  }
-
-  if (!token?.owner || !tokenMarketData) {
     return notFound();
   }
 
@@ -39,49 +30,12 @@ export default async function TokenPage({
           content={`https://ark-market-unframed.vercel.app/api/og/token?collection_address=${contractAddress}&token_id=${tokenId}`}
         />
       </head>
-      <main className="mx-auto max-w-[120rem] p-5 pt-0 lg:p-8">
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-8">
-          <TokenSummary
-            className="top-[calc(var(--site-header-height)+2rem)] h-fit lg:sticky"
-            token={token}
+        <Suspense fallback={<TokenPageDetailsSkeleton />}>
+          <TokenPageDetails
+            contractAddress={contractAddress}
+            tokenId={tokenId}
           />
-          <div className="flex flex-col lg:gap-8">
-            <div className="flex flex-col-reverse gap-5 lg:flex-col lg:gap-8">
-              <TokenStats
-                token={token}
-                tokenMarketData={tokenMarketData}
-                className="mb-5 lg:mb-0"
-              />
-              <TokenActions
-                token={token}
-                tokenMarketData={tokenMarketData}
-                className="-mx-5 lg:mx-0"
-              />
-            </div>
-            <TokenOffers
-              token={token}
-              tokenMarketData={tokenMarketData}
-              className="-mx-5 lg:mx-0"
-            />
-            <TokenTraits
-              className="-mx-5 lg:mx-0"
-              contractAddress={contractAddress}
-              tokenAttributes={token.metadata?.attributes ?? []}
-            />
-            <TokenAbout
-              className="-mx-5 lg:mx-0"
-              contractAddress={contractAddress}
-              token={token}
-              tokenId={tokenId}
-            />
-          </div>
-        </div>
-        <TokenActivity
-          className="mt-6 lg:mt-20"
-          contractAddress={contractAddress}
-          tokenId={tokenId}
-        />
-      </main>
+        </Suspense>
     </>
   );
 }

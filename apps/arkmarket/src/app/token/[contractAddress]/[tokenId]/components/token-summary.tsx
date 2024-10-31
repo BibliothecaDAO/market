@@ -19,6 +19,7 @@ export default function TokenSummary({
   className,
   token,
 }: PropsWithClassName<TokenSummaryProps>) {
+
   return (
     <div
       className={cn(
