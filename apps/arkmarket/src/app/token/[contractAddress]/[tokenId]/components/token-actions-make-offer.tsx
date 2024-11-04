@@ -207,6 +207,7 @@ function TokenActionsMakeOffer({ token, small }: TokenActionsMakeOfferProps) {
               width={16}
               height={16}
               src="/pink_crown.gif"
+              unoptimized
               className="size-20 rounded-full"
             />
           </div>

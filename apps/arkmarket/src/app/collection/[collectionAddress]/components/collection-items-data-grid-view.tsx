@@ -1,4 +1,4 @@
-import { forwardRef } from "react"
+import { forwardRef, useMemo } from "react"
 import Link from "next/link";
 import { LoaderCircle } from "lucide-react";
 import { VirtuosoGrid } from "react-virtuoso";
@@ -15,6 +15,7 @@ import type { ViewType } from "../../../../components/view-type-toggle-group";
 import type { CollectionToken } from "~/types";
 import CollectionItemsBuyNow from "./collection-items-buy-now";
 import { CollectionTokenImage } from "./collection-token-image";
+import { env } from "~/env";
 
 const LargeGridContainer = forwardRef<
   HTMLDivElement,
@@ -57,15 +58,20 @@ export default function CollectionItemsDataGridView({
     List: viewType === "large-grid" ? LargeGridContainer : SmallGridContainer,
   };
 
+  // Filtering out tokens client side to only display token listed out in lords or not listed
+  const tokens = useMemo(() => collectionTokens.filter((token) => {
+    return token.listing === null || token.listing.currency.contract === env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS;
+  }), [collectionTokens]);
+
   return (
     <div className="mb-6">
       <VirtuosoGrid
-        initialItemCount={collectionTokens.length}
-        totalCount={collectionTokens.length}
+        initialItemCount={tokens.length}
+        totalCount={tokens.length}
         useWindowScroll
         components={components}
         itemContent={(index) => {
-          const token = collectionTokens[index];
+          const token = tokens[index];
 
           if (!token) {
             return null;

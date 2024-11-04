@@ -75,6 +75,7 @@ export default function ConnectWalletDialog() {
               width={16}
               height={16}
               src="/pink_crown.gif"
+              unoptimized
               className="size-20 rounded-full"
             />
           </div>
