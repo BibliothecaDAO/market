@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { cn, ellipsableStyles, formatUnits } from "@ark-market/ui";
@@ -19,6 +19,7 @@ import type { CollectionToken } from "~/types";
 import Media from "~/components/media";
 import { PriceTag } from "@ark-market/ui/price-tag";
 import Link from "next/link";
+import { env } from "~/env";
 
 const gridTemplateColumnValue =
   "grid-cols-[minmax(10rem,2fr)_repeat(5,minmax(7.25rem,1fr))]";
@@ -32,11 +33,17 @@ export default function CollectionItemsDataListView({
 }: CollectionItemsDataListViewProps) {
   const tableRef = useRef<HTMLTableElement | null>(null);
 
+
+  // Filtering out tokens client side to only display token listed out in lords or not listed
+  const tokens = useMemo(() => collectionTokens.filter((token) => {
+    return token.listing === null || token.listing.currency.contract === env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS;
+  }), [collectionTokens]);
+
   const rowVirtualizer = useWindowVirtualizer({
     // Approximate initial rect for SSR
     initialRect: { height: 1080, width: 1920 },
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    count: collectionTokens.length ?? 0,
+    count: tokens.length ?? 0,
     estimateSize: () => 75, // Estimation of row height for accurate scrollbar dragging
     // Measure dynamic row height, except in firefox because it measures table border height incorrectly
     measureElement:
@@ -78,7 +85,7 @@ export default function CollectionItemsDataListView({
         }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const token = collectionTokens[virtualRow.index];
+          const token = tokens[virtualRow.index];
 
           if (!token) {
             return null;
