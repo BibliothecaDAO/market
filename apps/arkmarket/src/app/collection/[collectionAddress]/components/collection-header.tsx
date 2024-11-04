@@ -23,6 +23,8 @@ import { CollectionDescription } from "~/config/homepage";
 import { useQuery } from "@tanstack/react-query";
 import getCollection from "~/lib/getCollection";
 
+import useCollection from "~/hooks/useCollection";
+
 interface CollectionHeaderProps {
   collectionAddress: string;
   collection: Collection;
@@ -34,13 +36,7 @@ export default function CollectionHeader({
 }: CollectionHeaderProps) {
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
-
-  const { data } = useQuery({
-    queryKey: ["collection", collectionAddress],
-    queryFn: () => getCollection({ collectionAddress }),
-    initialData: collection,
-    refetchInterval: 15_000,
-  });
+  const { data } = useCollection({ address:collectionAddress })
 
 
   const description = CollectionDescription[collection.address];
