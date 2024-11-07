@@ -8,6 +8,7 @@ export enum Collections {
   SYNDICATE = "syndicate",
   DUNGEON_DUCKS = "dungeonducks",
   KARAT = "karat",
+  JOKERSOFNEON = "jokersofneon",
 }
 
 export enum ChainId {
@@ -80,7 +81,11 @@ export const CollectionAddresses: {
     [ChainId.SN_MAIN]:
       "0x07d8ea58612a5de25f29281199a4fc1f2ce42f0f207f93c3a35280605f3b8e68",
     [ChainId.SN_SEPOLIA]: "",
-
+  },
+  [Collections.JOKERSOFNEON]: {
+    [ChainId.SN_MAIN]:
+      "0x07268fcf96383f8691b91ba758cc8fefe0844146f0557909345b841fb1de042f",
+    [ChainId.SN_SEPOLIA]: "",
   },
 };
 
@@ -94,6 +99,7 @@ export const CollectionNames = {
   [Collections.SYNDICATE]: "Syndicate",
   [Collections.DUNGEON_DUCKS]: "Dungeon Ducks",
   [Collections.KARAT]: "Karat",
+  [Collections.JOKERSOFNEON]: "Jokers of Neon x Loot Survivor: Beasts",
 };
 
 interface CollectionDescription {
@@ -156,6 +162,12 @@ export const CollectionDescription: Record<string, CollectionDescription> = {
     description:
       "Karats are composable gems discovered under the Realms. A fully on-chain generative art collection made with Dojo.",
   },
+  // @ts-expect-error It's ok compiler
+  [CollectionAddresses[Collections.JOKERSOFNEON][ChainId.SN_MAIN]]: {
+    created: "2024",
+    description:
+      "Jokers of Neon mod exclusive collection",
+  },
 };
 
 export const homepageConfig = {
@@ -212,6 +224,15 @@ export const homepageConfig = {
       description: "Karat",
       address: CollectionAddresses[Collections.KARAT][ChainId.SN_MAIN],
       itemsCount: 512,
+      // floorPrice: 0.12,
+    },
+    {
+      bannerSrc: "/banners/jokersofneon.png",
+      collectionSrc: "/collections/jokersofneon.png",
+      name: CollectionNames[Collections.JOKERSOFNEON],
+      description: "Jokers of Neon mod exclusive collection",
+      address: CollectionAddresses[Collections.JOKERSOFNEON][ChainId.SN_MAIN],
+      itemsCount: 2,
       // floorPrice: 0.12,
     },
   ],
@@ -287,6 +308,12 @@ export const homepageConfig = {
       address: CollectionAddresses[Collections.KARAT][ChainId.SN_MAIN],
       image: "/collections/karat.png",
       banner_image: "/banners/karat.png",
+    },
+    {
+      name: CollectionNames[Collections.JOKERSOFNEON],
+      address: CollectionAddresses[Collections.JOKERSOFNEON][ChainId.SN_MAIN],
+      image: "/collections/jokersofneon.png",
+      banner_image: "/banners/jokersofneon.png",
     },
   ],
   liveAuctions: [],

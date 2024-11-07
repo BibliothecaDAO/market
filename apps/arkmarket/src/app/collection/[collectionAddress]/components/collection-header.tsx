@@ -19,7 +19,7 @@ import type { Collection } from "~/types";
 import CopyButton from "~/components/copy-button";
 import ExternalLink from "~/components/external-link";
 import CollectionHeaderStats from "./collection-header-stats";
-import { CollectionDescription } from "~/config/homepage";
+import { CollectionDescription, homepageConfig } from "~/config/homepage";
 import { useQuery } from "@tanstack/react-query";
 import getCollection from "~/lib/getCollection";
 
@@ -36,13 +36,15 @@ export default function CollectionHeader({
 }: CollectionHeaderProps) {
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
-  const { data } = useCollection({ address:collectionAddress })
+  const { data } = useCollection({ address: collectionAddress })
 
 
   const description = CollectionDescription[collection.address];
+  const collectionConfig = homepageConfig.mainCarousel.find((collection) => collection.address === collectionAddress)
   if (!data || !description) {
     return null;
   }
+  const image = data.image || collectionConfig?.collectionSrc || null;
 
   return (
     <div className="hidden lg:block">
@@ -53,9 +55,9 @@ export default function CollectionHeader({
       >
         <div className="flex h-full items-center justify-between gap-0">
           <div className="flex h-[3.875rem] flex-shrink-0 items-center gap-4 transition-[height]">
-            {data.image ? (
+            {image ? (
               <img
-                src={data.image}
+                src={image}
                 className="aspect-square h-full flex-shrink-0 rounded-lg"
                 alt={data.name}
               />
@@ -110,11 +112,11 @@ export default function CollectionHeader({
           <p className="flex items-center gap-2 pt-8">
             Created
 
-            {}
+            { }
             <span className="text-muted-foreground"> {description.created}</span>
           </p>
           <p className="max-w-lg pt-4 text-sm">
-            {}
+            { }
             {description.description}
           </p>
           <div className="block lg:hidden">
