@@ -85,7 +85,7 @@ export default function MainCarousel() {
                   <div className="mt-5 flex flex-col justify-center gap-5 rounded-[1.5rem] bg-gradient-to-r from-black/80 to-transparent md:absolute md:inset-0 md:mt-0 md:items-start md:gap-8 md:p-12">
                     <div className="flex gap-4 md:flex-col md:gap-8">
                       <Image
-                        src={carouselItem.bannerSrc}
+                        src={carouselItem.collectionSrc}
                         height={555}
                         width={1448}
                         alt={carouselItem.name}
