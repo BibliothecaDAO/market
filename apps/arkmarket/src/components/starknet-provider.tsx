@@ -2,11 +2,12 @@
 
 import type { PropsWithChildren } from "react";
 import CartridgeConnector from "@cartridge/connector";
+import type { Chain } from "@starknet-react/chains";
 import { mainnet } from "@starknet-react/chains";
 import {
   argent,
   braavos,
-  nethermindProvider,
+  jsonRpcProvider,
   StarknetConfig,
   useInjectedConnectors,
   voyager,
@@ -16,9 +17,17 @@ import { WebWalletConnector } from "starknetkit/webwallet";
 
 import { env } from "~/env";
 
+
+function rpc(chain: Chain) {
+  return {
+    nodeUrl: env.NEXT_PUBLIC_RPC_URL,
+  }
+}
+
 export function StarknetProvider({ children }: PropsWithChildren) {
-  const provider = nethermindProvider({
-    apiKey: env.NEXT_PUBLIC_RPC_API_KEY,
+
+  const provider = jsonRpcProvider({
+    rpc
   });
   const { connectors: injectedConnectors } = useInjectedConnectors({
     recommended: [argent(), braavos()],

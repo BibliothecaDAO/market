@@ -5,9 +5,9 @@ export const getL2Rpc = () => {
   return buildRpcProvider(env.NEXT_PUBLIC_RPC_URL);
 }
 
-function buildRpcProvider(nodeUrl: string): RpcProvider {
+function buildRpcProvider(nodeUrl: string, apiKey?: string): RpcProvider {
   return new RpcProvider({
-    nodeUrl: `${nodeUrl}?apikey=${env.NEXT_PUBLIC_RPC_API_KEY}`,
+    nodeUrl: `${nodeUrl}${apiKey ? `?api_key=${apiKey}` : ""}`,
     headers: {
       "Content-Type": "application/json",
     }
