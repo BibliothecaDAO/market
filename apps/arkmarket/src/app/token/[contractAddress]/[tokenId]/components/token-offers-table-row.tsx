@@ -56,23 +56,6 @@ export default function TokenOffersTableItem({
       <OfferPriceCell offer={offer} />
       <OfferFloorDiffCell offer={offer} />
       <TableCell>
-        <PriceTag price={offer.price} token="lords" />
-      </TableCell>
-      <TableCell>
-        {offer.floor_difference ? (
-          <p
-            className={cn(
-              "text-sm font-medium",
-              offer.floor_difference >= 0 ? "text-green-500" : "text-red-500",
-            )}
-          >
-            {offer.floor_difference}%
-          </p>
-        ) : (
-          "_"
-        )}
-      </TableCell>
-      <TableCell>
         <Link href={`/wallet/${offer.source}`}>{formattedSource}</Link>
       </TableCell>
       <TableCell>In {expiresIn}</TableCell>
