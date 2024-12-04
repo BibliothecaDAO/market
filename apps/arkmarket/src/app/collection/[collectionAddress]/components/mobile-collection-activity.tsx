@@ -62,6 +62,7 @@ export default function MobileCollectionActivity({
                       price={activity.price}
                       currency={activity.currency}
                       className="h-7 text-xs"
+                      token="lords"
                     />
                   ) : null}
                 </div>

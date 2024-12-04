@@ -19,6 +19,7 @@ export default function PriceCell({ activity }: PriceCellProps) {
           price={activity.price}
           currency={activity.currency}
           className="max-w-full"
+          token="lords"
         />
       ) : (
         "_"
