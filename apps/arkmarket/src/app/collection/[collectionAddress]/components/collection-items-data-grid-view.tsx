@@ -143,7 +143,7 @@ export default function CollectionItemsDataGridView({
                   <span className="leading-none">Buy in progress</span>
                   <LoaderCircle className="left-4 size-4 animate-spin" />
                 </div>
-              ) : token.is_listed && !token.listing.is_auction ? (
+              ) : token.is_listed && token.listing !== null && !token.listing.is_auction ? (
                 <CollectionItemsBuyNow token={token} />
               ) : (
                 <NftCardAction asChild>
