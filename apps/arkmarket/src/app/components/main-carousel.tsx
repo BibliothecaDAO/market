@@ -25,17 +25,19 @@ export default function MainCarousel() {
   const progressIntervalId = useRef<number | null>(null);
 
   const startProgress = useCallback(() => {
+    const current = homepageConfig.mainCarousel[selectedItem];
     progressIntervalId.current = window.setInterval(() => {
       setProgressPercentage((prev) => (prev < 100 ? prev + 1 : 0));
-    }, AUTO_SLIDE_INTERVAL / 100);
-  }, []);
+    }, current?.slideInterval ?? AUTO_SLIDE_INTERVAL / 100);
+  }, [selectedItem]);
 
   const startAutoSlide = useCallback(() => {
+    const current = homepageConfig.mainCarousel[selectedItem];
     intervalId.current = window.setInterval(() => {
       const nextIndex = (selectedItem + 1) % homepageConfig.mainCarousel.length;
       api?.scrollTo(nextIndex);
       setProgressPercentage(0);
-    }, AUTO_SLIDE_INTERVAL);
+    }, current.slideInterval ?? AUTO_SLIDE_INTERVAL);
   }, [api, selectedItem]);
 
   const stopAutoSlide = useCallback(() => {
@@ -74,56 +76,56 @@ export default function MainCarousel() {
           {homepageConfig.mainCarousel.map((carouselItem, index) => {
             return (
               <CarouselItem className="basis-full" key={index}>
-                <div className="relative">
-                  <Image
-                    src={carouselItem.bannerSrc}
-                    height={555}
-                    width={1448}
-                    alt={carouselItem.name}
-                    className="h-[22.5rem] w-full rounded-[1.5rem] object-cover md:h-[35rem]"
-                  />
-                  <div className="mt-5 flex flex-col justify-center gap-5 rounded-[1.5rem] bg-gradient-to-r from-black/80 to-transparent md:absolute md:inset-0 md:mt-0 md:items-start md:gap-8 md:p-12">
-                    <div className="flex gap-4 md:flex-col md:gap-8">
-                      <Image
-                        src={carouselItem.collectionSrc}
-                        height={555}
-                        width={1448}
-                        alt={carouselItem.name}
-                        className="h-[22.5rem] w-full rounded-[1.5rem] object-cover md:h-[35rem]"
-                      />
-                      <div className="flex flex-col gap-2 md:gap-8">
-                        <h1 className="text-3xl font-extrabold md:text-5xl">
-                          {carouselItem.name}
-                        </h1>
-                        <div className="flex items-center text-sm font-semibold">
-                          <p className="mr-1">{carouselItem.itemsCount}</p>
-                          <p className="mr-1">
-                            ITEMS
-                          </p>
-                          {/* <p className="mr-1">{carouselItem.floorPrice}</p> */}
-                          {/* <p> ETH</p> */}
+                <Link href={`/collection/${carouselItem.address}`}>
+                  <div className="relative">
+                    <Image
+                      src={carouselItem.bannerSrc}
+                      height={555}
+                      width={1448}
+                      alt={carouselItem.name}
+                      className="h-[22.5rem] w-full rounded-[1.5rem] object-cover md:h-[35rem]"
+                    />
+                    <div className="mt-5 flex flex-col justify-center gap-5 rounded-[1.5rem] bg-gradient-to-r from-black/80 to-transparent md:absolute md:inset-0 md:mt-0 md:items-start md:gap-8 md:p-12">
+                      <div className="flex gap-4 md:flex-col md:gap-8">
+                        <Image
+                          src={carouselItem.collectionSrc}
+                          height={555}
+                          width={1448}
+                          alt={carouselItem.name}
+                          className="h-[22.5rem] w-full rounded-[1.5rem] object-cover md:h-[35rem]"
+                        />
+                        <div className="flex flex-col gap-2 md:gap-8">
+                          <h1 className="text-3xl font-extrabold md:text-5xl">
+                            {carouselItem.name}
+                          </h1>
+                          <div className="flex items-center text-sm font-semibold">
+                            <p className="mr-1">{carouselItem.itemsCount}</p>
+                            <p className="mr-1">
+                              ITEMS
+                            </p>
+                            {/* <p className="mr-1">{carouselItem.floorPrice}</p> */}
+                            {/* <p> ETH</p> */}
+                          </div>
                         </div>
-                      </div>
-                      <p className="text-base md:max-w-lg md:text-xl">
-                        {carouselItem.description}
-                      </p>
-                      <Button
-                        size="xxl"
-                        asChild
-                        className="mt-auto flex-shrink-0"
-                      >
-                        <Link href={`/collection/${carouselItem.address}`}>
+                        <p className="text-base md:max-w-lg md:text-xl">
+                          {carouselItem.description}
+                        </p>
+                        <Button
+                          size="xxl"
+                          asChild
+                          className="mt-auto flex-shrink-0"
+                        >
                           View collection
-                        </Link>
-                      </Button>
-                    </div>
-                    {carouselItem.nftSrc !== undefined && (
-                      <div className="mx-auto hidden w-full justify-center lg:flex">
-                        <NftCards nftSrc={carouselItem.nftSrc} />
+                        </Button>
                       </div>
-                    )}
+                      {carouselItem.nftSrc !== undefined && (
+                        <div className="mx-auto hidden w-full justify-center lg:flex">
+                          <NftCards nftSrc={carouselItem.nftSrc} />
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </Link>
               </CarouselItem>
             );
           })}

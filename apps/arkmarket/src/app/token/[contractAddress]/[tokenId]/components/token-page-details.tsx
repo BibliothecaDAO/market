@@ -7,6 +7,8 @@ import TokenTraits from "./token-traits";
 import TokenAbout from "./token-about";
 import TokenActivity from "./token-activity";
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@ark-market/ui/button";
 
 interface TokenPageDetailsProps {
   contractAddress: string;
@@ -22,6 +24,13 @@ export function TokenPageDetails({ contractAddress, tokenId }: TokenPageDetailsP
 
   return (
     <main className="mx-auto max-w-[120rem] p-5 pt-0 lg:p-8">
+      <div className="mb-5">
+        <Link href={`/collection/${token.collection_address}`} className="text-primary">
+          <Button variant="link" size="sm">
+            {"<"} Back to collection
+          </Button>
+        </Link>
+      </div>
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-8">
         <TokenSummary
           className="top-[calc(var(--site-header-height)+2rem)] h-fit lg:sticky"

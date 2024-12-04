@@ -186,6 +186,16 @@ export const CollectionDescription: Record<string, CollectionDescription> = {
 export const homepageConfig = {
   mainCarousel: [
     {
+      bannerSrc: "/banners/realms.png",
+      collectionSrc: "/collections/eternum-season-pass.png",
+      name: CollectionNames[Collections.ETERNUMSEASONPASS],
+      description: "Eternum Season Pass",
+      address: CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN],
+      itemsCount: 0,
+      slideInterval: 32_000,
+      // floorPrice: 0.12,
+    },
+    {
       bannerSrc: "/banners/blobert.png",
       collectionSrc: "/collections/blobert.png",
       name: CollectionNames[Collections.BLOBERT],
@@ -219,15 +229,6 @@ export const homepageConfig = {
       description: "Syndicate",
       address: CollectionAddresses[Collections.SYNDICATE][ChainId.SN_MAIN],
       itemsCount: 1600,
-      // floorPrice: 0.12,
-    },
-    {
-      bannerSrc: "/banners/realms.png",
-      collectionSrc: "/collections/eternum-season-pass.png",
-      name: CollectionNames[Collections.ETERNUMSEASONPASS],
-      description: "Eternum Season Pass",
-      address: CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN],
-      itemsCount: 0,
       // floorPrice: 0.12,
     },
     {
