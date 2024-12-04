@@ -6,6 +6,7 @@ import { validateAndParseAddress } from "starknet";
 
 import { getRoundedRemainingTime } from "@ark-market/ui";
 import { Button } from "@ark-market/ui/button";
+import { PriceTag } from "@ark-market/ui/price-tag";
 import { TableCell, TableRow } from "@ark-market/ui/table";
 
 import type { Token, TokenMarketData, TokenOffer } from "~/types";
