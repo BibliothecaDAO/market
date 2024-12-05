@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import moment from "moment";
-
 import { cn, focusableStyles } from "@ark-market/ui";
 import {
   Collapsible,
@@ -22,6 +20,8 @@ import CopyButton from "~/components/copy-button";
 import ExternalLink from "~/components/external-link";
 import useCollection from "~/hooks/useCollection";
 import CollectionHeaderStats from "./collection-header-stats";
+import { CollectionDescription, homepageConfig } from "~/config/homepage";
+import { siteConfig } from "~/config/site";
 
 interface CollectionHeaderProps {
   collectionAddress: string;

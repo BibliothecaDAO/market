@@ -7,7 +7,8 @@ import CollectionBanner from "./components/collection-banner";
 import CollectionHeader from "./components/collection-header";
 import CollectionItems from "./components/collection-items";
 import MobileCollectionHeader from "./components/mobile-collection-header";
-import { CollectionDescription } from "~/config/homepage";
+import { ChainId, CollectionAddresses, CollectionDescription, Collections } from "~/config/homepage";
+import { Maintenance } from "~/app/components/maintenance";
 
 interface GenerateMetadataProps {
   params: Promise<{ collectionAddress: string }>;
@@ -47,6 +48,9 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
     return notFound();
   }
 
+  if (CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN] === collectionAddress) {
+    return <Maintenance />
+  }
   return (
     <div className="flex min-h-[calc(100vh-var(--site-header-height))] flex-col">
       <CollectionBanner
@@ -67,3 +71,5 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
       />
     </div>);
 }
+
+

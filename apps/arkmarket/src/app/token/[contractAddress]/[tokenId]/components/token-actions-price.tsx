@@ -14,20 +14,11 @@ interface TokenActionsPriceProps {
 export default function TokenActionsPrice({
   tokenMarketData,
 }: TokenActionsPriceProps) {
-  const { convertInUsd } = usePrices();
-  const amountHex = isListed ? startAmount : topOffer.amount;
-  const amount = formatEther(BigInt(amountHex ?? 0));
-  const amountInUsd = convertInUsd({ token: "lords", amount: BigInt(amountHex ?? 0) });
+  // const { convertInUsd } = usePrices();
+  // const amountHex = isListed ? startAmount : topOffer.amount;
+  // const amount = formatEther(BigInt(amountHex ?? 0));
+  // const amountInUsd = convertInUsd({ token: "lords", amount: BigInt(amountHex ?? 0) });
 
-  let label = "Best offer";
-
-  if (isListed) {
-    if (isAuction) {
-      label = "Minimum starting price";
-    } else {
-      label = "Current Price";
-    }
-  }
   const label = tokenMarketData.is_listed
     ? tokenMarketData.listing.is_auction
       ? "Minimum starting price"
@@ -52,7 +43,6 @@ export default function TokenActionsPrice({
             ellipsableStyles,
           )}
         >
-          {amount} LORDS
           {amountFormatted} {currency.symbol}
         </div>
         <div className="text-lg font-semibold leading-none text-muted-foreground lg:text-2xl">
