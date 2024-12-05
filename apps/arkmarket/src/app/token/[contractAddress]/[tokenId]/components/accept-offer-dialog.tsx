@@ -43,6 +43,7 @@ export default function AcceptOfferDialog({
   const { convertInUsd } = usePrices();
 
   const ethAmountInUsd = convertInUsd({
+    token: "lords",
     amount: parseEther(formattedAmount),
   });
 
@@ -98,7 +99,7 @@ export default function AcceptOfferDialog({
             <div>
               <div className="flex items-center justify-between text-xl font-semibold">
                 <p>Price</p>
-                <p>{formattedAmount} ETH</p>
+                <p>{formattedAmount} LORDS</p>
               </div>
               <div className="flex flex-col items-end justify-end">
                 <p className="text-sm font-medium text-muted-foreground">
