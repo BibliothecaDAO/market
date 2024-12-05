@@ -10,7 +10,7 @@ import {
 import {
   ChevronDown,
   Discord,
-  Globe,
+  Github,
   VerifiedIcon,
   XIcon,
 } from "@ark-market/ui/icons";
@@ -20,6 +20,7 @@ import CopyButton from "~/components/copy-button";
 import ExternalLink from "~/components/external-link";
 import CollectionHeaderStats from "./collection-header-stats";
 import { CollectionDescription, homepageConfig } from "~/config/homepage";
+import { siteConfig } from "~/config/site";
 
 import useCollection from "~/hooks/useCollection";
 
@@ -35,7 +36,6 @@ export default function CollectionHeader({
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
   const { data } = useCollection({ address: collectionAddress })
-
 
   const description = CollectionDescription[collection.address];
   const collectionConfig = homepageConfig.mainCarousel.find((collection) => collection.address === collectionAddress)
@@ -75,14 +75,14 @@ export default function CollectionHeader({
               </div>
               <div className="mb-1 flex h-6 items-center gap-4 text-sm text-muted-foreground">
                 <CopyButton textToCopy={collectionAddress} />
-                <ExternalLink href="/">
+                <ExternalLink href={siteConfig.links.twitter}>
                   <XIcon className="h-4" />
                 </ExternalLink>
-                <ExternalLink href="/">
+                <ExternalLink href={siteConfig.links.discord}>
                   <Discord className="h-4" />
                 </ExternalLink>
-                <ExternalLink href="/">
-                  <Globe className="h-4" />
+                <ExternalLink href={siteConfig.links.github}>
+                  <Github className="h-4" />
                 </ExternalLink>
                 <CollapsibleTrigger asChild>
                   <button
