@@ -50,7 +50,7 @@ export function TokenImage({ token }: PropsWithClassName<TokenSummaryProps>) {
           alt={token.metadata?.name ?? "Empty"}
           className="aspect-square w-full object-contain transition-transform group-hover:scale-110"
         />
-        <div className="flex flex-row gap-2 mt-4">
+        <div className="flex flex-row flex-wrap gap-2 mt-4">
           {realmsResources.map((r, idx) => <RealmsResourceItem key={idx} resource={r} />)}
         </div>
       </div>
