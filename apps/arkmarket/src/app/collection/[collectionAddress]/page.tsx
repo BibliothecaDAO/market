@@ -26,8 +26,8 @@ export async function generateMetadata({
         images: [
           {
             url: `https://market.realms.world/og/eternum-season-pass.png`,
-            height: 1362,
-            width: 1362,
+            height: 630,
+            width: 1200,
           },
         ],
       },
