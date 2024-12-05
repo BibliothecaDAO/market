@@ -307,6 +307,10 @@ export const resources: Resources[] = [
 export function useSeasonPass(token: Token | CollectionToken) {
   const isSeasonPass = (collectionAddress: string) => collectionAddress === CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN];
   const realmsResources: Resources[] = useMemo(() => {
+    if (null === token.metadata?.attributes) {
+      return []
+    }
+
     return token.metadata?.attributes.map((a) => resources.find(r => r.trait === a.value)).filter(Boolean) as Resources[]
   }, [token])
 
