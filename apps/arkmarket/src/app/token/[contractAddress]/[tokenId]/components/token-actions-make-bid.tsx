@@ -18,7 +18,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@ark-market/ui/dialog";
-import EthInput from "@ark-market/ui/eth-input";
 import {
   Form,
   FormControl,
@@ -39,15 +38,14 @@ import { useToast } from "@ark-market/ui/use-toast";
 
 import type { Token, TokenMarketData } from "~/types";
 import LordsInput from "~/components/lords-input";
-import { ETH } from "~/constants/tokens";
 import { env } from "~/env";
-import useBalance from "~/hooks/useBalance";
 import useConnectWallet from "~/hooks/useConnectWallet";
 import { useTokenBalance } from "~/hooks/useTokenBalance";
 import formatAmount from "~/lib/formatAmount";
 import ToastExecutedTransactionContent from "./toast-executed-transaction-content";
 import ToastRejectedTransactionContent from "./toast-rejected-transaction-content";
 import TokenActionsTokenOverview from "./token-actions-token-overview";
+import durations from "~/constants/durations";
 
 interface TokenActionsMakeBidProps {
   token: Token;
@@ -245,7 +243,7 @@ export default function TokenActionsMakeBid({
                         onChange={field.onChange}
                         status={
                           formattedStartAmount !== "-" &&
-                          fieldState.error?.message
+                            fieldState.error?.message
                             ? "error"
                             : "default"
                         }
@@ -319,8 +317,8 @@ export default function TokenActionsMakeBid({
                                 durationField.value === "custom"
                                   ? endDateTimeField.value
                                   : moment()
-                                      .add(form.getValues("duration"), "hours")
-                                      .toDate()
+                                    .add(form.getValues("duration"), "hours")
+                                    .toDate()
                               }
                               onChange={(value) => {
                                 endDateTimeField.onChange(value);
