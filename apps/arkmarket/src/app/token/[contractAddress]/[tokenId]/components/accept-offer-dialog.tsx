@@ -121,15 +121,17 @@ export default function AcceptOfferDialog({
             <div className="text-xl font-semibold">
               <div className="flex items-center justify-between">
                 <p>Earning details</p>
-                <p>--- LORDS</p>
-              </div>
-              <div className="mt-2 flex items-center justify-between text-sm font-medium text-muted-foreground">
-                <p>Arkmarket fees 2%</p>
-                <p>-- LORDS</p>
+                <p>{formattedAmount} LORDS</p>
               </div>
               <div className="mt-0.5 flex items-center justify-between text-sm font-medium text-muted-foreground">
-                <p>Creator royalties 2%</p>
-                <p>-- LORDS</p>
+                <p>Fee 5%</p>
+                <p>
+                  {(
+                    (BigInt(formattedAmount) * BigInt(5)) /
+                    BigInt(100)
+                  ).toString()}{" "}
+                  LORDS
+                </p>
               </div>
             </div>
           </div>
