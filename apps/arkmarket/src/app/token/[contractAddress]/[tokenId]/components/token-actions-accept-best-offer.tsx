@@ -147,7 +147,7 @@ export default function TokenActionsAcceptBestOffer({
           orientation="vertical"
           className={cn("h-5", small ? "mx-1" : "mx-2")}
         />
-        {formatEther(BigInt(tokenMarketData.top_offer.amount))} ETH
+        {formatEther(BigInt(tokenMarketData.top_offer.amount))} LORDS
       </Button>
     </AcceptOfferDialog>
   );
