@@ -1,4 +1,3 @@
-import { formatUnits } from "viem";
 
 import type { PropsWithClassName } from ".";
 import { cn, formatUnits } from ".";
@@ -9,12 +8,18 @@ export type TokenSymbol = "eth" | "strk" | "lords" | "starknet" | "ethereum";
 interface PriceTagProps {
   price: number | bigint | string;
   token?: TokenSymbol;
+  currency?: {
+    contract: string;
+    symbol: string;
+    decimals: number;
+  };
 }
 
 export function PriceTag({
   className,
   price,
   token = "ethereum",
+  currency,
 }: PropsWithClassName<PriceTagProps>) {
   if (!price || !currency) {
     return null;
@@ -27,7 +32,6 @@ export function PriceTag({
         className,
       )}
     >
-      <CurrencyLogo token={token} />
       <p className="whitespace-nowrap">
         {formatUnits(price, 18)}
         <span className="text-muted-foreground"> <CurrencySymbol token={token} /></span>
