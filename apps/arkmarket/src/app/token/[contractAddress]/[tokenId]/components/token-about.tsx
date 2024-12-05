@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAccount, useStarkProfile } from "@starknet-react/core";
+import { useQuery } from "@tanstack/react-query";
 
 import type { PropsWithClassName } from "@ark-market/ui";
 import { cn, ellipsableStyles, shortAddress } from "@ark-market/ui";
@@ -21,7 +22,10 @@ import {
 } from "@ark-market/ui/icons";
 
 import type { Token } from "~/types";
+import CopyButton from "~/components/copy-button";
+import ExternalLink from "~/components/external-link";
 import Media from "~/components/media";
+import getCollection from "~/lib/getCollection";
 import ownerOrShortAddress from "~/lib/ownerOrShortAddress";
 import { CollectionDescription } from "~/config/homepage";
 import { siteConfig } from "~/config/site";
@@ -47,6 +51,13 @@ export default function TokenAbout({
   const collectionShortenedAddress = shortAddress(contractAddress);
   const { data: starkProfile } = useStarkProfile({ address: token.owner });
   const description = CollectionDescription[token.collection_address] ?? defaultDescription;
+  const { data: collection } = useQuery({
+    queryKey: ["collection", address],
+    queryFn: () =>
+      getCollection({
+        collectionAddress: token.collection_address,
+      }),
+  });
 
   const ownerShortenedAddress =
     starkProfile?.name ??
@@ -85,7 +96,7 @@ export default function TokenAbout({
           <div>
             <h4 className="text-xl font-semibold">{token.collection_name}</h4>
             <p className="mt-2 hidden text-sm lg:block">
-              {description.description}
+              {collection?.description}
             </p>
           </div>
         </div>
@@ -144,7 +155,7 @@ export default function TokenAbout({
           </div>
           <div className="flex items-center justify-between">
             <p className="font-medium">Royalty</p>
-            <p className="text-muted-foreground">_%</p>
+            <p className="text-muted-foreground">-</p>
           </div>
           <div className="flex items-center justify-between">
             <p className="font-medium">Chain</p>

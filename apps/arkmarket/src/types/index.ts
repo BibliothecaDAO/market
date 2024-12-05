@@ -1,6 +1,10 @@
 export interface Collection {
   address: string;
+  description?: string;
+  deployed_timestamp?: number;
+  discord?: string;
   floor?: string;
+  floor_7d_percentage: string;
   image?: string;
   is_verified: boolean;
   listed_items: number;
@@ -12,8 +16,9 @@ export interface Collection {
   token_count: number;
   total_sales: number;
   total_volume: number;
+  twitter?: string;
   volume_7d_eth: number;
-  floor_7d_percentage: string;
+  website?: string;
 }
 
 export type CollectionTrait = Record<string, number>;
@@ -111,11 +116,7 @@ export interface CollectionToken {
   listed_at?: number;
   listing: {
     is_auction: boolean;
-    currency: {
-      contract: string;
-      decimals: number;
-      symbol: string;
-    };
+    currency: Currency;
   };
   metadata?: TokenMetadata;
   owner: string;
@@ -181,11 +182,7 @@ export interface PortfolioActivity {
   to: string;
   token_id: string;
   transaction_hash: string | null;
-  currency?: {
-    contract: string;
-    decimals: number;
-    symbol: string;
-  } | null;
+  currency: Currency;
 }
 
 export interface PortfolioOffers {
@@ -205,18 +202,15 @@ export interface PortfolioOffers {
   is_listed: boolean;
   listing: {
     currency_address: string | null;
+    currency: Currency;
     end_amount: string | null;
     end_date: number | null;
     is_auction: boolean;
     order_hash: string;
-    start_amount: string | null;
+    start_amount: string;
     start_date: number | null;
   };
-  currency?: {
-    contract: string;
-    decimals: number;
-    symbol: string;
-  } | null;
+  currency: Currency;
 }
 
 export interface CollectionActivity {
@@ -231,11 +225,7 @@ export interface CollectionActivity {
   token_id: string;
   token_metadata: TokenMetadata | null;
   transaction_hash: string | null;
-  currency?: {
-    contract: string;
-    decimals: number;
-    symbol: string;
-  } | null;
+  currency: Currency;
 }
 
 export interface TokenOffer {
@@ -245,6 +235,7 @@ export interface TokenOffer {
   offer_id: number;
   price: string;
   source: string;
+  currency: Currency;
 }
 
 export interface TokenApiResponse {
@@ -259,6 +250,12 @@ export interface PortfolioStats {
   total_value: string | null;
 }
 
+export interface Currency {
+  contract: string;
+  decimals: number;
+  symbol: string;
+}
+
 export interface TokenMarketData {
   buy_in_progress: boolean;
   created_timestamp: number | null;
@@ -267,18 +264,20 @@ export interface TokenMarketData {
   is_listed: boolean;
   last_price: string | null;
   listing: {
+    currency: Currency;
     currency_address: string | null;
     end_amount: string | null;
     end_date: number | null;
     is_auction: boolean;
     order_hash: string;
-    start_amount: string | null;
+    start_amount: string;
     start_date: number | null;
   };
   owner: string;
   top_offer: {
     amount: string;
     currency_address: string;
+    currency: Currency;
     end_date: number;
     order_hash: string;
     start_date: number;
@@ -317,11 +316,7 @@ export interface TokenActivity {
   time_stamp: number;
   to: string | null;
   transaction_hash: string | null;
-  currency?: {
-    contract: string;
-    decimals: number;
-    symbol: string;
-  } | null;
+  currency: Currency;
 }
 
 export interface Filters {
@@ -338,11 +333,7 @@ export interface LatestSales {
   timestamp: number;
   to: string;
   transaction_hash: string | null;
-  currency: {
-    contract: string;
-    decimals: number;
-    symbol: string;
-  } | null;
+  currency: Currency;
 }
 
 export interface TrendingNow {

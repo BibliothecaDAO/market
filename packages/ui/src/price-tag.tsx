@@ -1,3 +1,5 @@
+import { formatUnits } from "viem";
+
 import type { PropsWithClassName } from ".";
 import { cn, formatUnits } from ".";
 import { Ethereum, Lords, Starknet } from "./icons";
@@ -14,7 +16,7 @@ export function PriceTag({
   price,
   token = "ethereum",
 }: PropsWithClassName<PriceTagProps>) {
-  if (!price) {
+  if (!price || !currency) {
     return null;
   }
 

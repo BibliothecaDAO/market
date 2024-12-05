@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import moment from "moment";
+
 import { cn, focusableStyles } from "@ark-market/ui";
 import {
   Collapsible,
@@ -18,11 +20,8 @@ import {
 import type { Collection } from "~/types";
 import CopyButton from "~/components/copy-button";
 import ExternalLink from "~/components/external-link";
-import CollectionHeaderStats from "./collection-header-stats";
-import { CollectionDescription, homepageConfig } from "~/config/homepage";
-import { siteConfig } from "~/config/site";
-
 import useCollection from "~/hooks/useCollection";
+import CollectionHeaderStats from "./collection-header-stats";
 
 interface CollectionHeaderProps {
   collectionAddress: string;
@@ -35,7 +34,7 @@ export default function CollectionHeader({
 }: CollectionHeaderProps) {
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
-  const { data } = useCollection({ address: collectionAddress })
+  const { data } = useCollection({ address: collectionAddress });
 
   const description = CollectionDescription[collection.address];
   const collectionConfig = homepageConfig.mainCarousel.find((collection) => collection.address === collectionAddress)
@@ -84,21 +83,23 @@ export default function CollectionHeader({
                 <ExternalLink href={siteConfig.links.github}>
                   <Github className="h-4" />
                 </ExternalLink>
-                <CollapsibleTrigger asChild>
-                  <button
-                    className={cn(
-                      "ml-1 flex items-center gap-1 hover:text-foreground",
-                      focusableStyles,
-                    )}
-                  >
-                    <p className="flex items-center">
-                      {collapsibleOpen ? "Less Info" : "More Info"}
-                    </p>
-                    <p className="flex items-center text-xs">
-                      <ChevronDown size={16} />
-                    </p>
-                  </button>
-                </CollapsibleTrigger>
+                {collection.description && (
+                  <CollapsibleTrigger asChild>
+                    <button
+                      className={cn(
+                        "ml-1 flex items-center gap-1 hover:text-foreground",
+                        focusableStyles,
+                      )}
+                    >
+                      <p className="flex items-center">
+                        {collapsibleOpen ? "Less Info" : "More Info"}
+                      </p>
+                      <p className="flex items-center text-xs">
+                        <ChevronDown size={16} />
+                      </p>
+                    </button>
+                  </CollapsibleTrigger>
+                )}
               </div>
             </div>
           </div>
