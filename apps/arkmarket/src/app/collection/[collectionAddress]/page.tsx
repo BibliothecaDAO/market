@@ -24,12 +24,20 @@ export async function generateMetadata({
       description: 'Conquer the Realms',
       openGraph: {
         images: [
-          `https://market.realms.world/og/eternum-season-pass.png`,
+          {
+            url: `https://market.realms.world/og/eternum-season-pass.png`,
+            width: 1200,
+            height: 630,
+          },
         ],
       },
       twitter: {
         images: [
-          `https://market.realms.world/og/eternum-season-pass.png`,
+          {
+            url: `https://market.realms.world/og/eternum-season-pass.png`,
+            width: 1200,
+            height: 630,
+          },
         ],
       },
     }
