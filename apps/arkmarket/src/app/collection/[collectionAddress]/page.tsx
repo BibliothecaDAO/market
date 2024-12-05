@@ -7,7 +7,7 @@ import CollectionBanner from "./components/collection-banner";
 import CollectionHeader from "./components/collection-header";
 import CollectionItems from "./components/collection-items";
 import MobileCollectionHeader from "./components/mobile-collection-header";
-import { CollectionDescription } from "~/config/homepage";
+import { ChainId, CollectionAddresses, CollectionDescription, Collections } from "~/config/homepage";
 
 interface GenerateMetadataProps {
   params: Promise<{ collectionAddress: string }>;
@@ -18,6 +18,27 @@ export async function generateMetadata({
 }: GenerateMetadataProps): Promise<Metadata> {
   const collectionAddress = (await params).collectionAddress;
   const collection = await getCollection({ collectionAddress });
+  if (collectionAddress === CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN]) {
+    return {
+      title: `Eternum Season 0 Pass`,
+      description: 'Conquer the Realms',
+      openGraph: {
+        images: [
+          {
+            url: `https://empire.realms.world/og-image.png`,
+            height: 630,
+            width: 1200,
+          },
+          {
+            url: `https://market.realms.world/collections/eternum-season-pass.png`,
+            height: 1362,
+            width: 1362,
+          },
+        ],
+      },
+
+    }
+  }
   const platform =
     env.NEXT_PUBLIC_THEME === "unframed" ? "Unframed" : "Ark Market";
   const name = collection?.name ?? "Collection";
