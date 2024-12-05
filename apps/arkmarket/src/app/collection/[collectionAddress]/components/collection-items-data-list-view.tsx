@@ -57,23 +57,26 @@ export default function CollectionItemsDataListView({
   return (
     <Table ref={tableRef} className="w-full min-w-[1024px] table-auto">
       <TableHeader className="sticky top-0 h-10 bg-green-500/20">
-        <TableRow className="flex">
+        <TableRow className={cn(
+          "grid h-full w-full items-center",
+          gridTemplateColumnValue,
+        )}>
           <TableHead className="sticky left-0 top-0 flex min-w-[240px] flex-grow items-center bg-background pl-5">
             Item
           </TableHead>
-          <TableHead className="flex w-[25%] items-center bg-background">
+          <TableHead className="flex items-center bg-background">
             Current price
           </TableHead>
-          <TableHead className="flex w-[20%] items-center bg-background">
+          <TableHead className="flex items-center bg-background">
             Last sold
           </TableHead>
-          <TableHead className="flex w-[15%] items-center bg-background">
+          <TableHead className="flex items-center bg-background">
             Floor difference
           </TableHead>
-          <TableHead className="flex w-[10%] items-center bg-background">
+          <TableHead className="flex items-center bg-background">
             Owner
           </TableHead>
-          <TableHead className="flex w-[10%] items-center bg-background">
+          <TableHead className="flex items-center bg-background">
             Time listed
           </TableHead>
         </TableRow>

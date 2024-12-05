@@ -2,7 +2,6 @@
 
 import { notFound } from "next/navigation";
 
-import { useTokenLoading } from "~/hooks/useTokenLoading";
 import { Suspense } from "react";
 import { TokenPageDetails, TokenPageDetailsSkeleton } from "./components/token-page-details";
 import { CollectionDescription } from "~/config/homepage";
@@ -30,12 +29,12 @@ export default async function TokenPage({
           content={`https://ark-market-unframed.vercel.app/api/og/token?collection_address=${contractAddress}&token_id=${tokenId}`}
         />
       </head>
-        <Suspense fallback={<TokenPageDetailsSkeleton />}>
-          <TokenPageDetails
-            contractAddress={contractAddress}
-            tokenId={tokenId}
-          />
-        </Suspense>
+      <Suspense fallback={<TokenPageDetailsSkeleton />}>
+        <TokenPageDetails
+          contractAddress={contractAddress}
+          tokenId={tokenId}
+        />
+      </Suspense>
     </>
   );
 }

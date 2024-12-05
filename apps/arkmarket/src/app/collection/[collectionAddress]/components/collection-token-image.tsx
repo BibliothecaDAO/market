@@ -1,7 +1,8 @@
 import type { PropsWithClassName } from "@ark-market/ui";
-import { as } from "vitest/dist/chunks/reporters.DAfKSDh5.js";
 import Media from "~/components/media";
 import { useBeasts } from "~/hooks/useBeasts";
+import type { Resources } from "~/hooks/useSeasonPass";
+import { useSeasonPass } from "~/hooks/useSeasonPass";
 import type { CollectionToken } from "~/types";
 
 interface CollectionTokenImageProps {
@@ -13,6 +14,7 @@ interface CollectionTokenImageProps {
 
 export function CollectionTokenImage({ token, height, width }: PropsWithClassName<CollectionTokenImageProps>) {
   const { attributes, isBeast, beastTypeIcon, formatBeastName } = useBeasts(token);
+  const { isSeasonPass, realmsResources } = useSeasonPass(token);
 
   if (isBeast(token.collection_address)) {
     const TypeIcon = beastTypeIcon(attributes.type.toLowerCase() as keyof typeof beastTypeIcon);
@@ -40,6 +42,24 @@ export function CollectionTokenImage({ token, height, width }: PropsWithClassNam
       </div>
     )
   }
+  if (isSeasonPass(token.collection_address)) {
+    return (
+      <div className="aspect-square w-full object-contain p-3 pt-4">
+        <Media
+          src={token.metadata?.image}
+          mediaKey={token.metadata?.image_key}
+          thumbnailKey={token.metadata?.image_key_540_540}
+          alt={token.metadata?.name ?? "Empty"}
+          className="aspect-square w-full object-contain transition-transform group-hover:scale-110"
+          height={height}
+          width={width}
+        />
+        <div className="flex flex-row gap-2 mt-4">
+          {realmsResources.map((r, idx) => <RealmsResourceItem key={idx} resource={r} />)}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <Media
@@ -52,4 +72,9 @@ export function CollectionTokenImage({ token, height, width }: PropsWithClassNam
       width={width}
     />
   );
+}
+function RealmsResourceItem({ resource }: { resource: Resources }) {
+  return (
+    <Media src={resource.img} height={20} width={20} alt={""} />
+  )
 }

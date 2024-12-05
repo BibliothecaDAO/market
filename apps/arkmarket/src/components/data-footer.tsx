@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+
 import type { PropsWithClassName } from "@ark-market/ui";
 import { cn } from "@ark-market/ui";
 import { Discord, Github, XIcon } from "@ark-market/ui/icons";
@@ -25,9 +25,6 @@ export default function DataFooter({ className }: PropsWithClassName) {
         </ExternalLink>
         <ExternalLink href={siteConfig.links.discord}>
           <Discord />
-        </ExternalLink>
-        <ExternalLink href={siteConfig.links.github}>
-          <Github className="size-4" />
         </ExternalLink>
         <ExternalLink href={siteConfig.links.github}>
           <Github className="size-4" />

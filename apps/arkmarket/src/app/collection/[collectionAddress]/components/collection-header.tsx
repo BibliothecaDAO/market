@@ -20,8 +20,6 @@ import CopyButton from "~/components/copy-button";
 import ExternalLink from "~/components/external-link";
 import CollectionHeaderStats from "./collection-header-stats";
 import { CollectionDescription, homepageConfig } from "~/config/homepage";
-import { useQuery } from "@tanstack/react-query";
-import getCollection from "~/lib/getCollection";
 
 import useCollection from "~/hooks/useCollection";
 
