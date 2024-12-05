@@ -24,11 +24,7 @@ export async function generateMetadata({
       description: 'Conquer the Realms',
       openGraph: {
         images: [
-          {
-            url: `https://market.realms.world/og/eternum-season-pass.png`,
-            height: 630,
-            width: 1200,
-          },
+          `https://market.realms.world/og/eternum-season-pass.png`,
         ],
       },
 
