@@ -25,12 +25,7 @@ export async function generateMetadata({
       openGraph: {
         images: [
           {
-            url: `https://empire.realms.world/og-image.png`,
-            height: 630,
-            width: 1200,
-          },
-          {
-            url: `https://market.realms.world/collections/eternum-season-pass.png`,
+            url: `https://market.realms.world/og/eternum-season-pass.png`,
             height: 1362,
             width: 1362,
           },
