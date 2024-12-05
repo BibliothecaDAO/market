@@ -27,7 +27,11 @@ export async function generateMetadata({
           `https://market.realms.world/og/eternum-season-pass.png`,
         ],
       },
-
+      twitter: {
+        images: [
+          `https://market.realms.world/og/eternum-season-pass.png`,
+        ],
+      },
     }
   }
   const platform =
