@@ -19,7 +19,6 @@ import Footer from "~/components/footer";
 import Providers from "~/components/providers";
 import UnframedFooter from "~/components/unframed-footer";
 import { env } from "~/env";
-import { Maintenance } from "~/components/maintenance";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -152,8 +151,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Providers>
           <div className="flex-col md:flex">
             <SiteHeader />
-            {/* {children} */}
-            <Maintenance />
+            {children}
             <SpeedInsights />
           </div>
           {env.NEXT_PUBLIC_THEME === "unframed" ? (
