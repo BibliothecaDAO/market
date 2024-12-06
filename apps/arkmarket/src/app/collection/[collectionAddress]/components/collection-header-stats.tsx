@@ -15,6 +15,7 @@ export default function CollectionHeaderStats({
   const parsedCollectionFloor7dPercentage = parseFloat(
     collection.floor_7d_percentage,
   );
+  console.log(collection);
 
   return (
     <div className="hidden grid-cols-2 items-center justify-between gap-2 md:flex md:h-12 md:gap-6 md:pr-5 xl:flex">
@@ -23,18 +24,17 @@ export default function CollectionHeaderStats({
         <div className="flex items-center gap-2 font-medium font-numbers text-xl">
           <LordsLogo className="size-5" />
           <p>{formatUnits(collection.floor ?? 0, 18)} LORDS</p>
-          {/* TODO @YohanTz: Proper color */}
-          {/* <p
+          <p
             className={cn(
-              "text-sm font-semibold",
-              collection.floor_7d_percentage < 0
+              "text-base font-medium",
+              parsedCollectionFloor7dPercentage < 0
                 ? "text-red-500"
                 : "text-green-500",
             )}
           >
-            {collection.floor_7d_percentage >= 0 && "+"}
-            {formatNumber(collection.floor_7d_percentage)}%
-          </p> */}
+            {parsedCollectionFloor7dPercentage >= 0 && "+"}
+            {formatNumber(parsedCollectionFloor7dPercentage)}%
+          </p>
         </div>
       </div>
       <Separator orientation="vertical" className="hidden md:block" />

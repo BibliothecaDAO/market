@@ -23,6 +23,7 @@ import type { WalletToken } from "../queries/getWalletData";
 import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenId]/components/token-actions-create-listing";
 import Media from "~/components/media";
 import { CollectionDescription } from "~/config/homepage";
+import { CollectionTokenImage } from "~/app/collection/[collectionAddress]/components/collection-token-image";
 
 const LargeGridContainer: Components["List"] = React.forwardRef(
   ({ style, children }, ref) => {
@@ -89,61 +90,57 @@ export default function CollectionItemsDataGridView({
 
         const canListItem = isOwner && !token.list_price;
 
-          return (
-            // TODO @YohanTz: Extract to NftCard component and sub-components
-            <NftCard>
-              <Link
-                href={`/token/${token.collection_address}/${token.token_id}`}
-                className={cn("flex items-center gap-1", focusableStyles)}
-              >
-                <NftCardMedia>
-                  {/* TODO: Media part of NftCardMedia */}
-                  <Media
-                    alt={token.metadata?.name ?? "Empty"}
-                    className="aspect-square w-full object-contain transition-transform group-hover:scale-110"
-                    src={token.metadata?.image}
-                    mediaKey={token.metadata?.image_key}
-                    thumbnailKey={token.metadata?.image_key_540_540}
-                    height={viewType === "large-grid" ? 540 : 340}
-                    width={viewType === "large-grid" ? 540 : 340}
-                  />
-                </NftCardMedia>
-              </Link>
-              <NftCardContent>
-                <div className="flex w-full justify-between">
-                  <div className="w-full overflow-hidden">
-                    <Link
-                      href={`/token/${token.collection_address}/${token.token_id}`}
-                      className={cn("flex items-center gap-1", focusableStyles)}
-                    >
-                      <p
-                        className={cn(
-                          "text-base font-bold leading-none",
-                          viewType === "large-grid" && "font-bold sm:text-xl",
-                          ellipsableStyles,
-                        )}
-                      >
-                        {token.metadata?.name ?? token.token_id}
-                      </p>
-                    </Link>
-                    <Link
-                      href={`/collection/${token.collection_address}`}
+        return (
+          // TODO @YohanTz: Extract to NftCard component and sub-components
+          <NftCard>
+            <Link
+              href={`/token/${token.collection_address}/${token.token_id}`}
+              className={cn("flex items-center gap-1", focusableStyles)}
+            >
+              <NftCardMedia className="aspect-auto">
+                {/* TODO: Media part of NftCardMedia */}
+                <CollectionTokenImage
+                  token={token}
+                  height={viewType === "large-grid" ? 540 : 340}
+                  width={viewType === "large-grid" ? 540 : 340}
+                />
+              </NftCardMedia>
+            </Link>
+            <NftCardContent>
+              <div className="flex w-full justify-between">
+                <div className="w-full overflow-hidden">
+                  <Link
+                    href={`/token/${token.collection_address}/${token.token_id}`}
+                    className={cn("flex items-center gap-1", focusableStyles)}
+                  >
+                    <p
                       className={cn(
-                        "mt-1 flex items-center gap-1",
-                        focusableStyles,
+                        "text-base font-bold leading-none",
+                        viewType === "large-grid" && "font-bold sm:text-xl",
+                        ellipsableStyles,
                       )}
                     >
-                      <p
-                        className={cn(
-                          "text-sm font-normal text-accent-foreground transition-colors hover:text-primary",
-                          viewType === "large-grid" && "sm:text-base",
-                          ellipsableStyles,
-                        )}
-                      >
-                        {token.collection_name}
-                      </p>
-                      <VerifiedIcon className="size-4 flex-shrink-0 text-primary" />
-                    </Link>
+                      {token.metadata?.name ?? token.token_id}
+                    </p>
+                  </Link>
+                  <Link
+                    href={`/collection/${token.collection_address}`}
+                    className={cn(
+                      "mt-1 flex items-center gap-1",
+                      focusableStyles,
+                    )}
+                  >
+                    <p
+                      className={cn(
+                        "text-sm font-normal text-accent-foreground transition-colors hover:text-primary",
+                        viewType === "large-grid" && "sm:text-base",
+                        ellipsableStyles,
+                      )}
+                    >
+                      {token.collection_name}
+                    </p>
+                    <VerifiedIcon className="size-4 flex-shrink-0 text-primary" />
+                  </Link>
 
                   {token.list_price ? (
                     <p className={cn("mt-2 text-sm font-semibold", ellipsableStyles)}>

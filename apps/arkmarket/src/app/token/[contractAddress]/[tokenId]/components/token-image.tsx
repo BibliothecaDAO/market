@@ -75,7 +75,7 @@ export function TokenImage({ token }: PropsWithClassName<TokenSummaryProps>) {
 function RealmsResourceItem({ resource }: { resource: Resources }) {
   return (
     <div className="flex items-center">
-      <Media src={resource.img} height={25} width={25} alt={resource.description} />
+      <Media src={resource.img} height={25} width={25} alt={resource.trait} />
       <span className="pl-2">{resource.trait}</span>
     </div>
   )

@@ -1,4 +1,6 @@
 import type { PropsWithClassName } from "@ark-market/ui";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ark-market/ui/tooltip";
+import type { WalletToken } from "~/app/wallet/[walletAddress]/queries/getWalletData";
 import Media from "~/components/media";
 import { useBeasts } from "~/hooks/useBeasts";
 import type { Resources } from "~/hooks/useSeasonPass";
@@ -6,7 +8,7 @@ import { useSeasonPass } from "~/hooks/useSeasonPass";
 import type { CollectionToken } from "~/types";
 
 interface CollectionTokenImageProps {
-  token: CollectionToken;
+  token: CollectionToken | WalletToken;
   height?: number;
   width?: number;
 }
@@ -73,8 +75,18 @@ export function CollectionTokenImage({ token, height, width }: PropsWithClassNam
     />
   );
 }
+
 function RealmsResourceItem({ resource }: { resource: Resources }) {
   return (
-    <Media src={resource.img} height={20} width={20} alt={""} />
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <Media src={resource.img} height={20} width={20} alt={resource.trait} />
+        </TooltipTrigger>
+        <TooltipContent>
+          <div>{resource.trait}</div>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }

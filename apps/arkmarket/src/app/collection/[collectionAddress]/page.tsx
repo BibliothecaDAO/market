@@ -32,13 +32,13 @@ export async function generateMetadata({
         ],
       },
       twitter: {
-        images: [
-          {
-            url: `https://market.realms.world/og/eternum-season-pass.png`,
-            width: 1200,
-            height: 630,
-          },
-        ],
+        title: `Eternum Season 0 Pass`,
+        description: 'Conquer the Realms',
+        creator: '@RealmsEternum',
+        images: {
+          url: `https://market.realms.world/og/eternum-season-pass.png`,
+          alt: 'Eternum Season 0 Pass',
+        },
       },
     }
   }

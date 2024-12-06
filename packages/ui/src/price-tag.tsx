@@ -21,7 +21,7 @@ export function PriceTag({
   token = "ethereum",
   currency,
 }: PropsWithClassName<PriceTagProps>) {
-  if (!price || !currency) {
+  if (!price) {
     return null;
   }
 

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import type { WalletToken } from "~/app/wallet/[walletAddress]/queries/getWalletData";
 import { ChainId, CollectionAddresses, Collections } from "~/config/homepage";
 import type { CollectionToken, Token } from "~/types";
 
@@ -304,7 +305,7 @@ export const resources: Resources[] = [
   },
 ];
 
-export function useSeasonPass(token: Token | CollectionToken) {
+export function useSeasonPass(token: Token | CollectionToken | WalletToken) {
   const isSeasonPass = (collectionAddress: string) => collectionAddress === CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN];
   const realmsResources: Resources[] = useMemo(() => {
     if (null === token.metadata?.attributes) {
