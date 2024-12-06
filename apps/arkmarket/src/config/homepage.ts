@@ -179,7 +179,7 @@ export const CollectionDescription: Record<string, CollectionDescription> = {
   [CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN]]: {
     created: "2024",
     description:
-      "Eternum Season Pass",
+      "Game passes to play Eternum Season 0, each with unique resource profiles. 8000 can be minted by Realms. All existing gamepasses shown here, but new ones are frequently minted.",
   },
 };
 

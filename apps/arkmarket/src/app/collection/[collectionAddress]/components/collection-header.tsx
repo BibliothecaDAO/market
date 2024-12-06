@@ -32,7 +32,7 @@ export default function CollectionHeader({
   collectionAddress,
   collection,
 }: CollectionHeaderProps) {
-  const [collapsibleOpen, setCollapsibleOpen] = useState(false);
+  const [collapsibleOpen, setCollapsibleOpen] = useState(true);
 
   const { data } = useCollection({ address: collectionAddress });
 
@@ -83,7 +83,7 @@ export default function CollectionHeader({
                 <ExternalLink href={siteConfig.links.github}>
                   <Github className="h-4" />
                 </ExternalLink>
-                {collection.description && (
+                {collection.description || description && (
                   <CollapsibleTrigger asChild>
                     <button
                       className={cn(

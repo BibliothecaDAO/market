@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef } from "react";
+import type { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { cn, ellipsableStyles, formatUnits } from "@ark-market/ui";
@@ -20,6 +21,7 @@ import Media from "~/components/media";
 import { PriceTag } from "@ark-market/ui/price-tag";
 import Link from "next/link";
 import { env } from "~/env";
+import { useSeasonPass } from "~/hooks/useSeasonPass";
 
 const gridTemplateColumnValue =
   "grid-cols-[minmax(10rem,2fr)_repeat(5,minmax(7.25rem,1fr))]";
@@ -94,73 +96,79 @@ export default function CollectionItemsDataListView({
             return null;
           }
 
-          return (
-            <TableRow
-              data-index={virtualRow.index}
-              key={`${token.collection_address}-${token.token_id}`}
-              ref={(node) => rowVirtualizer.measureElement(node)}
-              className="group absolute flex w-full items-center"
-              style={{
-                transform: `translateY(${virtualRow.start}px)`,
-              }}
-            >
-              <Link
-                prefetch={false}
-                href={`/token/${token.collection_address}/${token.token_id}`}
-                className={cn(
-                  "grid h-full w-full items-center",
-                  gridTemplateColumnValue,
-                )}
-              >
-                <TableCell className="pl-5">
-                  <div className="flex items-center gap-4">
-                    <Media
-                      src={token.metadata?.image}
-                      mediaKey={token.metadata?.image_key}
-                      alt={token.metadata?.name ?? "Empty NFT"}
-                      className="h-[2.625rem] w-[2.625rem] rounded-md object-contain"
-                      height={94}
-                      width={94}
-                    />
-                    <p className={cn("w-full", ellipsableStyles)}>
-                      {token.metadata?.name ?? token.token_id}
-                    </p>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  {token.price ? (
-                    <PriceTag price={token.price} token="lords" />
-                  ) : (
-                    "_"
-                  )}
-                </TableCell>
-                <TableCell>
-                  {token.last_price ? (
-                    <div className="flex items-center">
-                      <LordsLogo className="size-4" />
-                      <p>
-                        {formatUnits(token.last_price, 18)}{" "}
-                        <span className="text-muted-foreground">LORDS</span>
-                      </p>
-                    </div>
-                  ) : (
-                    "_"
-                  )}
-                </TableCell>
-                <TableCell>_</TableCell>
-                <TableCell>
-                  <Button asChild variant="link" className="px-0" size="xl">
-                    <Link href={`/wallet/${token.owner}`}>
-                      {token.owner ? `${token.owner.slice(0, 6)}...` : "_"}
-                    </Link>
-                  </Button>
-                </TableCell>
-                <TableCell>_</TableCell>
-              </Link>
-            </TableRow>
-          );
+          return <CollectionTokenItem token={token} rowVirtualizer={rowVirtualizer} virtualRow={virtualRow} />
         })}
       </TableBody>
     </Table>
+  );
+}
+function CollectionTokenItem({ token, rowVirtualizer, virtualRow }: { token: CollectionToken, rowVirtualizer: Virtualizer<Window, Element>, virtualRow: VirtualItem }) {
+  const { realmName, isSeasonPass } = useSeasonPass(token);
+  const tokenName = isSeasonPass(token.collection_address) ? realmName : token.metadata?.name ?? token.token_id;
+
+  return (
+    <TableRow
+      data-index={virtualRow.index}
+      key={`${token.collection_address}-${token.token_id}`}
+      ref={(node) => rowVirtualizer.measureElement(node)}
+      className="group absolute flex w-full items-center"
+      style={{
+        transform: `translateY(${virtualRow.start}px)`,
+      }}
+    >
+      <Link
+        prefetch={false}
+        href={`/token/${token.collection_address}/${token.token_id}`}
+        className={cn(
+          "grid h-full w-full items-center",
+          gridTemplateColumnValue,
+        )}
+      >
+        <TableCell className="pl-5">
+          <div className="flex items-center gap-4">
+            <Media
+              src={token.metadata?.image}
+              mediaKey={token.metadata?.image_key}
+              alt={token.metadata?.name ?? "Empty NFT"}
+              className="h-[2.625rem] w-[2.625rem] rounded-md object-contain"
+              height={94}
+              width={94}
+            />
+            <p className={cn("w-full", ellipsableStyles)}>
+              {tokenName}
+            </p>
+          </div>
+        </TableCell>
+        <TableCell>
+          {token.price ? (
+            <PriceTag price={token.price} token="lords" />
+          ) : (
+            "_"
+          )}
+        </TableCell>
+        <TableCell>
+          {token.last_price ? (
+            <div className="flex items-center">
+              <LordsLogo className="size-4" />
+              <p>
+                {formatUnits(token.last_price, 18)}{" "}
+                <span className="text-muted-foreground">LORDS</span>
+              </p>
+            </div>
+          ) : (
+            "_"
+          )}
+        </TableCell>
+        <TableCell>_</TableCell>
+        <TableCell>
+          <Button asChild variant="link" className="px-0" size="xl">
+            <Link href={`/wallet/${token.owner}`}>
+              {token.owner ? `${token.owner.slice(0, 6)}...` : "_"}
+            </Link>
+          </Button>
+        </TableCell>
+        <TableCell>_</TableCell>
+      </Link>
+    </TableRow>
   );
 }

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Link from "next/link";
+import type { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { cn, ellipsableStyles, formatUnits, timeSince } from "@ark-market/ui";
@@ -16,15 +17,13 @@ import {
 
 import type { WalletToken } from "../queries/getWalletData";
 import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenId]/components/token-actions-create-listing";
-import ActivityTime from "~/components/cells/activity-time-cell";
-import TokenLastSoldCell from "~/components/cells/token-last-price-cell";
 import Media from "~/components/media";
 import { CollectionDescription } from "~/config/homepage";
-import { NftCardAction } from "@ark-market/ui/nft-card";
 import { NoResult } from "@ark-market/ui/icons";
+import { useSeasonPass } from "~/hooks/useSeasonPass";
 
 const gridTemplateColumnValue =
-  "grid-cols-[minmax(11rem,2fr)_repeat(4,minmax(10rem,1fr))_minmax(6.5rem,8rem)]";
+  "grid-cols-[minmax(11rem,2fr)_repeat(4,minmax(10rem,1fr))_minmax(6.5rem,15rem)]";
 
 interface PortfolioItemsDataListViewProps {
   walletTokens: WalletToken[];
@@ -95,96 +94,7 @@ export default function PortfolioItemsDataListView({
             if (token === undefined) {
               return null;
             }
-            const canListItem = isOwner && !token.list_price;
-
-            return (
-              <TableRow
-                className={cn(
-                  "group absolute grid h-[4.6875rem] w-full items-center",
-                  gridTemplateColumnValue,
-                )}
-                data-index={virtualRow.index} // Needed for dynamic row height measurement
-                key={`${token.collection_address}-${token.token_id}`}
-                ref={(node) => rowVirtualizer.measureElement(node)} // Measure dynamic row height
-                style={{
-                  transform: `translateY(${virtualRow.start}px)`,
-                }}
-              >
-                <TableCell className="pl-5">
-                  <div className="flex items-center gap-4">
-                    <Media
-                      alt={token.metadata?.name ?? "Empty NFT"}
-                      className="h-[2.625rem] w-[2.625rem] rounded-md object-contain"
-                      src={token.metadata?.image}
-                      mediaKey={token.metadata?.image_key}
-                      height={94}
-                      width={94}
-                    />
-
-                    <p className={cn("w-full", ellipsableStyles)}>
-                      {token.metadata?.name ?? token.token_id}
-                    </p>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  {token.list_price ? (
-                    <div className="flex items-center">
-                      <LordsLogo className="size-4" />
-                      <p>
-                        {formatUnits(token.list_price, 18)}{" "}
-                        <span className="text-muted-foreground">LORDS</span>
-                      </p>
-                    </div>
-                  ) : (
-                    "_"
-                  )}
-                </TableCell>
-                <TableCell>
-                  {token.best_offer ? (
-                    <div className="flex items-center">
-                      <LordsLogo className="size-4" />
-                      <p>
-                        {formatUnits(token.best_offer, 18)}{" "}
-                        <span className="text-muted-foreground">LORDS</span>
-                      </p>
-                    </div>
-                  ) : (
-                    "_"
-                  )}
-                </TableCell>
-                <TableCell>
-                  {token.floor ? (
-                    <div className="flex items-center">
-                      <LordsLogo className="size-4" />
-                      <p>
-                        {formatUnits(token.floor, 18)}{" "}
-                        <span className="text-muted-foreground">ETH</span>
-                      </p>
-                    </div>
-                  ) : (
-                    "_"
-                  )}
-                </TableCell>
-                <TableCell>
-                  {token.received_at ? timeSince(token.received_at) : "_"}
-                </TableCell>
-                <TableCell>
-                  {canListItem ? (
-                    <TokenActionsCreateListing token={token}>
-                      <NftCardAction>List for sale</NftCardAction>
-                    </TokenActionsCreateListing>
-                  ) : (
-                    <NftCardAction asChild>
-                      <Link
-                        href={`/token/${token.collection_address}/${token.token_id}`}
-                      >
-                        Details
-                      </Link>
-                    </NftCardAction>
-                  )}
-                </TableCell>
-              </TableRow>
-            );
+            return <PortfolioTokenItem token={token} rowVirtualizer={rowVirtualizer} virtualRow={virtualRow} isOwner={isOwner} />
           })}
         </TableBody>
       </Table>
@@ -195,5 +105,105 @@ export default function PortfolioItemsDataListView({
         </div>
       )}
     </>
+  );
+}
+function PortfolioTokenItem({ token, rowVirtualizer, virtualRow, isOwner }: { token: WalletToken, rowVirtualizer: Virtualizer<Window, Element>, virtualRow: VirtualItem, isOwner: boolean }) {
+  const canListItem = isOwner && !token.list_price;
+  const { realmName, isSeasonPass } = useSeasonPass(token);
+  const tokenName = isSeasonPass(token.collection_address) ? realmName : token.metadata?.name ?? token.token_id;
+
+  return (
+    <TableRow
+      className={cn(
+        "group absolute grid h-[4.6875rem] w-full items-center",
+        gridTemplateColumnValue,
+      )}
+      data-index={virtualRow.index} // Needed for dynamic row height measurement
+      key={`${token.collection_address}-${token.token_id}`}
+      ref={(node) => rowVirtualizer.measureElement(node)} // Measure dynamic row height
+      style={{
+        transform: `translateY(${virtualRow.start}px)`,
+      }}
+    >
+      <TableCell className="pl-5">
+        <div className="flex items-center gap-4">
+          <Media
+            alt={token.metadata?.name ?? "Empty NFT"}
+            className="h-[2.625rem] w-[2.625rem] rounded-md object-contain"
+            src={token.metadata?.image}
+            mediaKey={token.metadata?.image_key}
+            height={94}
+            width={94}
+          />
+
+          <p className={cn("w-full", ellipsableStyles)}>
+            {tokenName}
+          </p>
+        </div>
+      </TableCell>
+      <TableCell>
+        {token.list_price ? (
+          <div className="flex items-center">
+            <LordsLogo className="size-4" />
+            <p>
+              {formatUnits(token.list_price, 18)}{" "}
+            </p>
+          </div>
+        ) : (
+          "_"
+        )}
+      </TableCell>
+      <TableCell>
+        {token.best_offer ? (
+          <div className="flex items-center">
+            <LordsLogo className="size-4" />
+            <p>
+              {formatUnits(token.best_offer, 18)}{" "}
+            </p>
+          </div>
+        ) : (
+          "_"
+        )}
+      </TableCell>
+      <TableCell>
+        {token.floor ? (
+          <div className="flex items-center">
+            <LordsLogo className="size-4" />
+            <p>
+              {formatUnits(token.floor, 18)}{" "}
+            </p>
+          </div>
+        ) : (
+          "_"
+        )}
+      </TableCell>
+      <TableCell>
+        {token.received_at ? timeSince(token.received_at) : "_"}
+      </TableCell>
+      <TableCell>
+        {canListItem ? (
+          <TokenActionsCreateListing token={token}>
+            <Button
+              className="w-full opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100 px-5"
+              size="xl"
+            >
+              List for sale
+            </Button>
+          </TokenActionsCreateListing>
+        ) : (
+          <Button
+            className="w-full opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
+            size="xl"
+            asChild
+          >
+            <Link
+              href={`/token/${token.collection_address}/${token.token_id}`}
+            >
+              Details
+            </Link>
+          </Button>
+        )}
+      </TableCell>
+    </TableRow>
   );
 }

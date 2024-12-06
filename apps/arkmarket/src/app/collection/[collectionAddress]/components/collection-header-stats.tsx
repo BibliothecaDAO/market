@@ -15,7 +15,6 @@ export default function CollectionHeaderStats({
   const parsedCollectionFloor7dPercentage = parseFloat(
     collection.floor_7d_percentage,
   );
-  console.log(collection);
 
   return (
     <div className="hidden grid-cols-2 items-center justify-between gap-2 md:flex md:h-12 md:gap-6 md:pr-5 xl:flex">

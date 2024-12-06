@@ -24,6 +24,7 @@ import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenI
 import Media from "~/components/media";
 import { CollectionDescription } from "~/config/homepage";
 import { CollectionTokenImage } from "~/app/collection/[collectionAddress]/components/collection-token-image";
+import { useSeasonPass } from "~/hooks/useSeasonPass";
 
 const LargeGridContainer: Components["List"] = React.forwardRef(
   ({ style, children }, ref) => {
@@ -87,94 +88,98 @@ export default function CollectionItemsDataGridView({
         if (token === undefined) {
           return null;
         }
+        return <PortfolioTokenItem token={token} viewType={viewType} isOwner={isOwner} />
+      }}
+    />
+  );
+}
+function PortfolioTokenItem({ token, viewType, isOwner }: { token: WalletToken, viewType: string, isOwner: boolean }) {
+  const canListItem = isOwner && !token.list_price;
+  const { realmName, isSeasonPass } = useSeasonPass(token);
+  const tokenName = isSeasonPass(token.collection_address) ? realmName : token.metadata?.name ?? token.token_id;
 
-        const canListItem = isOwner && !token.list_price;
-
-        return (
-          // TODO @YohanTz: Extract to NftCard component and sub-components
-          <NftCard>
+  return (
+    // TODO @YohanTz: Extract to NftCard component and sub-components
+    <NftCard>
+      <Link
+        href={`/token/${token.collection_address}/${token.token_id}`}
+        className={cn("flex items-center gap-1", focusableStyles)}
+      >
+        <NftCardMedia className="aspect-auto">
+          {/* TODO: Media part of NftCardMedia */}
+          <CollectionTokenImage
+            token={token}
+            height={viewType === "large-grid" ? 540 : 340}
+            width={viewType === "large-grid" ? 540 : 340}
+          />
+        </NftCardMedia>
+      </Link>
+      <NftCardContent>
+        <div className="flex w-full justify-between">
+          <div className="w-full overflow-hidden">
             <Link
               href={`/token/${token.collection_address}/${token.token_id}`}
               className={cn("flex items-center gap-1", focusableStyles)}
             >
-              <NftCardMedia className="aspect-auto">
-                {/* TODO: Media part of NftCardMedia */}
-                <CollectionTokenImage
-                  token={token}
-                  height={viewType === "large-grid" ? 540 : 340}
-                  width={viewType === "large-grid" ? 540 : 340}
-                />
-              </NftCardMedia>
+              <p
+                className={cn(
+                  "text-base font-bold leading-none",
+                  viewType === "large-grid" && "font-bold sm:text-xl",
+                  ellipsableStyles,
+                )}
+              >
+                {tokenName}
+              </p>
             </Link>
-            <NftCardContent>
-              <div className="flex w-full justify-between">
-                <div className="w-full overflow-hidden">
-                  <Link
-                    href={`/token/${token.collection_address}/${token.token_id}`}
-                    className={cn("flex items-center gap-1", focusableStyles)}
-                  >
-                    <p
-                      className={cn(
-                        "text-base font-bold leading-none",
-                        viewType === "large-grid" && "font-bold sm:text-xl",
-                        ellipsableStyles,
-                      )}
-                    >
-                      {token.metadata?.name ?? token.token_id}
-                    </p>
-                  </Link>
-                  <Link
-                    href={`/collection/${token.collection_address}`}
-                    className={cn(
-                      "mt-1 flex items-center gap-1",
-                      focusableStyles,
-                    )}
-                  >
-                    <p
-                      className={cn(
-                        "text-sm font-normal text-accent-foreground transition-colors hover:text-primary",
-                        viewType === "large-grid" && "sm:text-base",
-                        ellipsableStyles,
-                      )}
-                    >
-                      {token.collection_name}
-                    </p>
-                    <VerifiedIcon className="size-4 flex-shrink-0 text-primary" />
-                  </Link>
-
-                  {token.list_price ? (
-                    <p className={cn("mt-2 text-sm font-semibold", ellipsableStyles)}>
-                      {formatUnits(token.list_price, 18)} LORDS
-                    </p>
-                  ) : (
-                    <p className="mt-2 text-sm font-semibold">Not for sale</p>
-                  )}
-                </div>
-              </div>
-              <div className="mt-5 h-5">
-                {token.last_price ? (
-                  <p className="mt-5 text-sm font-medium text-secondary-foreground">
-                    Last sale {formatEther(BigInt(token.last_price))} LORDS
-                  </p>
-                ) : null}
-              </div>
-              {canListItem ? (
-                <TokenActionsCreateListing token={token}>
-                  <NftCardAction>List for sale</NftCardAction>
-                </TokenActionsCreateListing>
-              ) : (
-                <NftCardAction asChild>
-                  <Link
-                    href={`/token/${token.collection_address}/${token.token_id}`}
-                  >
-                    Details
-                  </Link>
-                </NftCardAction>
+            <Link
+              href={`/collection/${token.collection_address}`}
+              className={cn(
+                "mt-1 flex items-center gap-1",
+                focusableStyles,
               )}
-            </NftCardContent>
-          </NftCard>
-        );
-      }}
-    />
+            >
+              <p
+                className={cn(
+                  "text-sm font-normal text-accent-foreground transition-colors hover:text-primary",
+                  viewType === "large-grid" && "sm:text-base",
+                  ellipsableStyles,
+                )}
+              >
+                {token.collection_name}
+              </p>
+              <VerifiedIcon className="size-4 flex-shrink-0 text-primary" />
+            </Link>
+
+            {token.list_price ? (
+              <p className={cn("mt-2 text-sm font-semibold", ellipsableStyles)}>
+                {formatUnits(token.list_price, 18)} LORDS
+              </p>
+            ) : (
+              <p className="mt-2 text-sm font-semibold">Not for sale</p>
+            )}
+          </div>
+        </div>
+        <div className="mt-5 h-5">
+          {token.last_price ? (
+            <p className="mt-5 text-sm font-medium text-secondary-foreground">
+              Last sale {formatEther(BigInt(token.last_price))} LORDS
+            </p>
+          ) : null}
+        </div>
+        {canListItem ? (
+          <TokenActionsCreateListing token={token}>
+            <NftCardAction>List for sale</NftCardAction>
+          </TokenActionsCreateListing>
+        ) : (
+          <NftCardAction asChild>
+            <Link
+              href={`/token/${token.collection_address}/${token.token_id}`}
+            >
+              Details
+            </Link>
+          </NftCardAction>
+        )}
+      </NftCardContent>
+    </NftCard>
   );
 }

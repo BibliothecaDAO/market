@@ -313,10 +313,12 @@ export function useSeasonPass(token: Token | CollectionToken | WalletToken) {
     }
 
     return token.metadata?.attributes.map((a) => resources.find(r => r.trait === a.value)).filter(Boolean) as Resources[]
-  }, [token])
+  }, [token]);
+  const realmName = `${token.metadata?.name} #${token.token_id}`;
 
   return {
     isSeasonPass,
     realmsResources,
+    realmName,
   }
 }

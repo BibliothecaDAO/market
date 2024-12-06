@@ -16,6 +16,7 @@ import type { CollectionToken } from "~/types";
 import CollectionItemsBuyNow from "./collection-items-buy-now";
 import { CollectionTokenImage } from "./collection-token-image";
 import { env } from "~/env";
+import { useSeasonPass } from "~/hooks/useSeasonPass";
 
 const LargeGridContainer = forwardRef<
   HTMLDivElement,
@@ -72,92 +73,99 @@ export default function CollectionItemsDataGridView({
         components={components}
         itemContent={(index) => {
           const token = tokens[index];
-
           if (!token) {
             return null;
           }
+          return <CollectionGridTokenItem token={token} viewType={viewType} />
 
-          return (
-            <NftCard>
-              <Link
-                href={`/token/${token.collection_address}/${token.token_id}`}
-                key={`${token.collection_address}-${token.token_id}`}
-                prefetch={false}
-              >
-                <NftCardMedia className="aspect-auto">
-                  <CollectionTokenImage
-                    token={token}
-                    height={viewType === "large-grid" ? 540 : 340}
-                    width={viewType === "large-grid" ? 540 : 340}
-                  />
-                </NftCardMedia>
-                <NftCardContent>
-                  <div className="flex w-full justify-between text-foreground">
-                    <div className="w-full">
-                      <div
-                        className={cn(
-                          "font-bold",
-                          viewType === "large-grid" ? "text-xl" : "text-sm",
-                          ellipsableStyles,
-                        )}
-                      >
-                        {token.metadata?.name ?? token.token_id}
-                      </div>
-                      {token.price ? (
-                        <div
-                          className={cn(
-                            "font-medium",
-                            viewType === "large-grid" ? "text-sm" : "text-xs",
-                            ellipsableStyles,
-                          )}
-                        >
-                          {formatUnits(token.price, 18)} LORDS
-                        </div>
-                      ) : (
-                        <div
-                          className={cn(
-                            "font-medium",
-                            viewType === "large-grid" ? "text-sm" : "text-xs",
-                            ellipsableStyles,
-                          )}
-                        >
-                          Not for sale
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <p className="mt-5 h-5 text-sm font-medium text-secondary-foreground">
-                    {token.last_price ? (
-                      <>Last sale {formatUnits(token.last_price, 18)} LORDS</>
-                    ) : null}
-                  </p>
-                </NftCardContent>
-              </Link>
-              {token.buy_in_progress ? (
-                <div
-                  className={cn(
-                    "absolute bottom-0 left-0 flex h-10 w-full items-center justify-between gap-2 bg-primary px-3 font-medium text-background",
-                    viewType === "large-grid" ? "text-sm" : "text-sm",
-                  )}
-                >
-                  <span className="leading-none">Buy in progress</span>
-                  <LoaderCircle className="left-4 size-4 animate-spin" />
-                </div>
-              ) : token.is_listed && token.listing !== null && !token.listing.is_auction ? (
-                <CollectionItemsBuyNow token={token} />
-              ) : (
-                <NftCardAction asChild>
-                  <Link
-                    href={`/token/${token.collection_address}/${token.token_id}`}
-                  >
-                    Details
-                  </Link>
-                </NftCardAction>
-              )}
-            </NftCard>
-          );
         }}
       />
     </div>
+
   );
+}
+
+function CollectionGridTokenItem({ token, viewType }: { token: CollectionToken, viewType: string }) {
+  const { realmName, isSeasonPass } = useSeasonPass(token);
+  const tokenName = isSeasonPass(token.collection_address) ? realmName : token.metadata?.name ?? token.token_id;
+
+  return (
+    <NftCard>
+      <Link
+        href={`/token/${token.collection_address}/${token.token_id}`}
+        key={`${token.collection_address}-${token.token_id}`}
+        prefetch={false}
+      >
+        <NftCardMedia className="aspect-auto">
+          <CollectionTokenImage
+            token={token}
+            height={viewType === "large-grid" ? 540 : 340}
+            width={viewType === "large-grid" ? 540 : 340}
+          />
+        </NftCardMedia>
+        <NftCardContent>
+          <div className="flex w-full justify-between text-foreground">
+            <div className="w-full">
+              <div
+                className={cn(
+                  "font-bold",
+                  viewType === "large-grid" ? "text-xl" : "text-sm",
+                  ellipsableStyles,
+                )}
+              >
+                {tokenName}
+              </div>
+              {token.price ? (
+                <div
+                  className={cn(
+                    "font-medium",
+                    viewType === "large-grid" ? "text-sm" : "text-xs",
+                    ellipsableStyles,
+                  )}
+                >
+                  {formatUnits(token.price, 18)} LORDS
+                </div>
+              ) : (
+                <div
+                  className={cn(
+                    "font-medium",
+                    viewType === "large-grid" ? "text-sm" : "text-xs",
+                    ellipsableStyles,
+                  )}
+                >
+                  Not for sale
+                </div>
+              )}
+            </div>
+          </div>
+          <p className="mt-5 h-5 text-sm font-medium text-secondary-foreground">
+            {token.last_price ? (
+              <>Last sale {formatUnits(token.last_price, 18)} LORDS</>
+            ) : null}
+          </p>
+        </NftCardContent>
+      </Link>
+      {token.buy_in_progress ? (
+        <div
+          className={cn(
+            "absolute bottom-0 left-0 flex h-10 w-full items-center justify-between gap-2 bg-primary px-3 font-medium text-background",
+            viewType === "large-grid" ? "text-sm" : "text-sm",
+          )}
+        >
+          <span className="leading-none">Buy in progress</span>
+          <LoaderCircle className="left-4 size-4 animate-spin" />
+        </div>
+      ) : token.is_listed && token.listing !== null && !token.listing.is_auction ? (
+        <CollectionItemsBuyNow token={token} />
+      ) : (
+        <NftCardAction asChild>
+          <Link
+            href={`/token/${token.collection_address}/${token.token_id}`}
+          >
+            Details
+          </Link>
+        </NftCardAction>
+      )}
+    </NftCard>
+  )
 }

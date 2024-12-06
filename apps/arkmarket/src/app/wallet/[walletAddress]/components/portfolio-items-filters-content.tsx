@@ -21,6 +21,8 @@ import {
   walletCollectionFilterParser,
 } from "../search-params";
 import useWalletCollections from "~/hooks/useWalletCollections";
+import { ChainId, CollectionAddresses, CollectionDescription } from "~/config/homepage";
+import { on } from "events";
 
 interface PortfolioItemsFiltersContentProps {
   walletAddress: string;
@@ -76,7 +78,10 @@ export default function PortfolioItemsFiltersContent({
   );
 
   const walletCollections = useMemo(
-    () => infiniteData?.pages.flatMap((page) => page.data) ?? [],
+    () => infiniteData?.pages.flatMap((page) => page.data).filter((c, idx) => {
+      const collection = CollectionDescription[c.address];
+      return collection !== undefined
+    }).filter(Boolean) ?? [],
     [infiniteData],
   );
 
@@ -145,7 +150,7 @@ export default function PortfolioItemsFiltersContent({
                 <p className="text-sm">
                   {formatUnits(
                     BigInt(collection.user_token_count) *
-                      BigInt(collection.floor ?? "0"),
+                    BigInt(collection.floor ?? "0"),
                     18,
                   )}
                 </p>
