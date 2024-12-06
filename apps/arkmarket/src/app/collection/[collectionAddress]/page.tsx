@@ -36,7 +36,7 @@ export async function generateMetadata({
         description: 'Conquer the Realms',
         creator: '@RealmsEternum',
         images: {
-          url: `https://market.realms.world/og/eternum-season-pass.png`,
+          url: `https://market.realms.world/og/eternum-season-pass.png?121277987979`,
           alt: 'Eternum Season 0 Pass',
         },
       },
