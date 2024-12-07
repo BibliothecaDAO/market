@@ -58,7 +58,7 @@ export default function TokenActionsMakeBid({
   tokenMarketData,
   small,
 }: TokenActionsMakeBidProps) {
-  const { account, address } = useAccount();
+  const { account, address, isConnected } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
   const [modalEnabled, setModalEnabled] = useState(true);
   const config = useConfig();
@@ -106,8 +106,8 @@ export default function TokenActionsMakeBid({
     resolver: zodResolver(formSchema),
     defaultValues: {
       startAmount: formatEther(BigInt(tokenMarketData.listing.start_amount)),
-      duration: "719",
-      endDateTime: moment().add(1, "month").toDate(),
+      duration: "168",
+      endDateTime: undefined,
     },
   });
 
@@ -163,15 +163,20 @@ export default function TokenActionsMakeBid({
       return;
     }
 
+    const now = moment();
+    const endDate = values.endDateTime
+      ? moment(values.endDateTime).isBefore(now)
+        ? now.add(2, "minutes").unix()
+        : moment(values.endDateTime).unix()
+      : now.add(values.duration, "hours").unix();
+
     const processedValues = {
       brokerId: env.NEXT_PUBLIC_BROKER_ID,
       currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
       tokenAddress: token.collection_address,
       tokenId: BigInt(token.token_id),
       startAmount: parseEther(values.startAmount),
-      endDate: values.endDateTime
-        ? moment(values.endDateTime).unix()
-        : moment().add(values.duration, "hours").unix(),
+      endDate,
     };
 
     await createOffer({
@@ -182,8 +187,7 @@ export default function TokenActionsMakeBid({
   }
 
   const isLoading = status === "loading";
-  const isDisabled =
-    !form.formState.isValid || form.formState.isSubmitting || isLoading;
+  const isDisabled = !form.formState.isValid || isLoading;
   const startAmount = form.watch("startAmount");
   const formattedStartAmount = formatAmount(startAmount);
   const price = formatEther(BigInt(tokenMarketData.listing.start_amount));
@@ -198,6 +202,7 @@ export default function TokenActionsMakeBid({
           className={cn(small ?? "relative w-full lg:max-w-[50%]")}
           size={small ? "xl" : "xxl"}
           variant="secondary"
+          disabled={!isConnected}
           onClick={ensureConnect}
         >
           <ActivityOffer />

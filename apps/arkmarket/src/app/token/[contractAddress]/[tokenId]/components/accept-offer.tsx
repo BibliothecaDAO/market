@@ -74,8 +74,8 @@ const AcceptOffer: React.FC<AcceptOfferProps> = ({
         brokerId: env.NEXT_PUBLIC_BROKER_ID,
         tokenAddress: token.collection_address,
         tokenId: token.token_id,
-        orderHash: tokenMarketData.listing.order_hash,
-        relatedOrderHash: offer.hash,
+        orderHash: BigInt(listing.order_hash),
+        relatedOrderHash: BigInt(offer.hash),
         startAmount: offer.price,
         currencyAddress: env.NEXT_PUBLIC_LORDS_TOKEN_ADDRESS,
       });
