@@ -17,7 +17,7 @@ export default function OfferFloorDiffCell({ offer }: FloorDiffProps) {
             offer.floor_difference >= 0 ? "text-green-500" : "text-red-500",
           )}
         >
-          {offer.floor_difference}%
+          {parseFloat(offer.floor_difference).toFixed(2)}%
         </p>
       ) : (
         "_"

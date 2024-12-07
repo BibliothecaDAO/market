@@ -60,7 +60,7 @@ export default function TokenOffersListItem({
                     : "text-red-500",
                 )}
               >
-                {offer.floor_difference}%
+                {parseFloat(offer.floor_difference).toFixed(2)}%
               </p>
             ) : (
               "_"
