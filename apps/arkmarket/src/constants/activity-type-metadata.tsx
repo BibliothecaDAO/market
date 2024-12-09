@@ -15,7 +15,7 @@ import type { ActivityType } from "~/types";
 
 type ActivityTypeMetadata = Record<
   ActivityType,
-  { icon: JSX.Element; title: string }
+  { icon: JSX.Element; title: string, duplicates?: ActivityType[] }
 >;
 
 export default {
@@ -25,16 +25,15 @@ export default {
   CANCEL_OFFER: {
     icon: <ActivityCancelOffer size={16} />,
     title: "Cancel Offer",
+    duplicates: ["CANCEL_OFFER", "CANCELLED"],
   },
-  CANCELLED: { icon: <ActivityCancelOffer size={16} />, title: "Cancel Offer" },
   DELISTING: { icon: <ActivityDelist size={16} />, title: "Delist" },
-  EXECUTED: { icon: <ShoppingCart size={16} />, title: "Sale" },
   EXPIRED_OFFER: { icon: <TimerReset size={16} />, title: "Expired Offer" },
   EXPIRED_LISTING: { icon: <TimerReset size={16} />, title: "Expired Listing" },
   FULFILL: { icon: <ShoppingCart size={16} />, title: "Sale in progress" },
   LISTING: { icon: <ActivityList size={16} />, title: "List" },
   MINT: { icon: <CircleDot size={16} />, title: "Mint" },
   OFFER: { icon: <ActivityOffer size={16} />, title: "Offer" },
-  SALE: { icon: <ShoppingCart size={16} />, title: "Sale" },
+  SALE: { icon: <ShoppingCart size={16} />, title: "Sale", duplicates: ["EXECUTED", "SALE"] },
   TRANSFER: { icon: <ArrowLeftRight size={16} />, title: "Transfer" },
 } as ActivityTypeMetadata;

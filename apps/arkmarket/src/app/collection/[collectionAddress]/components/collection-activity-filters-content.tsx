@@ -20,6 +20,7 @@ export default function CollectionActivityFiltersContent({
         {Object.entries(activityTypeMetadata).map(
           ([activityType, activityObject], index) => {
             const isSelected = filters.includes(activityType as ActivityType);
+            const type = activityObject.duplicates ?? [activityType];
 
             return (
               <button
@@ -30,12 +31,8 @@ export default function CollectionActivityFiltersContent({
                 key={index}
                 onClick={() =>
                   isSelected
-                    ? setFilters(
-                        [...filters].filter(
-                          (activity) => activity !== activityType,
-                        ),
-                      )
-                    : setFilters([...filters, activityType as ActivityType])
+                    ? setFilters((f) => f.filter((a) => !type.includes(a)))
+                    : setFilters([...filters, ...type])
                 }
               >
                 <Checkbox checked={isSelected} className="mr-1" />
@@ -46,6 +43,6 @@ export default function CollectionActivityFiltersContent({
           },
         )}
       </div>
-    </div>
+    </div >
   );
 }

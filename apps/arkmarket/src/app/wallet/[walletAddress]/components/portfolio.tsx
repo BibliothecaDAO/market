@@ -92,7 +92,7 @@ export default function Portfolio({
           walletAddress={walletAddress}
           filtersOpen={itemsFiltersOpen}
           className="sticky top-[var(--site-header-height)] hidden h-[calc(100vh-var(--site-header-height)-var(--site-footer-height))] sm:block"
-          // walletCollectionsInitialData={walletCollectionsInitialData}
+        // walletCollectionsInitialData={walletCollectionsInitialData}
         />
       )}
       {selectedTab === "offers" && (
@@ -100,7 +100,7 @@ export default function Portfolio({
           className="sticky top-[var(--site-header-height)] hidden h-[calc(100vh-var(--site-header-height)-var(--site-footer-height))] lg:block"
           value={offerType}
           onValueChange={setOfferType}
-          // walletCollectionsInitialData={walletCollectionsInitialData}
+        // walletCollectionsInitialData={walletCollectionsInitialData}
         />
       )}
       {selectedTab === "activity" && (
