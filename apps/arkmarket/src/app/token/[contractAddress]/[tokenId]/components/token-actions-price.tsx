@@ -14,10 +14,6 @@ interface TokenActionsPriceProps {
 export default function TokenActionsPrice({
   tokenMarketData,
 }: TokenActionsPriceProps) {
-  // const { convertInUsd } = usePrices();
-  // const amountHex = isListed ? startAmount : topOffer.amount;
-  // const amount = formatEther(BigInt(amountHex ?? 0));
-  // const amountInUsd = convertInUsd({ token: "lords", amount: BigInt(amountHex ?? 0) });
 
   const label = tokenMarketData.is_listed
     ? tokenMarketData.listing.is_auction

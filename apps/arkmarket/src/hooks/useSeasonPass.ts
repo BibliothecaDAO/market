@@ -318,7 +318,7 @@ export function useSeasonPass(token: Token | CollectionToken | WalletToken) {
 
   return {
     isSeasonPass,
-    realmsResources,
+    realmsResources: realmsResources ?? [],
     realmName,
   }
 }
