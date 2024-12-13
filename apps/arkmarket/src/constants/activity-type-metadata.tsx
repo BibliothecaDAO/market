@@ -10,6 +10,7 @@ import {
   ShoppingCart,
   TimerReset,
 } from "@ark-market/ui/icons";
+import { Undo2 } from "lucide-react";
 
 import type { ActivityType } from "~/types";
 
@@ -36,4 +37,5 @@ export default {
   OFFER: { icon: <ActivityOffer size={16} />, title: "Offer" },
   SALE: { icon: <ShoppingCart size={16} />, title: "Sale", duplicates: ["EXECUTED", "SALE"] },
   TRANSFER: { icon: <ArrowLeftRight size={16} />, title: "Transfer" },
+  ROLLBACK: { icon: <Undo2 size={16} />, title: "Rollback" },
 } as ActivityTypeMetadata;
