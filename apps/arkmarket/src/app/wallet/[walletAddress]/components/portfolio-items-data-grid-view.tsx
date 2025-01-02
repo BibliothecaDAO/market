@@ -10,7 +10,7 @@ import {
   focusableStyles,
   formatUnits,
 } from "@ark-market/ui";
-import { NoResult, VerifiedIcon } from "@ark-market/ui/icons";
+import { VerifiedIcon } from "@ark-market/ui/icons";
 import {
   NftCard,
   NftCardAction,
@@ -21,10 +21,8 @@ import {
 import type { ViewType } from "../../../../components/view-type-toggle-group";
 import type { WalletToken } from "../queries/getWalletData";
 import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenId]/components/token-actions-create-listing";
-import Media from "~/components/media";
 import { CollectionDescription } from "~/config/homepage";
 import { CollectionTokenImage } from "~/app/collection/[collectionAddress]/components/collection-token-image";
-import { useSeasonPass } from "~/hooks/useSeasonPass";
 
 const LargeGridContainer: Components["List"] = React.forwardRef(
   ({ style, children }, ref) => {
@@ -95,8 +93,7 @@ export default function CollectionItemsDataGridView({
 }
 function PortfolioTokenItem({ token, viewType, isOwner }: { token: WalletToken, viewType: string, isOwner: boolean }) {
   const canListItem = isOwner && !token.list_price;
-  const { realmName, isSeasonPass } = useSeasonPass(token);
-  const tokenName = isSeasonPass(token.collection_address) ? realmName : token.metadata?.name ?? token.token_id;
+  const tokenName = token.metadata?.name ?? token.token_id;
 
   return (
     // TODO @YohanTz: Extract to NftCard component and sub-components

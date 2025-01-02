@@ -9,7 +9,6 @@ export enum Collections {
   DUNGEON_DUCKS = "dungeonducks",
   KARAT = "karat",
   JOKERSOFNEON = "jokersofneon",
-  ETERNUMSEASONPASS = "eternumseasonpass",
 }
 
 export enum ChainId {
@@ -88,11 +87,6 @@ export const CollectionAddresses: {
       "0x07268fcf96383f8691b91ba758cc8fefe0844146f0557909345b841fb1de042f",
     [ChainId.SN_SEPOLIA]: "",
   },
-  [Collections.ETERNUMSEASONPASS]: {
-    [ChainId.SN_MAIN]:
-      "0x057675b9c0bd62b096a2e15502a37b290fa766ead21c33eda42993e48a714b80",
-    [ChainId.SN_SEPOLIA]: "",
-  },
 };
 
 export const CollectionNames = {
@@ -106,7 +100,6 @@ export const CollectionNames = {
   [Collections.DUNGEON_DUCKS]: "Dungeon Ducks",
   [Collections.KARAT]: "Karat",
   [Collections.JOKERSOFNEON]: "Jokers of Neon x Loot Survivor: Beasts",
-  [Collections.ETERNUMSEASONPASS]: "Eternum Season Pass",
 };
 
 interface CollectionDescription {
@@ -175,26 +168,10 @@ export const CollectionDescription: Record<string, CollectionDescription> = {
     description:
       "Jokers of Neon mod exclusive collection",
   },
-  // @ts-expect-error It's ok compiler
-  [CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN]]: {
-    created: "2024",
-    description:
-      "Game passes to play Eternum Season 0, each with unique resource profiles. 8000 can be minted by Realms. All existing gamepasses shown here, but new ones are frequently minted.",
-  },
 };
 
 export const homepageConfig = {
   mainCarousel: [
-    {
-      bannerSrc: "/banners/realms.png",
-      collectionSrc: "/collections/eternum-season-pass.png",
-      name: CollectionNames[Collections.ETERNUMSEASONPASS],
-      description: "Eternum Season Pass",
-      address: CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN],
-      itemsCount: 0,
-      slideInterval: 32_000,
-      // floorPrice: 0.12,
-    },
     {
       bannerSrc: "/banners/blobert.png",
       collectionSrc: "/collections/blobert.png",
@@ -288,12 +265,6 @@ export const homepageConfig = {
       name: CollectionNames[Collections.REALMS],
       address: CollectionAddresses[Collections.REALMS][ChainId.SN_MAIN],
       image: "/collections/realms.png",
-      banner_image: "/banners/realms.png",
-    },
-    {
-      name: CollectionNames[Collections.ETERNUMSEASONPASS],
-      address: CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN],
-      image: "/collections/eternum-season-pass.png",
       banner_image: "/banners/realms.png",
     },
     {

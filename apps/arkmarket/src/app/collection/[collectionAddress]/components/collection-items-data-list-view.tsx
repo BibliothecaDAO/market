@@ -21,7 +21,6 @@ import Media from "~/components/media";
 import { PriceTag } from "@ark-market/ui/price-tag";
 import Link from "next/link";
 import { env } from "~/env";
-import { useSeasonPass } from "~/hooks/useSeasonPass";
 
 const gridTemplateColumnValue =
   "grid-cols-[minmax(10rem,2fr)_repeat(5,minmax(7.25rem,1fr))]";
@@ -103,8 +102,7 @@ export default function CollectionItemsDataListView({
   );
 }
 function CollectionTokenItem({ token, rowVirtualizer, virtualRow }: { token: CollectionToken, rowVirtualizer: Virtualizer<Window, Element>, virtualRow: VirtualItem }) {
-  const { realmName, isSeasonPass } = useSeasonPass(token);
-  const tokenName = isSeasonPass(token.collection_address) ? realmName : token.metadata?.name ?? token.token_id;
+  const tokenName = token.metadata?.name ?? token.token_id;
 
   return (
     <TableRow

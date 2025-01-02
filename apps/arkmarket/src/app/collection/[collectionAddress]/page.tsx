@@ -18,30 +18,6 @@ export async function generateMetadata({
 }: GenerateMetadataProps): Promise<Metadata> {
   const collectionAddress = (await params).collectionAddress;
   const collection = await getCollection({ collectionAddress });
-  if (collectionAddress === CollectionAddresses[Collections.ETERNUMSEASONPASS][ChainId.SN_MAIN]) {
-    return {
-      title: `Eternum Season 0 Pass`,
-      description: 'Conquer the Realms',
-      openGraph: {
-        images: [
-          {
-            url: `https://market.realms.world/og/eternum-season-pass.png`,
-            width: 1200,
-            height: 630,
-          },
-        ],
-      },
-      twitter: {
-        title: `Eternum Season 0 Pass`,
-        description: 'Conquer the Realms',
-        creator: '@RealmsEternum',
-        images: {
-          url: `https://market.realms.world/og/eternum-season-pass.png?121277987979`,
-          alt: 'Eternum Season 0 Pass',
-        },
-      },
-    }
-  }
   const platform =
     env.NEXT_PUBLIC_THEME === "unframed" ? "Unframed" : "Ark Market";
   const name = collection?.name ?? "Collection";

@@ -16,7 +16,6 @@ import type { CollectionToken } from "~/types";
 import CollectionItemsBuyNow from "./collection-items-buy-now";
 import { CollectionTokenImage } from "./collection-token-image";
 import { env } from "~/env";
-import { useSeasonPass } from "~/hooks/useSeasonPass";
 
 const LargeGridContainer = forwardRef<
   HTMLDivElement,
@@ -86,8 +85,7 @@ export default function CollectionItemsDataGridView({
 }
 
 function CollectionGridTokenItem({ token, viewType }: { token: CollectionToken, viewType: string }) {
-  const { realmName, isSeasonPass } = useSeasonPass(token);
-  const tokenName = isSeasonPass(token.collection_address) ? realmName : token.metadata?.name ?? token.token_id;
+  const tokenName = token.metadata?.name ?? token.token_id;
 
   return (
     <NftCard>

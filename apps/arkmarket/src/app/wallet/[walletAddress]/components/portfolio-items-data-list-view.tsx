@@ -20,7 +20,6 @@ import { TokenActionsCreateListing } from "~/app/token/[contractAddress]/[tokenI
 import Media from "~/components/media";
 import { CollectionDescription } from "~/config/homepage";
 import { NoResult } from "@ark-market/ui/icons";
-import { useSeasonPass } from "~/hooks/useSeasonPass";
 
 const gridTemplateColumnValue =
   "grid-cols-[minmax(11rem,2fr)_repeat(4,minmax(10rem,1fr))_minmax(6.5rem,15rem)]";
@@ -109,8 +108,7 @@ export default function PortfolioItemsDataListView({
 }
 function PortfolioTokenItem({ token, rowVirtualizer, virtualRow, isOwner }: { token: WalletToken, rowVirtualizer: Virtualizer<Window, Element>, virtualRow: VirtualItem, isOwner: boolean }) {
   const canListItem = isOwner && !token.list_price;
-  const { realmName, isSeasonPass } = useSeasonPass(token);
-  const tokenName = isSeasonPass(token.collection_address) ? realmName : token.metadata?.name ?? token.token_id;
+  const tokenName = token.metadata?.name ?? token.token_id;
 
   return (
     <TableRow
